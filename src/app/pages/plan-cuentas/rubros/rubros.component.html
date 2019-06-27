@@ -1,0 +1,83 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <arbol (rubroSeleccionado)="receiveMessage($event)" [updateSignal]="eventChange"> </arbol>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <nb-card *ngIf="insertarRubro">
+                <nb-card-header>
+                  <h1>Registrar Rubro</h1>
+                </nb-card-header>
+                <nb-card-body>
+                  <ngx-dinamicform [normalform]="formInfoRubro" [modeloData]="info_rubro" (result)="validarForm($event)"
+                    [clean]="clean">
+                  </ngx-dinamicform>
+                  <div class="row">
+                    <div class="col">
+                      <button type="submit" class="btn btn-success btn-block" (click)="aniadirNodo()">
+                        Cancelar
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button type="submit" class="btn btn-success btn-block" (click)="cleanForm()">
+                        limpiar
+                      </button>
+                    </div>
+                  </div>
+                </nb-card-body>
+              </nb-card>
+
+              <nb-card *ngIf="!insertarRubro">
+                <nb-card-header>Detalle del Rubro</nb-card-header>
+                <nb-card-body>
+                  <form>
+                    <div class="form-group">
+                      <label>Nombre Rubro</label>
+                      <input type="text" class="form-control" [value]="rubroSeleccionado.Nombre || ''" disabled />
+                    </div>
+                    <div class="form-group">
+                      <label>Codigo Rubro</label>
+                      <input type="text" class="form-control" [value]="rubroSeleccionado.Codigo || ''" disabled />
+                    </div>
+
+                    <!-- <div class="form-group">
+                      <label>Unidad Ejecutora</label>
+                      <input type="text" class="form-control" placeholder="Unidad Ejecutora" disabled />
+                    </div>
+                    <div class="form-group">
+                      <label>Entidad</label>
+                      <input type="text" class="form-control" placeholder="Entidad" disabled />
+                    </div> -->
+                    <div class="form-group">
+                      <label>Descripción</label>
+                      <textarea class="form-control" placeholder="Descripción" [value]="rubroSeleccionado.Descripcion || ''"
+                        disabled></textarea>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <button type="submit" class="btn btn-success btn-block" (click)="aniadirNodo()">
+                          Añadir Nodo
+                        </button>
+                      </div>
+                      <div class="col">
+                        <button *ngIf="rubroSeleccionado.Codigo" type="submit" class="btn btn-danger btn-block" (click)="deleteRubro()">
+                          Eliminar
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row"></div>
+</div>
