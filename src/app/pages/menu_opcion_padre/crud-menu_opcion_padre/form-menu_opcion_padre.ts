@@ -1,0 +1,41 @@
+
+export let FORM_MENU_OPCION_PADRE = {
+    titulo: 'MenuOpcionPadre',
+    tipo_formulario: 'mini',
+    btn: 'Guardar',
+    alertas: true,
+    modelo: 'MenuOpcionPadre',
+    campos: [
+    {
+        etiqueta: 'input',
+        claseGrid: 'col-6',
+        nombre: 'Id',
+        label_i18n: 'id',
+        placeholder_i18n: 'id',
+        requerido: true,
+        tipo: 'number',
+    },
+    {
+        etiqueta: 'selectmultiple',
+        claseGrid: 'col-6',
+        nombre: 'Padre',
+        label_i18n: 'padre',
+        placeholder_i18n: 'padre',
+        requerido: true,
+        tipo: 'MenuOpcion',
+        // key: 'Name',
+        opciones: [],
+    },
+    {
+        etiqueta: 'selectmultiple',
+        claseGrid: 'col-6',
+        nombre: 'Hijo',
+        label_i18n: 'hijo',
+        placeholder_i18n: 'hijo',
+        requerido: true,
+        tipo: 'MenuOpcion',
+        // key: 'Name',
+        opciones: [],
+    },
+    ],
+}

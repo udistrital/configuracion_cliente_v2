@@ -1,0 +1,41 @@
+
+export let FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
+    titulo: 'NotificacionConfiguracionPerfil',
+    tipo_formulario: 'mini',
+    btn: 'Guardar',
+    alertas: true,
+    modelo: 'NotificacionConfiguracionPerfil',
+    campos: [
+    {
+        etiqueta: 'input',
+        claseGrid: 'col-6',
+        nombre: 'Id',
+        label_i18n: 'id',
+        placeholder_i18n: 'id',
+        requerido: true,
+        tipo: 'number',
+    },
+    {
+        etiqueta: 'selectmultiple',
+        claseGrid: 'col-6',
+        nombre: 'NotificacionConfiguracion',
+        label_i18n: 'notificacion_configuracion',
+        placeholder_i18n: 'notificacion_configuracion',
+        requerido: true,
+        tipo: 'NotificacionConfiguracion',
+        // key: 'Name',
+        opciones: [],
+    },
+    {
+        etiqueta: 'selectmultiple',
+        claseGrid: 'col-6',
+        nombre: 'Perfil',
+        label_i18n: 'perfil',
+        placeholder_i18n: 'perfil',
+        requerido: true,
+        tipo: 'Perfil',
+        // key: 'Name',
+        opciones: [],
+    },
+    ],
+}

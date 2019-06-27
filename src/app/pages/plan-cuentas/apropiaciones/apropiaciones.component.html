@@ -1,0 +1,179 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="row">
+                <arbol (rubroSeleccionado)="receiveMessage($event)"></arbol>
+              </div>
+
+              <!-- <div class="container-fluid"> -->
+                <nb-card>
+                  <nb-card-header
+                    >Comprobación de Apropiación Inicial</nb-card-header
+                  >
+                  <nb-card-body>
+                    <form>
+                      <div class="row">
+                        <div class="col">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Rubro</th>
+                                <th scope="col">Apropiacion Inicial</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>2 INGRESOS</td>
+                                <td>$100</td>
+                              </tr>
+                              <tr>
+                                <td>3 INGRESOS</td>
+                                <td>$100</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="!validado">
+                        <div class="col">
+                          <!-- <span>Los valores de comprobación son diferentes</span> -->
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <button type="submit" class="btn btn-info btn-block">
+                            Aprobar Apropiación Inicial
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </nb-card-body>
+                </nb-card>
+              <!-- </div> -->
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="container-fluid">
+                <nb-card *ngIf="!insertarRubro">
+                  <nb-card-header>Detalle del Rubro</nb-card-header>
+                  <nb-card-body>
+                    <form>
+                      <div class="form-group">
+                        <label>Nombre Rubro</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          [value]="rubroSeleccionado.Nombre"
+                          readonly
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Codigo Rubro</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          [value]="rubroSeleccionado.Codigo"
+                          readonly
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label>Unidad Ejecutora</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Unidad Ejecutora"
+                          readonly
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Entidad</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Entidad"
+                          readonly
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea
+                          class="form-control"
+                          placeholder="Descripción"
+                          readonly
+                        ></textarea>
+                      </div>
+                    </form>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+              <div class="container-fluid">
+                <nb-card>
+                  <nb-card-header
+                    >Detalle de la Apropiación Inicial
+                  </nb-card-header>
+                  <nb-card-body>
+                    <form>
+                      <div class="row">
+                        <table class="table infoAprop">
+                          <thead>
+                            <tr>
+                              <th scope="col">Apropiación I.</th>
+                              <th scope="col">Total Comprometido</th>
+                              <th scope="col">Saldo</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>$100</td>
+                              <td>$200</td>
+                              <td>$300</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <ng-template #form>
+                            <div class="p-4">
+                              <form>
+                                <div class="form-group">
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    placeholder=" $ Valor Apropiacion Inicial"
+                                  />
+                                </div>
+                                <button
+                                  type="submit"
+                                  class="btn btn-primary w-100"
+                                >
+                                  Aceptar
+                                </button>
+                              </form>
+                            </div>
+                          </ng-template>
+
+                          <button
+                            type="submit"
+                            class="btn btn-info btn-block"
+                            [nbPopover]="form"
+                          >
+                            Asignar Apropiación Inicial
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>
