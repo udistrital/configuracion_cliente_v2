@@ -56,14 +56,14 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
           title: this.translate.instant('GLOBAL.notificacion_configuracion'),
           // type: 'notificacion_configuracion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.EndPoint;
           },
         },
         Perfil: {
           title: this.translate.instant('GLOBAL.perfil'),
           // type: 'perfil;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
       },
