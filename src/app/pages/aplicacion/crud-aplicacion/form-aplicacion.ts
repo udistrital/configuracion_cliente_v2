@@ -34,15 +34,6 @@ export let FORM_APLICACION = {
         tipo: 'text',
     },
     {
-        etiqueta: 'checkbox',
-        claseGrid: 'col-6',
-        nombre: 'Estado',
-        label_i18n: 'estado',
-        placeholder_i18n: 'estado',
-        requerido: true,
-        tipo: 'checkbox',
-    },
-    {
         etiqueta: 'input',
         claseGrid: 'col-6',
         nombre: 'Alias',
@@ -59,6 +50,15 @@ export let FORM_APLICACION = {
         placeholder_i18n: 'estilo_icono',
         requerido: true,
         tipo: 'text',
+    },
+    {
+        etiqueta: 'checkbox',
+        claseGrid: 'col-6',
+        nombre: 'Estado',
+        label_i18n: 'estado',
+        placeholder_i18n: 'estado',
+        requerido: true,
+        tipo: 'checkbox',
     },
     ],
 }

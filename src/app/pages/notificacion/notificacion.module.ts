@@ -7,6 +7,7 @@ import { ToasterModule } from 'angular2-toaster';
 import { SharedModule } from '../../shared/shared.module';
 import { CrudNotificacionComponent } from './crud-notificacion/crud-notificacion.component';
 import { ToasterService} from 'angular2-toaster';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ToasterService} from 'angular2-toaster';
     Ng2SmartTableModule,
     ToasterModule,
     SharedModule,
+    MomentModule,
   ],
   declarations: [
     ...routedComponents,

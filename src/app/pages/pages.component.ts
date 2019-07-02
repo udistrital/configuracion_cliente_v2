@@ -36,7 +36,8 @@ export class PagesComponent implements OnInit {
     private translate: TranslateService) { }
 
   ngOnInit() {
-    if (this.autenticacion.live()) {
+    if (false) {
+    //if (this.autenticacion.live()) {
       this.roles = <any>this.autenticacion.getPayload().role;
       if (this.roles.indexOf('ADMIN_CAMPUS') !== -1) {
         this.rol = 'ASPIRANTE';
