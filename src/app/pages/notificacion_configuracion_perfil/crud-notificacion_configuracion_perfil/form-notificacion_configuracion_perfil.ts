@@ -7,16 +7,7 @@ export let FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
     modelo: 'NotificacionConfiguracionPerfil',
     campos: [
     {
-        etiqueta: 'input',
-        claseGrid: 'col-6',
-        nombre: 'Id',
-        label_i18n: 'id',
-        placeholder_i18n: 'id',
-        requerido: true,
-        tipo: 'number',
-    },
-    {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'NotificacionConfiguracion',
         label_i18n: 'notificacion_configuracion',
@@ -27,7 +18,7 @@ export let FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
         opciones: [],
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'Perfil',
         label_i18n: 'perfil',

@@ -56,14 +56,14 @@ export class ListMenuOpcionPadreComponent implements OnInit {
           title: this.translate.instant('GLOBAL.padre'),
           // type: 'menu_opcion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
         Hijo: {
           title: this.translate.instant('GLOBAL.hijo'),
           // type: 'menu_opcion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
       },

@@ -56,14 +56,14 @@ export class ListPerfilXMenuOpcionComponent implements OnInit {
           title: this.translate.instant('GLOBAL.perfil'),
           // type: 'number;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
         Opcion: {
           title: this.translate.instant('GLOBAL.opcion'),
           // type: 'menu_opcion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
       },

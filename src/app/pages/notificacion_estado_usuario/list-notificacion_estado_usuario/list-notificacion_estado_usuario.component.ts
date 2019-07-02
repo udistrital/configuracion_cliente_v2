@@ -56,14 +56,14 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
           title: this.translate.instant('GLOBAL.notificacion'),
           // type: 'notificacion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.CuerpoNotificacion;
           },
         },
         NotificacionEstado: {
           title: this.translate.instant('GLOBAL.notificacion_estado'),
           // type: 'notificacion_estado;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
         Fecha: {

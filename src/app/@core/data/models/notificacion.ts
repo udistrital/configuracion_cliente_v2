@@ -4,5 +4,5 @@ export class Notificacion {
   Id: number;
   FechaCreacion: Date;
   CuerpoNotificacion: string;
-  NotificacionConfiguracion: Array<NotificacionConfiguracion>;
+  NotificacionConfiguracion: NotificacionConfiguracion;
 }

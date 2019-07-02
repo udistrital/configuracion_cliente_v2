@@ -63,7 +63,7 @@ export class ListPerfilComponent implements OnInit {
           title: this.translate.instant('GLOBAL.aplicacion'),
           // type: 'aplicacion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
       },

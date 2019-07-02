@@ -63,14 +63,14 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           title: this.translate.instant('GLOBAL.metodo_http'),
           // type: 'metodo_http;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
         Tipo: {
           title: this.translate.instant('GLOBAL.tipo'),
           // type: 'notificacion_tipo;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
         CuerpoNotificacion: {
@@ -84,7 +84,7 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           title: this.translate.instant('GLOBAL.aplicacion'),
           // type: 'aplicacion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
         },
       },

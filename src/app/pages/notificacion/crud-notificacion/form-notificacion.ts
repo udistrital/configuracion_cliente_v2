@@ -7,15 +7,6 @@ export let FORM_NOTIFICACION = {
     modelo: 'Notificacion',
     campos: [
     {
-        etiqueta: 'input',
-        claseGrid: 'col-6',
-        nombre: 'Id',
-        label_i18n: 'id',
-        placeholder_i18n: 'id',
-        requerido: true,
-        tipo: 'number',
-    },
-    {
         etiqueta: 'mat-date',
         claseGrid: 'col-6',
         nombre: 'FechaCreacion',
@@ -34,7 +25,7 @@ export let FORM_NOTIFICACION = {
         tipo: 'text',
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'NotificacionConfiguracion',
         label_i18n: 'notificacion_configuracion',
