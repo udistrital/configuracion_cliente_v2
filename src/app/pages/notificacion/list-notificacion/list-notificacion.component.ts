@@ -70,7 +70,7 @@ export class ListNotificacionComponent implements OnInit {
           title: this.translate.instant('GLOBAL.notificacion_configuracion'),
           // type: 'notificacion_configuracion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.EndPoint;
           },
         },
       },
