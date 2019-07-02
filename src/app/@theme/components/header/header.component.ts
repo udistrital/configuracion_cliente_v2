@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     private analyticsService: AnalyticsService,
     private autenticacion: ImplicitAutenticationService,
     private router: Router,
-    private notificacionService: NotificacionesService,
+    public notificacionService: NotificacionesService,
     public translate: TranslateService) {
     this.translate = translate;
     this.itemClick = this.menuService.onItemClick()
