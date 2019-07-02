@@ -64,13 +64,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  login() {
-    window.location.replace(this.autenticacion.getAuthorizationUrl());
-  }
+
 
   logout() {
     console.info(this.autenticacion.logout());
-    // window.location.replace(this.autenticacion.logout());
   }
 
   toggleSidebar(): boolean {
