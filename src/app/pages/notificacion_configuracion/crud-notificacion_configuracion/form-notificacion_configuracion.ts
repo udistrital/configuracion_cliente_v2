@@ -9,15 +9,6 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
     {
         etiqueta: 'input',
         claseGrid: 'col-6',
-        nombre: 'Id',
-        label_i18n: 'id',
-        placeholder_i18n: 'id',
-        requerido: true,
-        tipo: 'number',
-    },
-    {
-        etiqueta: 'input',
-        claseGrid: 'col-6',
         nombre: 'EndPoint',
         label_i18n: 'end_point',
         placeholder_i18n: 'end_point',
@@ -25,7 +16,7 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
         tipo: 'text',
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'MetodoHttp',
         label_i18n: 'metodo_http',
@@ -36,7 +27,7 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
         opciones: [],
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'Tipo',
         label_i18n: 'tipo',
@@ -56,7 +47,7 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
         tipo: 'text',
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'Aplicacion',
         label_i18n: 'aplicacion',

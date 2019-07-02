@@ -5,8 +5,8 @@ import { Aplicacion } from './aplicacion';
 export class NotificacionConfiguracion {
   Id: number;
   EndPoint: string;
-  MetodoHttp: Array<MetodoHttp>;
-  Tipo: Array<NotificacionTipo>;
+  MetodoHttp: MetodoHttp;
+  Tipo: NotificacionTipo;
   CuerpoNotificacion: string;
-  Aplicacion: Array<Aplicacion>;
+  Aplicacion: Aplicacion;
 }

@@ -9,15 +9,6 @@ export let FORM_NOTIFICACION_ESTADO = {
     {
         etiqueta: 'input',
         claseGrid: 'col-6',
-        nombre: 'Id',
-        label_i18n: 'id',
-        placeholder_i18n: 'id',
-        requerido: true,
-        tipo: 'number',
-    },
-    {
-        etiqueta: 'input',
-        claseGrid: 'col-6',
         nombre: 'Nombre',
         label_i18n: 'nombre',
         placeholder_i18n: 'nombre',
@@ -58,7 +49,7 @@ export let FORM_NOTIFICACION_ESTADO = {
         label_i18n: 'numero_orden',
         placeholder_i18n: 'numero_orden',
         requerido: true,
-        tipo: 'text',
+        tipo: 'number',
     },
     ],
 }

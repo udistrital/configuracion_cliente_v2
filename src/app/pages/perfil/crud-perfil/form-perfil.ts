@@ -9,15 +9,6 @@ export let FORM_PERFIL = {
     {
         etiqueta: 'input',
         claseGrid: 'col-6',
-        nombre: 'Id',
-        label_i18n: 'id',
-        placeholder_i18n: 'id',
-        requerido: true,
-        tipo: 'number',
-    },
-    {
-        etiqueta: 'input',
-        claseGrid: 'col-6',
         nombre: 'Nombre',
         label_i18n: 'nombre',
         placeholder_i18n: 'nombre',
@@ -25,7 +16,7 @@ export let FORM_PERFIL = {
         tipo: 'text',
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'Aplicacion',
         label_i18n: 'aplicacion',
