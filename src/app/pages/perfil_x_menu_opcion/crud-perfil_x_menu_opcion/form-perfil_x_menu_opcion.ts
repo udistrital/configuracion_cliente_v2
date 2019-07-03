@@ -9,15 +9,6 @@ export let FORM_PERFIL_X_MENU_OPCION = {
     {
         etiqueta: 'input',
         claseGrid: 'col-6',
-        nombre: 'Id',
-        label_i18n: 'id',
-        placeholder_i18n: 'id',
-        requerido: true,
-        tipo: 'number',
-    },
-    {
-        etiqueta: 'input',
-        claseGrid: 'col-6',
         nombre: 'Perfil',
         label_i18n: 'perfil',
         placeholder_i18n: 'perfil',
@@ -25,7 +16,7 @@ export let FORM_PERFIL_X_MENU_OPCION = {
         tipo: 'number',
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'Opcion',
         label_i18n: 'opcion',
