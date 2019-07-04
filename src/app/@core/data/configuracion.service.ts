@@ -26,6 +26,6 @@ export class ConfiguracionService {
         return this.http.put(path + endpoint + '/' + element.Id, element, httpOptions);
     }
     delete(endpoint, element) {
-        return this.http.delete(path + endpoint + '/' + element.Id);
+        return this.http.delete(path + endpoint + element.Id);
     }
 }
