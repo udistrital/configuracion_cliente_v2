@@ -2,7 +2,7 @@
 import {interval as observableInterval,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { GENERAL } from './../../app-config';
+import { environment } from './../../../environments/environment';
 import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
@@ -30,9 +30,9 @@ export class ImplicitAutenticationService {
     }
 
     public logout() {
-        this.logOut = GENERAL.ENTORNO.TOKEN.SIGN_OUT_URL;
+        this.logOut = environment.TOKEN.SIGN_OUT_URL;
         this.logOut += '?id_token_hint=' + window.localStorage.getItem('id_token');
-        this.logOut += '&post_logout_redirect_uri=' + GENERAL.ENTORNO.TOKEN.SIGN_OUT_REDIRECT_URL; // // + window.location.href; para redirect con regex
+        this.logOut += '&post_logout_redirect_uri=' + environment.TOKEN.SIGN_OUT_REDIRECT_URL; // // + window.location.href; para redirect con regex
         this.logOut += '&state=' + window.localStorage.getItem('state');
         window.location.replace(this.logOut);
         return this.logOut;
@@ -72,7 +72,7 @@ export class ImplicitAutenticationService {
     }
 
     public getAuthorizationUrl(): string {
-        this.params = GENERAL.ENTORNO.TOKEN;
+        this.params = environment.TOKEN;
         if (!this.params.nonce) {
             this.params.nonce = this.generateState();
         }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, interval } from 'rxjs';
-import { Config } from './../../app-config';
+import { interval } from 'rxjs';
+import { environment } from './../../../environments/environment';
 import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AutenticationService {
         this.setting_basic = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'authorization': 'Basic ' + btoa(Config.LOCAL.TOKEN.CLIENTE_ID + ':',
+                'authorization': 'Basic ' + btoa(environment.TOKEN.CLIENTE_ID + ':',
                     //    + Config.LOCAL.TOKEN.CLIENT_SECRET
                 ),
                 'cache-control': 'no-cache',
@@ -83,9 +83,9 @@ export class AutenticationService {
             } else {
                 const id_token = window.sessionStorage.getItem('id_token').split('.');
                 this.payload = JSON.parse(atob(id_token[1]));
-                this.logOut = Config.LOCAL.TOKEN.SIGN_OUT_URL;
+                this.logOut = environment.TOKEN.SIGN_OUT_URL;
                 this.logOut += '?id_token_hint=' + window.sessionStorage.getItem('id_token');
-                this.logOut += '&post_logout_redirect_uri=' + Config.LOCAL.TOKEN.SIGN_OUT_REDIRECT_URL;
+                this.logOut += '&post_logout_redirect_uri=' + environment.TOKEN.SIGN_OUT_REDIRECT_URL;
                 this.logOut += '&state=' + window.sessionStorage.getItem('state');
             }
         }
@@ -123,7 +123,7 @@ export class AutenticationService {
     }
 
     public getAuthorizationUrl(): string {
-        this.params = Config.LOCAL.TOKEN;
+        this.params = environment.TOKEN;
         if (!this.params.nonce) {
             this.params.nonce = this.generateState();
         }
@@ -144,7 +144,7 @@ export class AutenticationService {
     }
 
     refresh() {
-        this.params = Config.LOCAL.TOKEN;
+        this.params = environment.TOKEN;
         const url = ''; // this.params.REFRESH_TOKEN + '?' +
         'grant_type=' + encodeURIComponent('refresh_token') + '&' +
             'refresh_token=' + encodeURIComponent(window.sessionStorage.getItem('refresh_token')) + '&' +

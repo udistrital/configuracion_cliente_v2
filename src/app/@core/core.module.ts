@@ -1,5 +1,4 @@
 import { AuthInterceptor } from './_Interceptor/auth.Interceptor';
-import { UbicacionesService } from './data/ubicaciones.service';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
@@ -8,7 +7,6 @@ import { of as observableOf } from 'rxjs';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
-import { DocumentoService } from './data/documento.service'
 import { AuthGuard } from './_guards/auth.guard';
 import { StoreModule } from '@ngrx/store';
 
@@ -108,7 +106,6 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         ...NB_CORE_PROVIDERS,
-        DocumentoService,
       ],
     };
   }
