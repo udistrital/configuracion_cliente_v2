@@ -17,7 +17,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ToasterModule } from 'angular2-toaster';
-import { ImplicitAutenticationService } from './@core/utils/implicit_autentication.service';
 import { MatSnackBarModule, MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSortModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule } from '@angular/material';
 import { A11yModule } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -113,7 +112,7 @@ export class MaterialModule {}
     }),
   ],
   bootstrap: [AppComponent],
-  providers: [ImplicitAutenticationService,
+  providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { AutenticationService } from '../@core/utils/autentication.service';
-import { ImplicitAutenticationService } from '../@core/utils/implicit_autentication.service';
 import { SharedModule } from '../shared/shared.module';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
@@ -213,7 +212,6 @@ export class ThemeModule {
     return <ModuleWithProviders>{
       ngModule: ThemeModule,
       providers: [...NB_THEME_PROVIDERS,
-        ImplicitAutenticationService,
         ConfiguracionService],
     };
   }

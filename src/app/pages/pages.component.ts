@@ -3,10 +3,10 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { MenuItem } from './menu-item';
 import { MENU_ITEMS } from './pages-menu';
 // import { MENU_PUBLICO } from './pages-menu';
-import { ImplicitAutenticationService } from '../@core/utils/implicit_autentication.service';
 import { MenuService } from '../@core/data/menu.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import * as auth from 'oidc-auth/index.js';
 import 'style-loader!angular2-toaster/toaster.css';
 
 @Component({
@@ -31,14 +31,12 @@ export class PagesComponent implements OnInit {
   roles: any;
 
   constructor(
-    private autenticacion: ImplicitAutenticationService,
     public menuws: MenuService,
     private translate: TranslateService) { }
 
   ngOnInit() {
-    if (false) {
-    //if (this.autenticacion.live()) {
-      this.roles = <any>this.autenticacion.getPayload().role;
+    if (auth.live(true)) {
+      this.roles = <any>auth.getPayload().role;
       if (this.roles.indexOf('ADMIN_CAMPUS') !== -1) {
         this.rol = 'ASPIRANTE';
       } else if (this.roles.indexOf('ASPIRANTE') !== -1) {

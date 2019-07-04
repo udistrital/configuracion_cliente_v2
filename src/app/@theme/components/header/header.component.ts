@@ -3,21 +3,21 @@ import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 // import { AutenticationService } from '../../../@core/utils/autentication.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
+import * as auth from 'oidc-auth/index.js';
 
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input() position = 'normal';
   itemClick: Subscription;
-
+  liveTokenValue: boolean = false;
   user: any;
   title: any;
   username = '';
@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit {
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private analyticsService: AnalyticsService,
-    private autenticacion: ImplicitAutenticationService,
     private router: Router,
     public notificacionService: NotificacionesService,
     public translate: TranslateService) {
@@ -43,19 +42,20 @@ export class HeaderComponent implements OnInit {
         });
         this.userMenu = [...temp.slice(0, 7), ...[{ title: 'ver todas', icon: 'fa fa-list' }]];
       });
+    this.liveToken();
   }
 
   useLanguage(language: string) {
     this.translate.use(language);
   }
-  ngOnInit() {
-    this.autenticacion.init();
-  }
+
   liveToken() {
-    if (this.autenticacion.live()) {
-      this.username = (this.autenticacion.getPayload()).sub;
+    debugger;
+    if (auth.live(true)) {
+      this.liveTokenValue = auth.live(true);
+      this.username = (auth.getPayload()).sub;
     }
-    return this.autenticacion.live();
+    return auth.live(true);
   }
 
   onContecxtItemSelection(title) {
@@ -67,7 +67,8 @@ export class HeaderComponent implements OnInit {
 
 
   logout() {
-    console.info(this.autenticacion.logout());
+    auth.logout();
+    this.liveTokenValue = auth.live(true);
   }
 
   toggleSidebar(): boolean {
