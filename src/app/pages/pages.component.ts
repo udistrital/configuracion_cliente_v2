@@ -35,20 +35,9 @@ export class PagesComponent implements OnInit {
     private translate: TranslateService) { }
 
   ngOnInit() {
-    if (auth.live(true)) {
-      this.roles = <any>auth.getPayload().role;
-      if (this.roles.indexOf('ADMIN_CAMPUS') !== -1) {
-        this.rol = 'ASPIRANTE';
-      } else if (this.roles.indexOf('ASPIRANTE') !== -1) {
-        this.rol = 'ASPIRANTE';
-      } else if (this.roles.indexOf('ESTUDIANTE') !== -1) {
-        this.rol = 'ESTUDIANTE';
-      } else if (this.roles.indexOf('EGRESADO') !== -1) {
-        this.rol = 'EGRESADO';
-      } else {
-        this.rol = 'Menu%20campus';
-      }
-      this.menuws.get(this.rol + '/Campus').subscribe(
+    if (!auth.live(true)) {
+      this.roles = (JSON.parse(atob(localStorage.getItem("id_token").split(".")[1])).role).map((data: any) => (data.replace("/", "_")));
+      this.menuws.get(this.roles + '/configuracionv2').subscribe(
         data => {
           this.dataMenu = <any>data;
           for (let i = 0; i < this.dataMenu.length; i++) {
