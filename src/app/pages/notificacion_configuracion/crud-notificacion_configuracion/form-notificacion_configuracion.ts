@@ -54,7 +54,7 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
         placeholder_i18n: 'aplicacion',
         requerido: true,
         tipo: 'Aplicacion',
-        // key: 'Name',
+        key: 'Nombre',
         opciones: [],
     },
     ],

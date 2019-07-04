@@ -70,8 +70,11 @@ export class ListParametroComponent implements OnInit {
           title: this.translate.instant('GLOBAL.aplicacion'),
           // type: 'aplicacion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
       },
     };

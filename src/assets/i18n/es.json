@@ -6,6 +6,9 @@
     "LOGOUT": "Cerra sesion"
   },
   "MENU": {
+    "aplicaciones": "Aplicaciones",
+    "roles": "Roles",
+    "opciones": "Opciones", 
     "dashboard": "Inicio",
     "notificacion_estado": {
       "notificacion_estado": "notificacion_estado",
