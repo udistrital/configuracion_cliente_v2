@@ -39,7 +39,7 @@ export let FORM_APLICACION = {
         nombre: 'Alias',
         label_i18n: 'alias',
         placeholder_i18n: 'alias',
-        requerido: true,
+        requerido: false,
         tipo: 'text',
     },
     {
@@ -48,7 +48,7 @@ export let FORM_APLICACION = {
         nombre: 'EstiloIcono',
         label_i18n: 'estilo_icono',
         placeholder_i18n: 'estilo_icono',
-        requerido: true,
+        requerido: false,
         tipo: 'text',
     },
     {

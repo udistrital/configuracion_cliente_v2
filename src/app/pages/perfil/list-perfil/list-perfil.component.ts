@@ -45,13 +45,13 @@ export class ListPerfilComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
+        // Id: {
+        //   title: this.translate.instant('GLOBAL.id'),
+        //   // type: 'number;',
+        //   valuePrepareFunction: (value) => {
+        //     return value;
+        //   },
+        // },
         Nombre: {
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
@@ -65,6 +65,9 @@ export class ListPerfilComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
       },
     };

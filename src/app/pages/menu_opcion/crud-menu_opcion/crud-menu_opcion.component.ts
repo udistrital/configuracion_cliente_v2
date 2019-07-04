@@ -1,6 +1,6 @@
 import { Aplicacion } from './../../../@core/data/models/aplicacion';
 
-import { MenuOpcion } from './../../../@core/data/models/menu_opcion';
+import { MenuOpcion, OpcionTipoOpcion } from './../../../@core/data/models/menu_opcion';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
 import { FORM_MENU_OPCION } from './form-menu_opcion';
@@ -17,7 +17,11 @@ import 'style-loader!angular2-toaster/toaster.css';
 export class CrudMenuOpcionComponent implements OnInit {
   config: ToasterConfig;
   menu_opcion_id: number;
-
+  opciones_tipo_opcion: OpcionTipoOpcion[] = [
+    { Id: 1, Nombre: 'Menú' },
+    { Id: 2, Nombre: 'Botón' },
+    { Id: 3, Nombre: 'Acción' },
+  ];
   @Input('menu_opcion_id')
   set name(menu_opcion_id: number) {
     this.menu_opcion_id = menu_opcion_id;
@@ -38,7 +42,9 @@ export class CrudMenuOpcionComponent implements OnInit {
       this.construirForm();
     });
     this.loadOptionsAplicacion();
-   }
+    this.formMenuOpcion.campos[this.getIndexForm('TipoOpcion')].opciones = this.opciones_tipo_opcion;
+
+  }
 
   construirForm() {
     this.formMenuOpcion.titulo = this.translate.instant('GLOBAL.menu_opcion');
@@ -48,6 +54,9 @@ export class CrudMenuOpcionComponent implements OnInit {
       this.formMenuOpcion.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' + this.formMenuOpcion.campos[i].label_i18n);
     }
   }
+  searchByName(name: string): OpcionTipoOpcion {
+    return (this.opciones_tipo_opcion.filter((opcion) => (opcion.Nombre === name)))[0];
+  }
 
   useLanguage(language: string) {
     this.translate.use(language);
@@ -55,13 +64,13 @@ export class CrudMenuOpcionComponent implements OnInit {
 
   loadOptionsAplicacion(): void {
     let aplicacion: Array<any> = [];
-      this.configuracionService.get('aplicacion/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            aplicacion = <Array<Aplicacion>>res;
-          }
-          this.formMenuOpcion.campos[ this.getIndexForm('Aplicacion') ].opciones = aplicacion;
-        });
+    this.configuracionService.get('aplicacion/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          aplicacion = <Array<Aplicacion>>res;
+        }
+        this.formMenuOpcion.campos[this.getIndexForm('Aplicacion')].opciones = aplicacion;
+      });
   }
 
   getIndexForm(nombre: String): number {
@@ -81,9 +90,11 @@ export class CrudMenuOpcionComponent implements OnInit {
         .subscribe(res => {
           if (res !== null) {
             this.info_menu_opcion = <MenuOpcion>res[0];
+            this.info_menu_opcion.TipoOpcion = <OpcionTipoOpcion>this.searchByName(res[0].TipoOpcion);
+
           }
         });
-    } else  {
+    } else {
       this.info_menu_opcion = undefined;
       this.clean = !this.clean;
     }
@@ -100,17 +111,18 @@ export class CrudMenuOpcionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_menu_opcion = <MenuOpcion>menuOpcion;
-        this.configuracionService.put('menu_opcion', this.info_menu_opcion)
-          .subscribe(res => {
-            this.loadMenuOpcion();
-            this.eventChange.emit(true);
-            this.showToast('info', 'updated', 'MenuOpcion updated');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          menuOpcion.TipoOpcion = menuOpcion.TipoOpcion.Nombre;
+          this.info_menu_opcion = <MenuOpcion>menuOpcion;
+          this.configuracionService.put('menu_opcion', this.info_menu_opcion)
+            .subscribe(res => {
+              this.loadMenuOpcion();
+              this.eventChange.emit(true);
+              this.showToast('info', 'updated', 'MenuOpcion updated');
+            });
+        }
+      });
   }
 
   createMenuOpcion(menuOpcion: any): void {
@@ -123,17 +135,18 @@ export class CrudMenuOpcionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_menu_opcion = <MenuOpcion>menuOpcion;
-        this.configuracionService.post('menu_opcion', this.info_menu_opcion)
-          .subscribe(res => {
-            this.info_menu_opcion = <MenuOpcion>res;
-            this.eventChange.emit(true);
-            this.showToast('info', 'created', 'MenuOpcion created');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          menuOpcion.TipoOpcion = menuOpcion.TipoOpcion.Nombre;
+          this.info_menu_opcion = <MenuOpcion>menuOpcion;
+          this.configuracionService.post('menu_opcion', this.info_menu_opcion)
+            .subscribe(res => {
+              this.info_menu_opcion = <MenuOpcion>res;
+              this.eventChange.emit(true);
+              this.showToast('info', 'created', 'MenuOpcion created');
+            });
+        }
+      });
   }
 
   ngOnInit() {

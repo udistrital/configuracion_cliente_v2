@@ -50,7 +50,6 @@ export class HeaderComponent {
   }
 
   liveToken() {
-    debugger;
     if (auth.live(true)) {
       this.liveTokenValue = auth.live(true);
       this.username = (auth.getPayload()).sub;
