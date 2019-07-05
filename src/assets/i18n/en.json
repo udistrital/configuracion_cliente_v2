@@ -9,6 +9,7 @@
     "aplicaciones": "Aplicaciones",
     "roles": "Roles",
     "opciones": "Opciones", 
+    "notificaciones": "Notificaciones",
     "dashboard": "Inicio",
     "notificacion_estado": {
       "notificacion_estado": "notificacion_estado",
@@ -41,9 +42,12 @@
       "crud_notificacion_configuracion": "Crud notificacion_configuracion"
     },
     "notificacion": {
-      "notificacion": "notificacion",
-      "lista_notificacion": "lista notificacion",
-      "crud_notificacion": "Crud notificacion"
+      "notificacion": "Notificaciones",
+      "lista_notificacion": "Lista Notificaciones",
+      "crud_notificacion": "Crud notificacion",
+      "lista_notificacion_configuracion": "Configurar Notificaciones",
+      "lista_notificacion_configuracion_perfil": "Configurar Rol",
+      "lista_notificacion_estado_usuario": "Estado Notificaciones"
     },
     "notificacion_estado_usuario": {
       "notificacion_estado_usuario": "notificacion_estado_usuario",

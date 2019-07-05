@@ -32,7 +32,7 @@ export let FORM_NOTIFICACION = {
         placeholder_i18n: 'notificacion_configuracion',
         requerido: true,
         tipo: 'NotificacionConfiguracion',
-        // key: 'Name',
+        key: 'EndPoint',
         opciones: [],
     },
     ],

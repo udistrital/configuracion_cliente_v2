@@ -45,13 +45,6 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         EndPoint: {
           title: this.translate.instant('GLOBAL.end_point'),
           // type: 'string;',

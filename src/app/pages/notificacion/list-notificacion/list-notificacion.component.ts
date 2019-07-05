@@ -45,13 +45,6 @@ export class ListNotificacionComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         FechaCreacion: {
           title: this.translate.instant('GLOBAL.fecha_creacion'),
           // type: 'Date;',

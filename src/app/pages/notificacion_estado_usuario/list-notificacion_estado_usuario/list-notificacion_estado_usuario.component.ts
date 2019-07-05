@@ -45,13 +45,6 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         Notificacion: {
           title: this.translate.instant('GLOBAL.notificacion'),
           // type: 'notificacion;',

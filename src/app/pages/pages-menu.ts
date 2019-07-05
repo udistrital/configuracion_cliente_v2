@@ -99,6 +99,34 @@ export const MENU_ITEMS: MenuItem[] = [
   //     },
   //   ],
   // },
+  {
+    title: 'Notificacion',
+    icon: 'nb-compose',
+    link: '/pages/notificacion',
+    key: 'notificacion',
+    children: [
+      {
+        title: 'Lista Notificacion Configuracion',
+        link: '/pages/notificacion_configuracion/list-notificacion_configuracion',
+        key: 'lista_notificacion_configuracion',
+      },
+      {
+        title: 'Lista Notificacion Configuracion Perfil',
+        link: '/pages/notificacion_configuracion_perfil/list-notificacion_configuracion_perfil',
+        key: 'lista_notificacion_configuracion_perfil',
+      },
+      {
+        title: 'Lista Notificacion',
+        link: '/pages/notificacion/list-notificacion',
+        key: 'lista_notificacion',
+      },
+      {
+        title: 'Lista Notificacion Estado Usuario',
+        link: '/pages/notificacion_estado_usuario/list-notificacion_estado_usuario',
+        key: 'lista_notificacion_estado_usuario',
+      },
+    ],
+  },
   // {
   //   title: 'Notificacion',
   //   icon: 'nb-compose',

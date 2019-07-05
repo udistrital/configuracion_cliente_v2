@@ -23,7 +23,7 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
         placeholder_i18n: 'metodo_http',
         requerido: true,
         tipo: 'MetodoHttp',
-        // key: 'Name',
+        key: 'Nombre',
         opciones: [],
     },
     {
@@ -34,7 +34,7 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
         placeholder_i18n: 'tipo',
         requerido: true,
         tipo: 'NotificacionTipo',
-        // key: 'Name',
+        key: 'Nombre',
         opciones: [],
     },
     {
