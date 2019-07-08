@@ -64,23 +64,52 @@ export const MENU_ITEMS: MenuItem[] = [
   //   ],
   // },
   {
-    title: 'Aplicacion',
+    title: 'Menú',
     icon: 'nb-compose',
-    link: '/pages/aplicacion/list-aplicacion',
-    key: 'aplicaciones',
+    link: '',
+    key: 'menu',
+    children: [
+      {
+        title: 'Opciones',
+        icon: 'nb-compose',
+        link: '/pages/menu_opcion/list-menu_opcion',
+        key: 'opciones',
+      },
+      {
+        title: 'Lista Menu Opcion Padre',
+        icon: 'nb-compose',
+        link: '/pages/menu_opcion_padre/list-menu_opcion_padre',
+        key: 'lista_menu_opcion_padre',
+      },
+      {
+        title: 'Lista Perfil X Menu Opcion',
+        icon: 'nb-compose',
+        link: '/pages/perfil_x_menu_opcion/list-perfil_x_menu_opcion',
+        key: 'lista_perfil_x_menu_opcion',
+      },
+    ],
   },
   {
-    title: 'Roles',
+    title: 'General',
     icon: 'nb-compose',
-    link: '/pages/perfil/list-perfil',
-    key: 'roles',
+    link: '',
+    key: 'general',
+    children: [
+      {
+        title: 'Aplicacion',
+        icon: 'nb-compose',
+        link: '/pages/aplicacion/list-aplicacion',
+        key: 'aplicaciones',
+      },
+      {
+        title: 'Roles',
+        icon: 'nb-compose',
+        link: '/pages/perfil/list-perfil',
+        key: 'roles',
+      },
+    ],
   },
-  {
-    title: 'Opciones',
-    icon: 'nb-compose',
-    link: '/pages/menu_opcion/list-menu_opcion',
-    key: 'opciones',
-  },
+
   // {
   //   title: 'Notificacion Configuracion',
   //   icon: 'nb-compose',

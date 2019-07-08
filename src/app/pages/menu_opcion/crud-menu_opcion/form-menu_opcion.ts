@@ -51,6 +51,7 @@ export let FORM_MENU_OPCION = {
             requerido: true,
             tipo: 'Aplicacion',
             key: 'Nombre',
+            entrelazado: true,
             opciones: [],
         },
         {

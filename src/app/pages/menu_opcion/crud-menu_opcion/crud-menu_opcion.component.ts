@@ -6,8 +6,21 @@ import { ConfiguracionService } from '../../../@core/data/configuracion.service'
 import { FORM_MENU_OPCION } from './form-menu_opcion';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { NbSortDirection, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbSortRequest } from '@nebular/theme';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { Observable } from 'rxjs';
+
+interface TreeNode<T> {
+  data: T;
+  children?: TreeNode<T>[];
+  expanded?: boolean;
+}
+
+interface EstructuraMenus {
+  Id: number;
+  Nombre: string;
+}
 
 @Component({
   selector: 'ngx-crud-menu-opcion',
@@ -28,6 +41,20 @@ export class CrudMenuOpcionComponent implements OnInit {
     this.loadMenuOpcion();
   }
 
+  tree: any = {};
+  app: any;
+
+  @Output() rubroSeleccionado = new EventEmitter();
+  @Input() updateSignal: Observable<string[]>;
+  update: any;
+  customColumn = 'Codigo';
+  defaultColumns = ['Nombre'];
+  allColumns = [this.customColumn, ...this.defaultColumns];
+  dataSource: NbTreeGridDataSource<EstructuraMenus>;
+
+  sortColumn: string;
+sortDirection: NbSortDirection = NbSortDirection.NONE;
+
   @Output() eventChange = new EventEmitter();
 
   info_menu_opcion: MenuOpcion;
@@ -35,7 +62,13 @@ export class CrudMenuOpcionComponent implements OnInit {
   regMenuOpcion: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
+
+
+  constructor(
+    private translate: TranslateService,
+    private configuracionService: ConfiguracionService,
+    private toasterService: ToasterService,
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<EstructuraMenus>) {
     this.formMenuOpcion = FORM_MENU_OPCION;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -44,6 +77,22 @@ export class CrudMenuOpcionComponent implements OnInit {
     this.loadOptionsAplicacion();
     this.formMenuOpcion.campos[this.getIndexForm('TipoOpcion')].opciones = this.opciones_tipo_opcion;
 
+  }
+
+  selectAplicacion(app: any) {
+    this.app = app.valor;
+    this.loadTree();
+  }
+
+
+  loadTree(){
+    this.configuracionService.get(`perfil_x_menu_opcion/MenusPorAplicacion/${this.app.valor.Id}`)
+      .subscribe(res => {
+        if (res !== null) {
+          this.tree = <any>res;
+          this.dataSource = this.dataSourceBuilder.create(this.tree);
+        }
+      });
   }
 
   construirForm() {
@@ -182,6 +231,56 @@ export class CrudMenuOpcionComponent implements OnInit {
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
     this.toasterService.popAsync(toast);
+  }
+
+
+  updateTreeSignal($event) {
+    console.info('updated', $event)
+    this.loadTree();
+  }
+
+  updateSort(sortRequest: NbSortRequest): void {
+    this.sortColumn = sortRequest.column;
+    this.sortDirection = sortRequest.direction;
+  }
+
+  getSortDirection(column: string): NbSortDirection {
+    if (this.sortColumn === column) {
+      return this.sortDirection;
+    }
+    return NbSortDirection.NONE;
+  }
+
+  async onSelect(selectedItem: any) {
+    this.rubroSeleccionado.emit(selectedItem.data);
+  }
+  private data: TreeNode<EstructuraMenus>[];
+
+
+  getShowOn(index: number) {
+    const minWithForMultipleColumns = 400;
+    const nextColumnStep = 100;
+    return minWithForMultipleColumns + (nextColumnStep * index);
+  }
+}
+
+
+@Component({
+  selector: 'nb-fs-icon',
+  template: `
+    <nb-tree-grid-row-toggle [expanded]="expanded" *ngIf="isDir(); else fileIcon">
+    </nb-tree-grid-row-toggle>
+    <ng-template #fileIcon>
+    </ng-template>
+  `,
+})
+
+export class FsIconAComponent {
+  @Input() kind: string;
+  @Input() expanded: boolean;
+
+  isDir(): boolean {
+    return this.kind === 'dir';
   }
 
 }
