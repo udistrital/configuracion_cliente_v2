@@ -5,7 +5,8 @@ import { ConfiguracionService } from './../data/configuracion.service';
 import { from } from 'rxjs';
 import { webSocket } from 'rxjs/webSocket';
 import { map } from 'rxjs-compat/operators/map';
-import * as auth from 'oidc-auth/index.js';
+import { ImplicitAutenticationService } from './implicit_autentication.service';
+
 const CHAT_URL = environment.NOTIFICACION_SERVICE;
 
 @Injectable({
@@ -22,13 +23,16 @@ export class NotificacionesService {
 
     private arrayMessagesSubject = new Subject();
     public arrayMessages$ = this.arrayMessagesSubject.asObservable();
+    private autenticacion= new ImplicitAutenticationService;
+
 
     constructor(
         private confService: ConfiguracionService,
+        
     ) {
         this.listMessage = [];
         this.connect();
-        if (auth.live(true)) {
+        if (this.autenticacion.live()) {
             this.queryNotification('ADMIN_CAMPUS');
         }
     }
@@ -39,8 +43,8 @@ export class NotificacionesService {
     }
 
     connect() {
-        if (auth.live(true)) {
-            this.payload = auth.getPayload();
+        if (this.autenticacion.live()) {
+            this.payload = this.autenticacion.getPayload();
             this.messagesSubject = webSocket(`${CHAT_URL}?id=${this.payload.sub}&profiles=ADMIN_CAMPUS`);
             this.messagesSubject
                 .pipe(

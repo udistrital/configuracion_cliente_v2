@@ -28,6 +28,7 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { NbToastrModule } from '@nebular/theme';
+import { ImplicitAutenticationService } from './@core/utils/implicit_autentication.service';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -112,7 +113,7 @@ export class MaterialModule {}
     }),
   ],
   bootstrap: [AppComponent],
-  providers: [
+  providers: [ImplicitAutenticationService,
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })
