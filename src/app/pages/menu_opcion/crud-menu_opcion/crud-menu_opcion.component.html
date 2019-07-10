@@ -5,14 +5,16 @@
       (interlaced)="selectAplicacion($event)" [clean]="clean">
     </ngx-dinamicform>
   </div>
-  <nb-card>
-    <nb-card-header>
-      {{ 'MENU.menu' | translate }}
-    </nb-card-header>
-    <nb-card-body>
-
-      <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
-      </tree-root>
-    </nb-card-body>
-  </nb-card>
+  <div class="col-6" *ngIf="app">
+    <nb-card [size]="'medium'">
+      <nb-card-header>
+        {{ 'MENU.menu' | translate }}
+      </nb-card-header>
+      <nb-card-body>
+        <div>
+          <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true"></tree-root>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>

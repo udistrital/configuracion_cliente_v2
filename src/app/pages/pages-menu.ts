@@ -75,18 +75,6 @@ export const MENU_ITEMS: MenuItem[] = [
         link: '/pages/menu_opcion/list-menu_opcion',
         key: 'opciones',
       },
-      {
-        title: 'Lista Menu Opcion Padre',
-        icon: 'nb-compose',
-        link: '/pages/menu_opcion_padre/list-menu_opcion_padre',
-        key: 'lista_menu_opcion_padre',
-      },
-      {
-        title: 'Lista Perfil X Menu Opcion',
-        icon: 'nb-compose',
-        link: '/pages/perfil_x_menu_opcion/list-perfil_x_menu_opcion',
-        key: 'lista_perfil_x_menu_opcion',
-      },
     ],
   },
   {
