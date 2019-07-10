@@ -1,26 +1,17 @@
 import { Aplicacion } from './../../../@core/data/models/aplicacion';
 
 import { MenuOpcion, OpcionTipoOpcion } from './../../../@core/data/models/menu_opcion';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
 import { FORM_MENU_OPCION } from './form-menu_opcion';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { NbSortDirection, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbSortRequest } from '@nebular/theme';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 import { Observable } from 'rxjs';
+import { UtilidadesService } from '../../../@core/utils/utilidades.service';
+import { TreeComponent, TreeModel, TreeNode } from 'angular-tree-component';
 
-interface TreeNode<T> {
-  data: T;
-  children?: TreeNode<T>[];
-  expanded?: boolean;
-}
-
-interface EstructuraMenus {
-  Id: number;
-  Nombre: string;
-}
 
 @Component({
   selector: 'ngx-crud-menu-opcion',
@@ -40,20 +31,20 @@ export class CrudMenuOpcionComponent implements OnInit {
     this.menu_opcion_id = menu_opcion_id;
     this.loadMenuOpcion();
   }
+  treeModel: TreeModel;
+  firstNode: TreeNode;
 
+  options: {
+    scrollOnActivate: true,
+  };
+
+  @ViewChild('tree') treeComponent: TreeComponent;
+
+  nodes = [];
   tree: any = {};
   app: any;
 
-  @Output() rubroSeleccionado = new EventEmitter();
-  @Input() updateSignal: Observable<string[]>;
   update: any;
-  customColumn = 'Codigo';
-  defaultColumns = ['Nombre'];
-  allColumns = [this.customColumn, ...this.defaultColumns];
-  dataSource: NbTreeGridDataSource<EstructuraMenus>;
-
-  sortColumn: string;
-sortDirection: NbSortDirection = NbSortDirection.NONE;
 
   @Output() eventChange = new EventEmitter();
 
@@ -67,8 +58,7 @@ sortDirection: NbSortDirection = NbSortDirection.NONE;
   constructor(
     private translate: TranslateService,
     private configuracionService: ConfiguracionService,
-    private toasterService: ToasterService,
-    private dataSourceBuilder: NbTreeGridDataSourceBuilder<EstructuraMenus>) {
+    private toasterService: ToasterService, private utils: UtilidadesService) {
     this.formMenuOpcion = FORM_MENU_OPCION;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -85,12 +75,16 @@ sortDirection: NbSortDirection = NbSortDirection.NONE;
   }
 
 
-  loadTree(){
-    this.configuracionService.get(`perfil_x_menu_opcion/MenusPorAplicacion/${this.app.valor.Id}`)
+  loadTree() {
+    // console.info(this.app);
+    this.configuracionService.get(`perfil_x_menu_opcion/MenusPorAplicacion/${this.app.Id}`)
       .subscribe(res => {
         if (res !== null) {
-          this.tree = <any>res;
-          this.dataSource = this.dataSourceBuilder.create(this.tree);
+          this.nodes = this.utils.translateTree(res);
+          this.treeModel = this.treeComponent.treeModel;
+          if (this.info_menu_opcion.hasOwnProperty('Id')) {
+            this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible();
+          }
         }
       });
   }
@@ -140,7 +134,6 @@ sortDirection: NbSortDirection = NbSortDirection.NONE;
           if (res !== null) {
             this.info_menu_opcion = <MenuOpcion>res[0];
             this.info_menu_opcion.TipoOpcion = <OpcionTipoOpcion>this.searchByName(res[0].TipoOpcion);
-
           }
         });
     } else {
@@ -231,56 +224,6 @@ sortDirection: NbSortDirection = NbSortDirection.NONE;
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
     this.toasterService.popAsync(toast);
-  }
-
-
-  updateTreeSignal($event) {
-    console.info('updated', $event)
-    this.loadTree();
-  }
-
-  updateSort(sortRequest: NbSortRequest): void {
-    this.sortColumn = sortRequest.column;
-    this.sortDirection = sortRequest.direction;
-  }
-
-  getSortDirection(column: string): NbSortDirection {
-    if (this.sortColumn === column) {
-      return this.sortDirection;
-    }
-    return NbSortDirection.NONE;
-  }
-
-  async onSelect(selectedItem: any) {
-    this.rubroSeleccionado.emit(selectedItem.data);
-  }
-  private data: TreeNode<EstructuraMenus>[];
-
-
-  getShowOn(index: number) {
-    const minWithForMultipleColumns = 400;
-    const nextColumnStep = 100;
-    return minWithForMultipleColumns + (nextColumnStep * index);
-  }
-}
-
-
-@Component({
-  selector: 'nb-fs-icon',
-  template: `
-    <nb-tree-grid-row-toggle [expanded]="expanded" *ngIf="isDir(); else fileIcon">
-    </nb-tree-grid-row-toggle>
-    <ng-template #fileIcon>
-    </ng-template>
-  `,
-})
-
-export class FsIconAComponent {
-  @Input() kind: string;
-  @Input() expanded: boolean;
-
-  isDir(): boolean {
-    return this.kind === 'dir';
   }
 
 }

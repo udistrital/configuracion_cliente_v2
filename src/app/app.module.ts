@@ -28,6 +28,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { NbToastrModule } from '@nebular/theme';
+import { TreeModule } from 'angular-tree-component';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -102,6 +104,7 @@ export class MaterialModule {}
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
+    TreeModule.forRoot(),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

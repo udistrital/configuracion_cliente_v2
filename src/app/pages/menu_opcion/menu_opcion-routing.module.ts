@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MenuOpcionComponent } from './menu_opcion.component';
 import { ListMenuOpcionComponent } from './list-menu_opcion/list-menu_opcion.component';
-import { CrudMenuOpcionComponent, FsIconAComponent } from './crud-menu_opcion/crud-menu_opcion.component';
+import { CrudMenuOpcionComponent } from './crud-menu_opcion/crud-menu_opcion.component';
 
 
 const routes: Routes = [{
@@ -14,9 +14,6 @@ const routes: Routes = [{
   }, {
     path: 'crud-menu_opcion',
     component: CrudMenuOpcionComponent,
-  },{
-    path: 'nb-fs-icon',
-    component: FsIconAComponent,
   }],
 }];
 
@@ -32,7 +29,6 @@ const routes: Routes = [{
 export class MenuOpcionRoutingModule { }
 
 export const routedComponents = [
-  FsIconAComponent,
   MenuOpcionComponent,
   ListMenuOpcionComponent,
   CrudMenuOpcionComponent,

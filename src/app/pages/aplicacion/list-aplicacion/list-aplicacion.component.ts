@@ -192,4 +192,5 @@ export class ListAplicacionComponent implements OnInit {
     this.toasterService.popAsync(toast);
   }
 
+
 }
