@@ -71,7 +71,7 @@ export const MENU_ITEMS: MenuItem[] = [
     children: [
       {
         title: 'Opciones',
-        icon: 'nb-compose',
+        icon: 'nb-list',
         link: '/pages/menu_opcion/list-menu_opcion',
         key: 'opciones',
       },
@@ -85,13 +85,13 @@ export const MENU_ITEMS: MenuItem[] = [
     children: [
       {
         title: 'Aplicacion',
-        icon: 'nb-compose',
+        icon: 'nb-list',
         link: '/pages/aplicacion/list-aplicacion',
         key: 'aplicaciones',
       },
       {
         title: 'Roles',
-        icon: 'nb-compose',
+        icon: 'nb-list',
         link: '/pages/perfil/list-perfil',
         key: 'roles',
       },
@@ -124,21 +124,25 @@ export const MENU_ITEMS: MenuItem[] = [
     children: [
       {
         title: 'Lista Notificacion Configuracion',
+        icon: 'nb-list',
         link: '/pages/notificacion_configuracion/list-notificacion_configuracion',
         key: 'lista_notificacion_configuracion',
       },
       {
         title: 'Lista Notificacion Configuracion Perfil',
+        icon: 'nb-list',
         link: '/pages/notificacion_configuracion_perfil/list-notificacion_configuracion_perfil',
         key: 'lista_notificacion_configuracion_perfil',
       },
       {
         title: 'Lista Notificacion',
+        icon: 'nb-list',
         link: '/pages/notificacion/list-notificacion',
         key: 'lista_notificacion',
       },
       {
         title: 'Lista Notificacion Estado Usuario',
+        icon: 'nb-list',
         link: '/pages/notificacion_estado_usuario/list-notificacion_estado_usuario',
         key: 'lista_notificacion_estado_usuario',
       },
