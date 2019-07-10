@@ -7,6 +7,18 @@ export let FORM_MENU_OPCION = {
     modelo: 'MenuOpcion',
     campos: [
         {
+            etiqueta: 'select',
+            claseGrid: 'col-6',
+            nombre: 'Aplicacion',
+            label_i18n: 'aplicacion',
+            placeholder_i18n: 'aplicacion',
+            requerido: true,
+            tipo: 'Aplicacion',
+            key: 'Nombre',
+            entrelazado: true,
+            opciones: [],
+        },
+        {
             etiqueta: 'input',
             claseGrid: 'col-6',
             nombre: 'Nombre',
@@ -41,17 +53,6 @@ export let FORM_MENU_OPCION = {
             placeholder_i18n: 'layout',
             requerido: false,
             tipo: 'text',
-        },
-        {
-            etiqueta: 'select',
-            claseGrid: 'col-6',
-            nombre: 'Aplicacion',
-            label_i18n: 'aplicacion',
-            placeholder_i18n: 'aplicacion',
-            requerido: true,
-            tipo: 'Aplicacion',
-            key: 'Nombre',
-            opciones: [],
         },
         {
             etiqueta: 'select',

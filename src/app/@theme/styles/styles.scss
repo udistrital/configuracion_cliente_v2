@@ -12,6 +12,8 @@
 @import './pace.theme';
 
 @import './bootstrap-rtl';
+@import '~angular-tree-component/dist/angular-tree-component.css';
+
 
 // install the framework and custom global styles
 @include nb-install() {

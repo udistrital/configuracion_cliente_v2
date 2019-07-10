@@ -1,13 +1,17 @@
 import { Aplicacion } from './../../../@core/data/models/aplicacion';
 
 import { MenuOpcion, OpcionTipoOpcion } from './../../../@core/data/models/menu_opcion';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
 import { FORM_MENU_OPCION } from './form-menu_opcion';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { Observable } from 'rxjs';
+import { UtilidadesService } from '../../../@core/utils/utilidades.service';
+import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from 'angular-tree-component';
+
 
 @Component({
   selector: 'ngx-crud-menu-opcion',
@@ -27,6 +31,20 @@ export class CrudMenuOpcionComponent implements OnInit {
     this.menu_opcion_id = menu_opcion_id;
     this.loadMenuOpcion();
   }
+  treeModel: TreeModel;
+  firstNode: TreeNode;
+
+  options: ITreeOptions = {
+    scrollContainer: <HTMLElement>document.body.parentElement
+  };
+
+  @ViewChild('tree') treeComponent: TreeComponent;
+
+  nodes = [];
+  tree: any = {};
+  app: any;
+
+  update: any;
 
   @Output() eventChange = new EventEmitter();
 
@@ -35,7 +53,12 @@ export class CrudMenuOpcionComponent implements OnInit {
   regMenuOpcion: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
+
+
+  constructor(
+    private translate: TranslateService,
+    private configuracionService: ConfiguracionService,
+    private toasterService: ToasterService, private utils: UtilidadesService) {
     this.formMenuOpcion = FORM_MENU_OPCION;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -44,6 +67,28 @@ export class CrudMenuOpcionComponent implements OnInit {
     this.loadOptionsAplicacion();
     this.formMenuOpcion.campos[this.getIndexForm('TipoOpcion')].opciones = this.opciones_tipo_opcion;
 
+  }
+
+  selectAplicacion(app: any) {
+    this.app = app.valor;
+    this.loadTree();
+  }
+
+
+  loadTree() {
+    // console.info(this.app);
+    this.configuracionService.get(`perfil_x_menu_opcion/MenusPorAplicacion/${this.app.Id}`)
+      .subscribe(res => {
+        if (res !== null) {
+          this.nodes = this.utils.translateTree(res);
+          this.treeModel = this.treeComponent.treeModel;
+          if (this.info_menu_opcion) {
+            if (this.info_menu_opcion.hasOwnProperty('Id')) {
+              this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible();
+            }
+          }
+        }
+      });
   }
 
   construirForm() {
@@ -91,7 +136,6 @@ export class CrudMenuOpcionComponent implements OnInit {
           if (res !== null) {
             this.info_menu_opcion = <MenuOpcion>res[0];
             this.info_menu_opcion.TipoOpcion = <OpcionTipoOpcion>this.searchByName(res[0].TipoOpcion);
-
           }
         });
     } else {
@@ -126,9 +170,12 @@ export class CrudMenuOpcionComponent implements OnInit {
   }
 
   createMenuOpcion(menuOpcion: any): void {
+    const nodeSelected = this.treeModel.getFocusedNode();
+    console.info(nodeSelected);
+    const info = nodeSelected === null ? 'Seguro que desea crear menú principal?' : `Seguro que desea crear submenú de: ${nodeSelected.data.name}`;
     const opt: any = {
-      title: 'Create?',
-      text: 'Create MenuOpcion!',
+      title: 'Creación de menú',
+      text: info,
       icon: 'warning',
       buttons: true,
       dangerMode: true,
@@ -142,8 +189,21 @@ export class CrudMenuOpcionComponent implements OnInit {
           this.configuracionService.post('menu_opcion', this.info_menu_opcion)
             .subscribe(res => {
               this.info_menu_opcion = <MenuOpcion>res;
-              this.eventChange.emit(true);
-              this.showToast('info', 'created', 'MenuOpcion created');
+              console.info(res);
+              if (nodeSelected !== null) {
+                const relacion = {
+                  Padre: { Id: nodeSelected.data.id },
+                  Hijo: { Id: this.info_menu_opcion.Id }
+                }
+                this.configuracionService.post('menu_opcion_padre', relacion)
+                  .subscribe(response => {
+                    this.eventChange.emit(true);
+                    this.showToast('info', 'created', 'MenuOpcion created');
+                  }, error => { this.eventChange.emit(true); this.showToast('error', 'error ', 'MenuOpcion Menú no pudo crearse') })
+              } else {
+                this.eventChange.emit(true);
+                this.showToast('info', 'created', 'MenuOpcion created');
+              }
             });
         }
       });
