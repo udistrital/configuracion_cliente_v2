@@ -8,34 +8,34 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-
-import * as auth from 'oidc-auth/index.js';
+import { ImplicitAutenticationService } from './app/@core/utils/implicit_autentication.service';
 
 
 if (environment.production) {
   enableProdMode();
 }
+const autenticacion= new ImplicitAutenticationService;
 
-auth.setGeneral(environment.TOKEN);
+
 
  const isButtonLogin=false;
 
- if(!auth.live(isButtonLogin)){
-  if(isButtonLogin){
-    var button = document.createElement("button");
-    button.innerHTML = "LOGIN";
-    var body = document.getElementsByTagName("body")[0];
-    body.appendChild(button);
-    button.addEventListener ("click",()=>{
-      auth.getAuthorizationUrl()
-    });
-  }
- }else{
-        auth.liveToken();
+ if(!autenticacion.getAuthorizationUrl(isButtonLogin)){
+    // if(isButtonLogin){
+    //   var button = document.createElement("button");
+    //   button.innerHTML = "LOGIN";
+    //   var body = document.getElementsByTagName("body")[0];
+    //   body.appendChild(button);
+    //   button.addEventListener ("click",()=>{
+    //     auth.getAuthorizationUrl()
+    //   });
+    // }
+  }else{
+    autenticacion.live();
 
          }
 
-auth.clearUrl();
+        // autenticacion.clearUrl();
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));

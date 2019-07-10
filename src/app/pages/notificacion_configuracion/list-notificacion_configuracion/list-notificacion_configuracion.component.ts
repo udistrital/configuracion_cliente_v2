@@ -58,6 +58,9 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         Tipo: {
           title: this.translate.instant('GLOBAL.tipo'),
@@ -65,6 +68,9 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         CuerpoNotificacion: {
           title: this.translate.instant('GLOBAL.cuerpo_notificacion'),

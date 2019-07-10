@@ -65,6 +65,9 @@ export class ListNotificacionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.EndPoint;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
       },
     };

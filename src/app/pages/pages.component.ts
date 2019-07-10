@@ -6,8 +6,9 @@ import { MENU_ITEMS } from './pages-menu';
 import { MenuService } from '../@core/data/menu.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import * as auth from 'oidc-auth/index.js';
 import 'style-loader!angular2-toaster/toaster.css';
+import { ImplicitAutenticationService } from './../@core/utils/implicit_autentication.service';
+
 
 @Component({
   selector: 'ngx-pages',
@@ -29,13 +30,14 @@ export class PagesComponent implements OnInit {
   rol: String;
   dataMenu: any;
   roles: any;
+  private autenticacion= new ImplicitAutenticationService;
 
   constructor(
     public menuws: MenuService,
     private translate: TranslateService) { }
 
   ngOnInit() {
-    if (!auth.live(true)) {
+    if (!this.autenticacion.live()) {
       this.roles = (JSON.parse(atob(localStorage.getItem("id_token").split(".")[1])).role).map((data: any) => (data.replace("/", "_")));
       this.menuws.get(this.roles + '/configuracionv2').subscribe(
         data => {

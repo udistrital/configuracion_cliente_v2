@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
-import * as auth from 'oidc-auth/index.js';
+import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
+
 
 @Component({
   selector: 'ngx-header',
@@ -23,6 +24,8 @@ export class HeaderComponent {
   username = '';
   userMenu = [{ title: 'ver todas', icon: 'fa fa-list' }];
   public noNotify: any = '0';
+  private autenticacion= new ImplicitAutenticationService;
+
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private analyticsService: AnalyticsService,
@@ -50,11 +53,11 @@ export class HeaderComponent {
   }
 
   liveToken() {
-    if (auth.live(true)) {
-      this.liveTokenValue = auth.live(true);
-      this.username = (auth.getPayload()).sub;
+    if (this.autenticacion.live()) {
+      this.liveTokenValue = this.autenticacion.live();
+      this.username = (this.autenticacion.getPayload()).sub;
     }
-    return auth.live(true);
+    return this.autenticacion.live();
   }
 
   onContecxtItemSelection(title) {
@@ -66,8 +69,8 @@ export class HeaderComponent {
 
 
   logout() {
-    auth.logout();
-    this.liveTokenValue = auth.live(true);
+    this.autenticacion.logout();
+   // this.liveTokenValue = auth.live(true);
   }
 
   toggleSidebar(): boolean {
