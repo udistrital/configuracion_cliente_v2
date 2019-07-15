@@ -1,13 +1,14 @@
-import { MenuOpcion } from './../../../@core/data/models/menu_opcion';
 
-import { PerfilXMenuOpcion } from './../../../@core/data/models/perfil_x_menu_opcion';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
-import { FORM_PERFIL_X_MENU_OPCION } from './form-perfil_x_menu_opcion';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { Perfil } from '../../../@core/data/models/perfil';
+import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from 'angular-tree-component';
+import { UtilidadesService } from '../../../@core/utils/utilidades.service';
+
 
 @Component({
   selector: 'ngx-crud-perfil-x-menu-opcion',
@@ -16,84 +17,105 @@ import 'style-loader!angular2-toaster/toaster.css';
 })
 export class CrudPerfilXMenuOpcionComponent implements OnInit {
   config: ToasterConfig;
-  perfil_x_menu_opcion_id: number;
+  perfil_id: number;
 
-  @Input('perfil_x_menu_opcion_id')
-  set name(perfil_x_menu_opcion_id: number) {
-    this.perfil_x_menu_opcion_id = perfil_x_menu_opcion_id;
-    this.loadPerfilXMenuOpcion();
+  //tree rol
+  treeModelRol: TreeModel;
+  nodesRol = [];
+  treeRol: any = {};
+  @ViewChild('treeRol') treeComponentRol: TreeComponent;
+  optionsRol: ITreeOptions = {
+    useCheckbox: true,
+    scrollContainer: <HTMLElement>document.body.parentElement
+  };
+
+  //tree menu
+  treeModelMenu: TreeModel;
+  nodesMenu = [];
+  treeMenu: any = {};
+  @ViewChild('treeMenu') treeComponentMenu: TreeComponent;
+  optionsMenu: ITreeOptions = {
+    useCheckbox: true,
+    scrollContainer: <HTMLElement>document.body.parentElement
+  };
+
+  @Input('perfil_id')
+  set name(perfil_id: number) {
+    this.perfil_id = perfil_id;
+    this.loadPerfil();
   }
 
   @Output() eventChange = new EventEmitter();
 
-  info_perfil_x_menu_opcion: PerfilXMenuOpcion;
-  formPerfilXMenuOpcion: any;
-  regPerfilXMenuOpcion: any;
+  info_perfil: Perfil;
+  formPerfil: any;
+  regPerfil: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
-    this.formPerfilXMenuOpcion = FORM_PERFIL_X_MENU_OPCION;
-    this.construirForm();
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.construirForm();
-    });
-    this.loadOptionsOpcion();
+  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService,
+     private utils: UtilidadesService) {
    }
-
-  construirForm() {
-    this.formPerfilXMenuOpcion.titulo = this.translate.instant('GLOBAL.perfil_x_menu_opcion');
-    this.formPerfilXMenuOpcion.btn = this.translate.instant('GLOBAL.guardar');
-    for (let i = 0; i < this.formPerfilXMenuOpcion.campos.length; i++) {
-      this.formPerfilXMenuOpcion.campos[i].label = this.translate.instant('GLOBAL.' + this.formPerfilXMenuOpcion.campos[i].label_i18n);
-      this.formPerfilXMenuOpcion.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' + this.formPerfilXMenuOpcion.campos[i].label_i18n);
-    }
-  }
 
   useLanguage(language: string) {
     this.translate.use(language);
   }
 
-  loadOptionsOpcion(): void {
-    let opcion: Array<any> = [];
-      this.configuracionService.get('menu_opcion/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            opcion = <Array<MenuOpcion>>res;
-          }
-          this.formPerfilXMenuOpcion.campos[ this.getIndexForm('Opcion') ].opciones = opcion;
-        });
-  }
-
-  getIndexForm(nombre: String): number {
-    for (let index = 0; index < this.formPerfilXMenuOpcion.campos.length; index++) {
-      const element = this.formPerfilXMenuOpcion.campos[index];
-      if (element.nombre === nombre) {
-        return index
-      }
-    }
-    return 0;
+  loadTreeMenu() {
+    // console.info(this.app);
+    this.configuracionService.get(`perfil_x_menu_opcion/MenusPorAplicacion/${this.info_perfil.Aplicacion.Id}`)
+      .subscribe(res => {
+        if (res !== null) {
+          this.nodesMenu = this.utils.translateTree(res);
+          this.treeModelMenu = this.treeComponentMenu.treeModel;
+          console.info(this.treeModelMenu);
+          // if (this.info_menu_opcion) {
+          //   if (this.info_menu_opcion.hasOwnProperty('Id')) {
+          //     this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible();
+          //   }
+          // }
+        }
+      });
   }
 
 
-  public loadPerfilXMenuOpcion(): void {
-    if (this.perfil_x_menu_opcion_id !== undefined && this.perfil_x_menu_opcion_id !== 0) {
-      this.configuracionService.get('perfil_x_menu_opcion/?query=id:' + this.perfil_x_menu_opcion_id)
+  loadTreeRol() {
+    // console.info(this.app);
+    this.configuracionService.get(`menu_opcion_padre/ArbolMenus/${this.info_perfil.Nombre}/${this.info_perfil.Aplicacion.Nombre}`)
+      .subscribe(res => {
+        if (res !== null) {
+          this.nodesRol = this.utils.translateTree(res);
+          this.treeModelRol = this.treeComponentRol.treeModel;
+          console.info(this.treeModelRol);
+          // if (this.info_menu_opcion) {
+          //   if (this.info_menu_opcion.hasOwnProperty('Id')) {
+          //     this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible();
+          //   }
+          // }
+        }
+      });
+  }
+
+
+  public loadPerfil(): void {
+    if (this.perfil_id !== undefined && this.perfil_id !== 0) {
+      this.configuracionService.get('perfil/?query=id:' + this.perfil_id)
         .subscribe(res => {
           if (res !== null) {
-            this.info_perfil_x_menu_opcion = <PerfilXMenuOpcion>res[0];
+            this.info_perfil = <Perfil>res[0];
+            this.loadTreeRol();
+            this.loadTreeMenu();
           }
         });
     } else  {
-      this.info_perfil_x_menu_opcion = undefined;
+      this.info_perfil = undefined;
       this.clean = !this.clean;
     }
   }
 
-  updatePerfilXMenuOpcion(perfilXMenuOpcion: any): void {
-
+  updatePerfil(perfil: any): void {
     const opt: any = {
       title: 'Update?',
-      text: 'Update PerfilXMenuOpcion!',
+      text: 'Update Perfil!',
       icon: 'warning',
       buttons: true,
       dangerMode: true,
@@ -102,52 +124,19 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
     Swal(opt)
     .then((willDelete) => {
       if (willDelete.value) {
-        this.info_perfil_x_menu_opcion = <PerfilXMenuOpcion>perfilXMenuOpcion;
-        this.configuracionService.put('perfil_x_menu_opcion', this.info_perfil_x_menu_opcion)
+        this.info_perfil = <Perfil>perfil;
+        this.configuracionService.put('perfil', this.info_perfil)
           .subscribe(res => {
-            this.loadPerfilXMenuOpcion();
+            this.loadPerfil();
             this.eventChange.emit(true);
-            this.showToast('info', 'updated', 'PerfilXMenuOpcion updated');
-          });
-      }
-    });
-  }
-
-  createPerfilXMenuOpcion(perfilXMenuOpcion: any): void {
-    const opt: any = {
-      title: 'Create?',
-      text: 'Create PerfilXMenuOpcion!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
-      showCancelButton: true,
-    };
-    Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_perfil_x_menu_opcion = <PerfilXMenuOpcion>perfilXMenuOpcion;
-        this.configuracionService.post('perfil_x_menu_opcion', this.info_perfil_x_menu_opcion)
-          .subscribe(res => {
-            this.info_perfil_x_menu_opcion = <PerfilXMenuOpcion>res;
-            this.eventChange.emit(true);
-            this.showToast('info', 'created', 'PerfilXMenuOpcion created');
+            this.showToast('info', 'updated', 'Perfil updated');
           });
       }
     });
   }
 
   ngOnInit() {
-    this.loadPerfilXMenuOpcion();
-  }
-
-  validarForm(event) {
-    if (event.valid) {
-      if (this.info_perfil_x_menu_opcion === undefined) {
-        this.createPerfilXMenuOpcion(event.data.PerfilXMenuOpcion);
-      } else {
-        this.updatePerfilXMenuOpcion(event.data.PerfilXMenuOpcion);
-      }
-    }
+    this.loadPerfil();
   }
 
   private showToast(type: string, title: string, body: string) {
@@ -170,5 +159,4 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
     };
     this.toasterService.popAsync(toast);
   }
-
 }

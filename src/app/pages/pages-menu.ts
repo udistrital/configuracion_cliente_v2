@@ -75,6 +75,12 @@ export const MENU_ITEMS: MenuItem[] = [
         link: '/pages/menu_opcion/list-menu_opcion',
         key: 'opciones',
       },
+      {
+        title: 'Configurar rol',
+        icon: 'nb-list',
+        link: '/pages/perfil_x_menu_opcion/list-perfil_x_menu_opcion',
+        key: 'configurar_rol',
+      },
     ],
   },
   {

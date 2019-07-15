@@ -9,6 +9,7 @@
   "MENU": {
     "menu": {
       "menu": "Menú",
+      "rol": "Rol",
       "opciones": "Opciones"
     },
     "aplicaciones": "Aplicaciones",
