@@ -8,14 +8,29 @@
       </nb-card-header>
       <nb-card-body>
         <div>
-          <tree-root #treeRol class="reverse" [nodes]="nodesRol" [options]="optionsRol" [focused]="true"></tree-root>
+          <tree-root #treeRol id="tree1" class="reverse" [nodes]="nodesRol" [options]="optionsRol" [focused]="true">
+            <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+              <div class="tree-node">
+                <input type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated(true)" />
+                <tree-node-expander [node]="node"></tree-node-expander>
+                <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.isActive"
+                  [class.node-content-wrapper-focused]="node.isFocused" (click)="node.toggleActivated(true); node.expandAll()">
+                  <span [class]="node.data.className" [class.title]="true">{{ node.data.Nombre }}</span>
+                </div>
+                <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+              </div>
+            </ng-template>
+          </tree-root>
+
         </div>
       </nb-card-body>
     </nb-card>
   </div>
   <div class="col-2 my-auto">
-    <button> Vincular</button><br>
-    <button>Desvincular </button>
+    <button (click)="vincular()" class="btn btn-info btn-block btn-sm"> <i class="nb-arrow-dropleft"></i>
+      Vincular</button>
+    <button (click)="desvincular()" class="btn btn-info btn-block btn-sm">
+      Desvincular<i class="nb-arrow-dropright"></i></button>
   </div>
   <div class="col-5" *ngIf="perfil_id">
     <nb-card [size]="'medium'">
@@ -24,7 +39,19 @@
       </nb-card-header>
       <nb-card-body>
         <div>
-          <tree-root #treeMenu class="reverse" [nodes]="nodesMenu" [options]="optionsMenu" [focused]="true"></tree-root>
+          <tree-root #treeMenu id="tree2" class="reverse" [nodes]="nodesMenu" [options]="optionsMenu" [focused]="true">
+            <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+              <div class="tree-node">
+                <input type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated(true); node.expandAll()" />
+                <tree-node-expander [node]="node"></tree-node-expander>
+                <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.isActive"
+                  [class.node-content-wrapper-focused]="node.isFocused" (click)="node.toggleActivated(true)">
+                  <span [class]="node.data.className" [class.title]="true">{{ node.data.Nombre }}</span>
+                </div>
+                <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+              </div>
+            </ng-template>
+          </tree-root>
         </div>
       </nb-card-body>
     </nb-card>

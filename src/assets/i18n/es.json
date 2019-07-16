@@ -9,7 +9,9 @@
   "MENU": {
     "menu": {
       "menu": "Menú",
-      "opciones": "Opciones"
+      "rol": "Rol",
+      "opciones": "Opciones",
+      "configurar_rol":"Rol"
     },
     "aplicaciones": "Aplicaciones",
     "roles": "Roles",

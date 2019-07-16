@@ -2,12 +2,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 import { Perfil } from '../../../@core/data/models/perfil';
 import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from 'angular-tree-component';
 import { UtilidadesService } from '../../../@core/utils/utilidades.service';
+import { from } from 'rxjs';
 
 
 @Component({
@@ -21,23 +22,32 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
 
   //tree rol
   treeModelRol: TreeModel;
+  treeNodeRol: TreeNode;
   nodesRol = [];
   treeRol: any = {};
   @ViewChild('treeRol') treeComponentRol: TreeComponent;
   optionsRol: ITreeOptions = {
     useCheckbox: true,
-    scrollContainer: <HTMLElement>document.body.parentElement
+    animateExpand: true,
+    idField: 'Id',
+    displayField: 'Nombre',
+    childrenField: 'Opciones',
   };
 
   //tree menu
   treeModelMenu: TreeModel;
+  treeNodeMenu: TreeNode;
   nodesMenu = [];
   treeMenu: any = {};
   @ViewChild('treeMenu') treeComponentMenu: TreeComponent;
   optionsMenu: ITreeOptions = {
     useCheckbox: true,
-    scrollContainer: <HTMLElement>document.body.parentElement
+    animateExpand: true,
+    idField: 'Id',
+    displayField: 'Nombre',
+    childrenField: 'Opciones',
   };
+  perfil_x_menu: any = [];
 
   @Input('perfil_id')
   set name(perfil_id: number) {
@@ -47,54 +57,89 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter();
 
-  info_perfil: Perfil;
+  info_perfil: any = {
+    Nombre: '',
+    Aplicacion: {
+      Nombre: '',
+    },
+  }
   formPerfil: any;
   regPerfil: any;
   clean: boolean;
 
   constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService,
-     private utils: UtilidadesService) {
-   }
+    private utils: UtilidadesService) {
+  }
 
   useLanguage(language: string) {
     this.translate.use(language);
   }
 
   loadTreeMenu() {
-    // console.info(this.app);
     this.configuracionService.get(`perfil_x_menu_opcion/MenusPorAplicacion/${this.info_perfil.Aplicacion.Id}`)
-      .subscribe(res => {
+      .subscribe((res: any) => {
         if (res !== null) {
-          this.nodesMenu = this.utils.translateTree(res);
+          this.nodesMenu = res;
           this.treeModelMenu = this.treeComponentMenu.treeModel;
-          console.info(this.treeModelMenu);
-          // if (this.info_menu_opcion) {
-          //   if (this.info_menu_opcion.hasOwnProperty('Id')) {
-          //     this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible();
-          //   }
-          // }
+          this.treeModelMenu.update();
         }
       });
+  }
+
+  loadPerfil_x_menu_opcion() {
+    this.configuracionService.get(`perfil_x_menu_opcion?query=Perfil.Aplicacion.Id:${this.info_perfil.Aplicacion.Id}&limit=-1`)
+      .subscribe((res: any[]) => {
+        if (res !== null) {
+          this.perfil_x_menu = res;
+        } else {
+          this.perfil_x_menu = [];
+        }
+      });
+  }
+
+  opcionEnRol(data: any) {
+    return (this.perfil_x_menu.filter((p) => (p.Perfil.Id === this.info_perfil.Id && p.Opcion.Id === data.Id)));
   }
 
 
   loadTreeRol() {
-    // console.info(this.app);
     this.configuracionService.get(`menu_opcion_padre/ArbolMenus/${this.info_perfil.Nombre}/${this.info_perfil.Aplicacion.Nombre}`)
-      .subscribe(res => {
+      .subscribe((res: any) => {
         if (res !== null) {
-          this.nodesRol = this.utils.translateTree(res);
+          this.nodesRol = res;
           this.treeModelRol = this.treeComponentRol.treeModel;
-          console.info(this.treeModelRol);
-          // if (this.info_menu_opcion) {
-          //   if (this.info_menu_opcion.hasOwnProperty('Id')) {
-          //     this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible();
-          //   }
-          // }
+          this.treeModelRol.update();
+          this.loadPerfil_x_menu_opcion()
+        } else {
+          this.treeModelRol.update();
         }
       });
   }
 
+  vincular() {
+    from(this.treeModelMenu.getActiveNodes())
+      .subscribe((nodo: TreeNode) => {
+        const opcion_rol = this.opcionEnRol((nodo.data));
+        if (opcion_rol.length === 0) {
+          this.configuracionService.post('perfil_x_menu_opcion', {
+            Perfil: this.info_perfil,
+            Opcion: nodo.data,
+          }).subscribe(() => (this.loadTreeRol()));
+        }
+      })
+  }
+
+  desvincular() {
+    from(this.treeModelRol.getActiveNodes())
+      .subscribe((nodo: TreeNode) => {
+        const opcion_rol = this.opcionEnRol((nodo.data))[0];
+        if (opcion_rol) {
+          this.configuracionService.delete('perfil_x_menu_opcion', opcion_rol).subscribe((data) => {
+            this.loadTreeRol();
+          });
+        }
+      })
+  }
 
   public loadPerfil(): void {
     if (this.perfil_id !== undefined && this.perfil_id !== 0) {
@@ -106,7 +151,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
             this.loadTreeMenu();
           }
         });
-    } else  {
+    } else {
       this.info_perfil = undefined;
       this.clean = !this.clean;
     }
@@ -122,17 +167,17 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_perfil = <Perfil>perfil;
-        this.configuracionService.put('perfil', this.info_perfil)
-          .subscribe(res => {
-            this.loadPerfil();
-            this.eventChange.emit(true);
-            this.showToast('info', 'updated', 'Perfil updated');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_perfil = <Perfil>perfil;
+          this.configuracionService.put('perfil', this.info_perfil)
+            .subscribe(res => {
+              this.loadPerfil();
+              this.eventChange.emit(true);
+              this.showToast('info', 'updated', 'Perfil updated');
+            });
+        }
+      });
   }
 
   ngOnInit() {
