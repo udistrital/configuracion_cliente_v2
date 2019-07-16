@@ -32,7 +32,6 @@ export class CrudMenuOpcionComponent implements OnInit {
     this.loadMenuOpcion();
   }
   treeModel: TreeModel;
-  firstNode: TreeNode;
 
   options: ITreeOptions = {
     scrollContainer: <HTMLElement>document.body.parentElement
