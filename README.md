@@ -1,4 +1,4 @@
-#Configuracion Cliente - Version 2
+# Configuracion Cliente - Version 2
 En este repositorio se define la tecnología que se renderizara del lado del cliente.
 Como componentes básicos cuenta con:
  * **ngxAdmin** ~ [link_documentación](https://github.com/akveo/ngx-admin)
@@ -39,6 +39,7 @@ Como componentes básicos cuenta con:
 
   ### Variables de entorno
   <details>  
+  
   - **Configuracion Local**
   ```typescript 
     export const environment = {
@@ -108,36 +109,39 @@ Como componentes básicos cuenta con:
 
   ### Comandos para correr configuracion_api
   <details> 
+  
   - **Local**
   ```shell 
-      CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=crud_user CONFIGURACION_API_DB_PASS=password CONFIGURACION_API_DB_URL=10.20.0.159 CONFIGURACION_API_DB_NAME=udistrital_core_db CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE=http://localhost:8088/v1/ NOTIFICACION_SERVICE=http://localhost:8080/api/ bee run
+CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=crud_user CONFIGURACION_API_DB_PASS=password CONFIGURACION_API_DB_URL=10.20.0.159 CONFIGURACION_API_DB_NAME=udistrital_core_db CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE=http://localhost:8088/v1/ NOTIFICACION_SERVICE=http://localhost:8080/api/ bee run
   ```
   - **Test**
   ```shell 
-      CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=crud_user CONFIGURACION_API_DB_PASS=password CONFIGURACION_API_DB_URL=10.20.0.159 CONFIGURACION_API_DB_NAME=udistrital_core_db CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE= http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1/ NOTIFICACION_SERVICE=http://pruebasapi.intranetoas.udistrital.edu.co:8116/api/ bee run
+CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=crud_user CONFIGURACION_API_DB_PASS=password CONFIGURACION_API_DB_URL=10.20.0.159 CONFIGURACION_API_DB_NAME=udistrital_core_db CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE= http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1/ NOTIFICACION_SERVICE=http://pruebasapi.intranetoas.udistrital.edu.co:8116/api/ bee run
   ```
   - **254**
   ```shell 
-      CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=crud_user CONFIGURACION_API_DB_PASS=password CONFIGURACION_API_DB_URL=10.20.0.159 CONFIGURACION_API_DB_NAME=udistrital_core_db CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE=http://10.20.0.254/configuracion_api/v1/ NOTIFICACION_SERVICE=http://10.20.0.254/notificacionws/api/ bee run
+CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=crud_user CONFIGURACION_API_DB_PASS=password CONFIGURACION_API_DB_URL=10.20.0.159 CONFIGURACION_API_DB_NAME=udistrital_core_db CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE=http://10.20.0.254/configuracion_api/v1/ NOTIFICACION_SERVICE=http://10.20.0.254/notificacionws/api/ bee run
   ```
   - **Flyway(BD) + Local(Apis)**
   ```shell 
-      CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=test CONFIGURACION_API_DB_PASS=test CONFIGURACION_API_DB_URL=localhost CONFIGURACION_API_DB_NAME=test CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE=http://localhost:8088/v1/ NOTIFICACION_SERVICE=http://localhost:8080/api/ bee run
+CONFIGURACION_API_HTTP_PORT=8088 CONFIGURACION_API_DB_USER=test CONFIGURACION_API_DB_PASS=test CONFIGURACION_API_DB_URL=localhost CONFIGURACION_API_DB_NAME=test CONFIGURACION_API_DB_SCHEMA=configuracion CONFIGURACION_SERVICE=http://localhost:8088/v1/ NOTIFICACION_SERVICE=http://localhost:8080/api/ bee run
   ```
   </details>
+  
   ### Comandos para correr notificacion_api
   <details> 
+  
   - **Local**
   ```shell
-      CONFIGURACION_SERVICE=http://localhost:8088/v1/ bee run
+CONFIGURACION_SERVICE=http://localhost:8088/v1/ bee run
   ```
   - **Test**
-  ```shell 
-      CONFIGURACION_SERVICE= http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1/ bee run
+  ```shell
+CONFIGURACION_SERVICE= http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1/ bee run
   ```
   - **254**
   ```shell 
-      CONFIGURACION_SERVICE=http://10.20.0.254/configuracion_api/v1/ bee run
+CONFIGURACION_SERVICE=http://10.20.0.254/configuracion_api/v1/ bee run
   ```
   </details>
 </details>
