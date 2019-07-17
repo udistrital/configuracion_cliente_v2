@@ -45,19 +45,15 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         Notificacion: {
           title: this.translate.instant('GLOBAL.notificacion'),
           // type: 'notificacion;',
           valuePrepareFunction: (value) => {
             return value.CuerpoNotificacion;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.CuerpoNotificacion).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         NotificacionEstado: {
           title: this.translate.instant('GLOBAL.notificacion_estado'),
@@ -65,6 +61,9 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         Fecha: {
           title: this.translate.instant('GLOBAL.fecha'),

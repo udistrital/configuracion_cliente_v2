@@ -7,16 +7,7 @@ export let FORM_MENU_OPCION_PADRE = {
     modelo: 'MenuOpcionPadre',
     campos: [
     {
-        etiqueta: 'input',
-        claseGrid: 'col-6',
-        nombre: 'Id',
-        label_i18n: 'id',
-        placeholder_i18n: 'id',
-        requerido: true,
-        tipo: 'number',
-    },
-    {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'Padre',
         label_i18n: 'padre',
@@ -27,7 +18,7 @@ export let FORM_MENU_OPCION_PADRE = {
         opciones: [],
     },
     {
-        etiqueta: 'selectmultiple',
+        etiqueta: 'select',
         claseGrid: 'col-6',
         nombre: 'Hijo',
         label_i18n: 'hijo',

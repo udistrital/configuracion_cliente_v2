@@ -86,6 +86,9 @@ export class ListMenuOpcionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         TipoOpcion: {
           title: this.translate.instant('GLOBAL.tipo_opcion'),

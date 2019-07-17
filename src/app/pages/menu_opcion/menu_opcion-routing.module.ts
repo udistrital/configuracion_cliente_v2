@@ -5,7 +5,6 @@ import { ListMenuOpcionComponent } from './list-menu_opcion/list-menu_opcion.com
 import { CrudMenuOpcionComponent } from './crud-menu_opcion/crud-menu_opcion.component';
 
 
-
 const routes: Routes = [{
   path: '',
   component: MenuOpcionComponent,

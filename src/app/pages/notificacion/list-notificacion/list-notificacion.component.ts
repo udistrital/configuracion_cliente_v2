@@ -45,13 +45,6 @@ export class ListNotificacionComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         FechaCreacion: {
           title: this.translate.instant('GLOBAL.fecha_creacion'),
           // type: 'Date;',
@@ -72,6 +65,9 @@ export class ListNotificacionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.EndPoint;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
       },
     };

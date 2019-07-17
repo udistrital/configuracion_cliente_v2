@@ -14,7 +14,7 @@ export let FORM_NOTIFICACION_ESTADO_USUARIO = {
         placeholder_i18n: 'notificacion',
         requerido: true,
         tipo: 'Notificacion',
-        // key: 'Name',
+        key: 'CuerpoNotificacion',
         opciones: [],
     },
     {
@@ -25,7 +25,7 @@ export let FORM_NOTIFICACION_ESTADO_USUARIO = {
         placeholder_i18n: 'notificacion_estado',
         requerido: true,
         tipo: 'NotificacionEstado',
-        // key: 'Name',
+        key: 'Nombre',
         opciones: [],
     },
     {

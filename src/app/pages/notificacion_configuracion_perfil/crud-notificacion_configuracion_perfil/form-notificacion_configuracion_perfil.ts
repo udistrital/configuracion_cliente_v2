@@ -14,7 +14,7 @@ export let FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
         placeholder_i18n: 'notificacion_configuracion',
         requerido: true,
         tipo: 'NotificacionConfiguracion',
-        // key: 'Name',
+        key: 'EndPoint',
         opciones: [],
     },
     {
@@ -25,7 +25,7 @@ export let FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
         placeholder_i18n: 'perfil',
         requerido: true,
         tipo: 'Perfil',
-        // key: 'Name',
+        key: 'Nombre',
         opciones: [],
     },
     ],

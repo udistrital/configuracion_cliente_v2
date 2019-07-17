@@ -23,7 +23,7 @@ export let FORM_PERFIL = {
         placeholder_i18n: 'aplicacion',
         requerido: true,
         tipo: 'Aplicacion',
-        // key: 'Name',
+        key: 'Nombre',
         opciones: [],
     },
     ],

@@ -45,13 +45,6 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         EndPoint: {
           title: this.translate.instant('GLOBAL.end_point'),
           // type: 'string;',
@@ -65,6 +58,9 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         Tipo: {
           title: this.translate.instant('GLOBAL.tipo'),
@@ -72,6 +68,9 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         CuerpoNotificacion: {
           title: this.translate.instant('GLOBAL.cuerpo_notificacion'),
@@ -86,6 +85,9 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
       },
     };

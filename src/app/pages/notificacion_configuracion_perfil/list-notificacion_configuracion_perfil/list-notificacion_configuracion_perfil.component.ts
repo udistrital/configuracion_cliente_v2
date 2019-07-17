@@ -45,19 +45,15 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         NotificacionConfiguracion: {
           title: this.translate.instant('GLOBAL.notificacion_configuracion'),
           // type: 'notificacion_configuracion;',
           valuePrepareFunction: (value) => {
             return value.EndPoint;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
         Perfil: {
           title: this.translate.instant('GLOBAL.perfil'),
@@ -65,6 +61,9 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean =>  {          
+            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
+          }
         },
       },
     };

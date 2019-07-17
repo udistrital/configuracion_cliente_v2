@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { AutenticationService } from '../@core/utils/autentication.service';
-import { ImplicitAutenticationService } from '../@core/utils/implicit_autentication.service';
 import { SharedModule } from '../shared/shared.module';
-import { DocumentoService } from '../@core/data/documento.service';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 
@@ -122,7 +120,6 @@ import {
   TinyMCEComponent,
   DinamicformComponent,
   SelectComponent,
-  NuxeoComponent,
   ThemeSwitcherListComponent,
   LoadingComponent,
 } from './components';
@@ -177,7 +174,6 @@ const COMPONENTS = [
   TwoColumnsLayoutComponent,
   DinamicformComponent,
   SelectComponent,
-  NuxeoComponent,
   LoadingComponent,
 ];
 
@@ -216,9 +212,7 @@ export class ThemeModule {
     return <ModuleWithProviders>{
       ngModule: ThemeModule,
       providers: [...NB_THEME_PROVIDERS,
-        ImplicitAutenticationService,
-        ConfiguracionService,
-        DocumentoService],
+        ConfiguracionService],
     };
   }
 }

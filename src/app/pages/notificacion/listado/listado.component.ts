@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-listado',
@@ -17,7 +18,7 @@ export class ListadoComponent {
   searchTerm$ = new Subject<string>();
 
   notificaciones: any;
-  constructor(private notificacionService: NotificacionesService) {
+  constructor(private notificacionService: NotificacionesService,    private router: Router) {
     this.notificaciones = [];
     this.notificacionService.arrayMessages$
       .subscribe((notification: any) => {
@@ -39,6 +40,10 @@ export class ListadoComponent {
     const array = []
     array.push(this.notificacionService.listMessage.filter(notify => notify.Content.Message.indexOf(term) !== -1));
     return array
+  }
+
+  redirect(content: any) {
+    this.router.navigate([content.link]);
   }
 
 }

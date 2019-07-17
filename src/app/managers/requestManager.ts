@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { GENERAL } from '../app-config';
+import { environment } from '../../environments/environment';
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -29,11 +29,11 @@ export class RequestManager {
 
 
   /**
-   * Use for set the source path of the service (service's name must be present at src/app/app-config.ts)
+   * Use for set the source path of the service (service's name must be present at src/environment/environment.ts)
    * @param service: string
    */
   setPath(service: string) {
-    this.path = GENERAL.ENTORNO[service]
+    this.path = environment[service]
   }
 
 
