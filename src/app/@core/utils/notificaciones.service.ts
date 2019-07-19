@@ -40,7 +40,7 @@ export class NotificacionesService {
     }
 
     getNotificaciones() {
-        this.noNotifySubject.next(this.listMessage.length);
+        this.noNotifySubject.next((this.listMessage.filter( data => data.Estado === "Enviada")).length)
         this.arrayMessagesSubject.next(this.listMessage);
     }
 

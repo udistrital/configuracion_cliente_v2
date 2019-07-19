@@ -42,7 +42,7 @@ export class HeaderComponent {
     this.notificacionService.arrayMessages$
       .subscribe((notification: any) => {
         const temp = notification.map((notify: any) => {
-          return { title: notify.Content.Message, icon: 'fa fa-commenting-o' }
+          return { title: notify.Content.Message, icon: 'fa fa-commenting-o'}
         });
         this.userMenu = [...temp.slice(0, 7), ...[{ title: 'ver todas', icon: 'fa fa-list' }]];
       });
@@ -69,6 +69,7 @@ export class HeaderComponent {
 
   changeStateNoView(): void {
     this.notificacionService.changeStateNoView(this.username)
+    this.router.navigate(['/pages/notificacion/listado']);
   }
 
   logout() {
