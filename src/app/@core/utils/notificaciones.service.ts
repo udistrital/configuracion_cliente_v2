@@ -24,6 +24,7 @@ export class NotificacionesService {
     private arrayMessagesSubject = new Subject();
     public arrayMessages$ = this.arrayMessagesSubject.asObservable();
     private autenticacion= new ImplicitAutenticationService;
+    roles: any;
 
 
     constructor(
@@ -33,7 +34,8 @@ export class NotificacionesService {
         this.listMessage = [];
         this.connect();
         if (this.autenticacion.live()) {
-            this.queryNotification('ADMIN_CAMPUS');
+            this.roles = (JSON.parse(atob(localStorage.getItem("id_token").split(".")[1])).role).map((data: any) => (data.replace("/", "_")));
+            this.queryNotification();
         }
     }
 
@@ -45,12 +47,14 @@ export class NotificacionesService {
     connect() {
         if (this.autenticacion.live()) {
             this.payload = this.autenticacion.getPayload();
-            this.messagesSubject = webSocket(`${CHAT_URL}?id=${this.payload.sub}&profiles=ADMIN_CAMPUS`);
+            this.roles = (JSON.parse(atob(localStorage.getItem("id_token").split(".")[1])).role).map((data: any) => (data.replace("/", "_")));
+            this.messagesSubject = webSocket(`${CHAT_URL}?id=${this.payload.sub}&profiles=${this.roles}`);
             this.messagesSubject
                 .pipe(
                     map((msn) => {
+                        
                         this.listMessage = [...[msn], ...this.listMessage];
-                        this.noNotifySubject.next(this.listMessage.length);
+                        this.noNotifySubject.next((this.listMessage.filter( data => data.Estado === "Enviada")).length);
                         this.arrayMessagesSubject.next(this.listMessage);
                         return msn
                     }),
@@ -72,26 +76,38 @@ export class NotificacionesService {
 
     addMessage(message) {
         this.listMessage = [...[message], ...this.listMessage];
-        this.noNotifySubject.next(this.listMessage.length);
+        this.noNotifySubject.next((this.listMessage.filter( data => data.Estado === "Enviada")).length);
         this.arrayMessagesSubject.next(this.listMessage);
         console.info(this.listMessage)
     }
 
-    queryNotification(profile) {
+    changeStateNoView(user) {
+        if(this.listMessage.filter( data => data.Estado === "Enviada").length >= 1){
+            this.confService.post('notificacion_estado_usuario/changeStateNoView/'+ user, {})
+              .subscribe(res => {
+                this.listMessage = [];
+                this.queryNotification();
+              });
+        }
+      }
+
+    queryNotification() {
         this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.payload.sub + ',Activo:true&sortby=id&order=asc&limit=-1')
             .subscribe((resp: any) => {
                 if (resp !== null) {
                     from(resp)
                         .subscribe((notify: any) => {
-                            const message = {
-                                Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
-                                Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
-                                User: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Nombre,
-                                FechaCreacion: new Date(notify.Notificacion.FechaCreacion),
-                                FechaEdicion: new Date(notify.Fecha),
-                                Estado: notify.NotificacionEstado.CodigoAbreviacion,
-                            };
-                            this.addMessage(message);
+                            if(typeof notify.Notificacion !== "undefined"){
+                                const message = {
+                                    Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
+                                    Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
+                                    User: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Nombre,
+                                    FechaCreacion: new Date(notify.Notificacion.FechaCreacion),
+                                    FechaEdicion: new Date(notify.Fecha),
+                                    Estado: notify.NotificacionEstado.CodigoAbreviacion,
+                                };
+                                this.addMessage(message);
+                            }
                         });
                 }
 

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
+import { userInfo } from 'os';
 
 
 @Component({
@@ -66,7 +67,9 @@ export class HeaderComponent {
     }
   }
 
-
+  changeStateNoView(): void {
+    this.notificacionService.changeStateNoView(this.username)
+  }
 
   logout() {
     this.autenticacion.logout();
