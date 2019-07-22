@@ -5,7 +5,7 @@
  */
 
 export const environment = {
-  production: false,
+  production: true,
   NUXEO: {
     PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },

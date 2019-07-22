@@ -14,7 +14,7 @@ import { ImplicitAutenticationService } from './../@core/utils/implicit_autentic
   selector: 'ngx-pages',
   template: `
     <ngx-sample-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu [items]='menu'></nb-menu>
       <router-outlet></router-outlet>
     </ngx-sample-layout>
   `,
@@ -38,7 +38,7 @@ export class PagesComponent implements OnInit {
 
   ngOnInit() {
     if (!this.autenticacion.live()) {
-      this.roles = (JSON.parse(atob(localStorage.getItem("id_token").split(".")[1])).role).map((data: any) => (data.replace("/", "_")));
+      this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
       this.menuws.get(this.roles + '/configuracionv2').subscribe(
         data => {
           this.dataMenu = <any>data;
