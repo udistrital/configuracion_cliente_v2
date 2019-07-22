@@ -69,7 +69,6 @@ export class HeaderComponent {
 
   changeStateNoView(): void {
     this.notificacionService.changeStateNoView(this.username)
-    this.router.navigate(['/pages/notificacion/listado']);
   }
 
   logout() {
@@ -78,12 +77,13 @@ export class HeaderComponent {
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
+    this.sidebarService.toggle(false, 'test');
     return false;
   }
 
-  toggleSettings(): boolean {
-    this.sidebarService.toggle(false, 'settings-sidebar');
+  toggleNotifications(): boolean {
+    this.sidebarService.toggle(false, 'notifications-sidebar');
+    this.changeStateNoView()
     return false;
   }
 

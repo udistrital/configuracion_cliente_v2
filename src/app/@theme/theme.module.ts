@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
+import { MomentModule } from 'ngx-moment';
 
 import {
   MatAutocompleteModule,
@@ -105,6 +106,7 @@ import {
   NbCheckboxModule,
   NbPopoverModule,
   NbContextMenuModule,
+  
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -122,6 +124,7 @@ import {
   SelectComponent,
   ThemeSwitcherListComponent,
   LoadingComponent,
+  ListadoComponent,
 } from './components';
 
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
@@ -175,6 +178,7 @@ const COMPONENTS = [
   DinamicformComponent,
   SelectComponent,
   LoadingComponent,
+  ListadoComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -202,7 +206,7 @@ const NB_THEME_PROVIDERS = [
 
 
 @NgModule({
-  imports: [...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES],
+  imports: [...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES,MomentModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],
   declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent],
   entryComponents: [...ENTRY_COMPONENTS],
