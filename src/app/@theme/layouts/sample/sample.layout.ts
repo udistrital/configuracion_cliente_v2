@@ -27,7 +27,6 @@ import { StateService } from '../../../@core/data/state.service';
                    [end]="sidebar.id === 'end'">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
-
       <nb-layout-column class="main-content">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
@@ -44,12 +43,12 @@ import { StateService } from '../../../@core/data/state.service';
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
 
-      <nb-sidebar class="settings-sidebar"
-                   tag="settings-sidebar"
+      <nb-sidebar class="notifications-sidebar"
+                   tag="notifications-sidebar"
                    state="collapsed"
                    fixed
                    [end]="sidebar.id !== 'end'">
-        <ngx-theme-settings></ngx-theme-settings>
+                   <ngx-listado></ngx-listado>
       </nb-sidebar>
     </nb-layout>
   `,

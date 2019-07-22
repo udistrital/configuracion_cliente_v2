@@ -40,7 +40,7 @@ export class NotificacionesService {
     }
 
     getNotificaciones() {
-        this.noNotifySubject.next(this.listMessage.length);
+        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === "Enviada")).length)
         this.arrayMessagesSubject.next(this.listMessage);
     }
 
@@ -83,19 +83,28 @@ export class NotificacionesService {
 
     addMessage(message) {
         this.listMessage = [...[message], ...this.listMessage];
-        this.noNotifySubject.next(this.listMessage.length);
+        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === "Enviada")).length);
         this.arrayMessagesSubject.next(this.listMessage);
         console.info(this.listMessage)
     }
 
+    changeStateNoView(user) {
+        if (this.listMessage.filter(data => data.Estado === "Enviada").length >= 1) {
+            this.confService.post('notificacion_estado_usuario/changeStateNoView/' + user, {})
+                .subscribe(res => {
+                    this.listMessage = [];
+                    this.queryNotification();
+                });
+        }
+    }
+
     queryNotification() {
-        if (this.autenticacion.live()) {
-            this.payload = this.autenticacion.getPayload();
-            this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.payload.sub + ',Activo:true&sortby=id&order=asc&limit=-1')
-                .subscribe((resp: any) => {
-                    if (resp !== null) {
-                        from(resp)
-                            .subscribe((notify: any) => {
+        this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.payload.sub + ',Activo:true&sortby=id&order=asc&limit=-1')
+            .subscribe((resp: any) => {
+                if (resp !== null) {
+                    from(resp)
+                        .subscribe((notify: any) => {
+                            if (typeof notify.Notificacion !== "undefined") {
                                 const message = {
                                     Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
                                     Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
@@ -105,12 +114,11 @@ export class NotificacionesService {
                                     Estado: notify.NotificacionEstado.CodigoAbreviacion,
                                 };
                                 this.addMessage(message);
-                            });
-                    }
+                            }
+                        });
+                }
 
-                });
-
-        }
+            });
 
     }
 
