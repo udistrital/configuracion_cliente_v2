@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotificacionComponent } from './notificacion.component';
 import { ListNotificacionComponent } from './list-notificacion/list-notificacion.component';
 import { CrudNotificacionComponent } from './crud-notificacion/crud-notificacion.component';
-import { ListadoComponent } from './listado/listado.component';
 
 
 const routes: Routes = [{
@@ -15,10 +14,7 @@ const routes: Routes = [{
   }, {
     path: 'crud-notificacion',
     component: CrudNotificacionComponent,
-  }, {
-    path: 'listado',
-    component: ListadoComponent,
-  }],
+  },],
 }];
 
 @NgModule({
@@ -33,7 +29,6 @@ const routes: Routes = [{
 export class NotificacionRoutingModule { }
 
 export const routedComponents = [
-  ListadoComponent,
   NotificacionComponent,
   ListNotificacionComponent,
   CrudNotificacionComponent,

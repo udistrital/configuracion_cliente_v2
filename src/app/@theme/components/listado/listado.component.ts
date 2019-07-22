@@ -38,7 +38,7 @@ export class ListadoComponent {
 
   searchEntries(term) {
     const array = []
-    array.push(this.notificacionService.listMessage.filter(notify => notify.Content.Message.indexOf(term) !== -1));
+    array.push(this.notificacionService.listMessage.filter(notify => notify.Content.Message.indexOf(term) !== -1 || notify.User.indexOf(term) !== -1));
     return array
   }
 

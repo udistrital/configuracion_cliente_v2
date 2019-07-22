@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
+import { userInfo } from 'os';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class HeaderComponent {
     this.notificacionService.arrayMessages$
       .subscribe((notification: any) => {
         const temp = notification.map((notify: any) => {
-          return { title: notify.Content.Message, icon: 'fa fa-commenting-o' }
+          return { title: notify.Content.Message, icon: 'fa fa-commenting-o'}
         });
         this.userMenu = [...temp.slice(0, 7), ...[{ title: 'ver todas', icon: 'fa fa-list' }]];
       });
@@ -66,7 +67,9 @@ export class HeaderComponent {
     }
   }
 
-
+  changeStateNoView(): void {
+    this.notificacionService.changeStateNoView(this.username)
+  }
 
   logout() {
     this.autenticacion.logout();
@@ -74,12 +77,13 @@ export class HeaderComponent {
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
+    this.sidebarService.toggle(false, 'test');
     return false;
   }
 
-  toggleSettings(): boolean {
-    this.sidebarService.toggle(false, 'settings-sidebar');
+  toggleNotifications(): boolean {
+    this.sidebarService.toggle(false, 'notifications-sidebar');
+    this.changeStateNoView()
     return false;
   }
 
