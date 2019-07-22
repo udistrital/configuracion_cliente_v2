@@ -192,7 +192,7 @@ const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
       // name: 'default',
-      name: 'ud',
+      name: 'corporate',
     },
     [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, UD_THEME ],
   ).providers,
