@@ -55,11 +55,9 @@ export class NotificacionesService {
             this.messagesSubject = webSocket(`${NOTIFICACION_SERVICE}?id=${this.payload.sub}&profiles=${this.roles}`);
             this.messagesSubject
                 .pipe(
-                    debounceTime(3000),
-                    distinctUntilChanged(),
                     map((msn) => {
                         if (msn.Estado === 'conected') {
-                            this.send_ping()
+                            this.send_ping();
                         } else {
                             this.listMessage = [...[msn], ...this.listMessage];
                             this.noNotifySubject.next(this.listMessage.length);
@@ -72,7 +70,7 @@ export class NotificacionesService {
                     (msg: any) => this.send_ping(),
                     err => {
                         console.info(err);
-                        this.connect();
+                        // this.connect();
                     },
                     () => console.info('complete'),
                 );
