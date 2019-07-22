@@ -40,7 +40,7 @@ export class NotificacionesService {
     }
 
     getNotificaciones() {
-        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === "Enviada")).length)
+        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'Enviada')).length)
         this.arrayMessagesSubject.next(this.listMessage);
     }
 
@@ -83,13 +83,13 @@ export class NotificacionesService {
 
     addMessage(message) {
         this.listMessage = [...[message], ...this.listMessage];
-        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === "Enviada")).length);
+        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'Enviada')).length);
         this.arrayMessagesSubject.next(this.listMessage);
         console.info(this.listMessage)
     }
 
     changeStateNoView(user) {
-        if (this.listMessage.filter(data => data.Estado === "Enviada").length >= 1) {
+        if (this.listMessage.filter(data => data.Estado === 'Enviada').length >= 1) {
             this.confService.post('notificacion_estado_usuario/changeStateNoView/' + user, {})
                 .subscribe(res => {
                     this.listMessage = [];
@@ -104,11 +104,13 @@ export class NotificacionesService {
                 if (resp !== null) {
                     from(resp)
                         .subscribe((notify: any) => {
-                            if (typeof notify.Notificacion !== "undefined") {
+                            if (typeof notify.Notificacion !== 'undefined') {
                                 const message = {
                                     Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
                                     Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
                                     User: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Nombre,
+                                    Alias: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Alias,
+                                    EstiloIcono: notify.Notificacion.NotificacionConfiguracion.Aplicacion.EstiloIcono,
                                     FechaCreacion: new Date(notify.Notificacion.FechaCreacion),
                                     FechaEdicion: new Date(notify.Fecha),
                                     Estado: notify.NotificacionEstado.CodigoAbreviacion,

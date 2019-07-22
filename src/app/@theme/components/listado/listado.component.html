@@ -12,8 +12,8 @@
   <nb-card-body>
     <mat-list>
       <mat-list-item *ngFor="let notificacion of notificaciones" (click)="redirect(notificacion.Content)">
-        <img matListAvatar src="assets/images/polux.png" [alt]="notificacion.User">
-        <h3 matLine> {{notificacion.User}} </h3>
+        <img matListAvatar  class="menu-app" [id]="notificacion.EstiloIcono">
+        <h3 matLine> {{notificacion.Alias}} </h3>
         <h4 matLine>
           {{notificacion.Content.Message}}
         </h4>
