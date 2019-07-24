@@ -5,6 +5,7 @@ import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-t
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ngx-list-notificacion-estado-usuario',
@@ -69,7 +70,7 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
           title: this.translate.instant('GLOBAL.fecha'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
-            return value;
+            return moment(value).format('MM/DD/YYYY');
           },
         },
         Usuario: {
