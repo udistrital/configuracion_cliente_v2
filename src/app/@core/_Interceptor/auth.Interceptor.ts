@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { tap } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
-import { NbToastrService } from '@nebular/theme';
 import { PopUpManager } from '../../managers/popUpManager'
 import { TranslateService } from '@ngx-translate/core';
 
@@ -20,14 +18,18 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
     const acces_token = window.localStorage.getItem('access_token');
+    if (acces_token !== null) {
 
-    if (acces_token) {
+      const authReq = req.clone({
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${acces_token}`,
+        }),
+      });
+
       // Clone the request and replace the original headers with
       // cloned headers, updated with the authorization.
-      const authToken = 'Bearer ' + acces_token;
-      const authReq = req.clone({
-        headers: req.headers.set('Authorization', authToken),
-      });
+
       // send cloned request with header to the next handler.
       return next.handle(authReq).pipe(
         tap(event => {

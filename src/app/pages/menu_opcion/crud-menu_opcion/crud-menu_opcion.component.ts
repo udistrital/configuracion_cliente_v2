@@ -187,7 +187,7 @@ export class CrudMenuOpcionComponent implements OnInit {
           this.info_menu_opcion = <MenuOpcion>menuOpcion;
           this.configuracionService.post('menu_opcion', this.info_menu_opcion)
             .subscribe(res => {
-              this.info_menu_opcion = <MenuOpcion>res;
+              this.info_menu_opcion = <MenuOpcion><unknown>res;
               console.info(res);
               if (nodeSelected !== null) {
                 const relacion = {

@@ -140,7 +140,7 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
         this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>notificacionEstadoUsuario;
         this.configuracionService.post('notificacion_estado_usuario', this.info_notificacion_estado_usuario)
           .subscribe(res => {
-            this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>res;
+            this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'NotificacionEstadoUsuario created');
           });

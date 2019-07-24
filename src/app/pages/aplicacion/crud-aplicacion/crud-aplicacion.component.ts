@@ -116,7 +116,7 @@ export class CrudAplicacionComponent implements OnInit {
         this.info_aplicacion = <Aplicacion>aplicacion;
         this.configuracionService.post('aplicacion', this.info_aplicacion)
           .subscribe(res => {
-            this.info_aplicacion = <Aplicacion>res;
+            this.info_aplicacion = <Aplicacion><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'Aplicacion created');
           });
