@@ -32,7 +32,7 @@ export class RequestManager {
    * Use for set the source path of the service (service's name must be present at src/environment/environment.ts)
    * @param service: string
    */
-  setPath(service: string) {
+  public setPath(service: string) {
     this.path = environment[service]
   }
 
@@ -43,19 +43,16 @@ export class RequestManager {
    * @param params (an Key, Value object with que query params for the request)
    * @returns Observable<any>
    */
-  get(endpoint, params?) {
-    const queryParams = new HttpParams();
-    if (params) {
-      for (const [key, value] of Object.entries(params)) {
-        queryParams.append(key, value + '');
-      }
+  get(endpoint) {
 
-    }
-    this.httpOptions.params = queryParams;
     return this.http.get<any>(`${this.path}${endpoint}`, this.httpOptions).pipe(
       map(
         (res) => {
-          return res['Body'];
+          if (res.hasOwnProperty('Body')) {
+            return res['Body'];
+          } else {
+            return res;
+          }
         },
       ),
       catchError(this.errManager.handleError.bind(this)),

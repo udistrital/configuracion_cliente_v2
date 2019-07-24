@@ -140,7 +140,7 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
         this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>notificacionConfiguracionPerfil;
         this.configuracionService.post('notificacion_configuracion_perfil', this.info_notificacion_configuracion_perfil)
           .subscribe(res => {
-            this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>res;
+            this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'NotificacionConfiguracionPerfil created');
           });
