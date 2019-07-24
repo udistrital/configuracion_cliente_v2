@@ -139,7 +139,7 @@ export class CrudMenuOpcionPadreComponent implements OnInit {
         this.info_menu_opcion_padre = <MenuOpcionPadre>menuOpcionPadre;
         this.configuracionService.post('menu_opcion_padre', this.info_menu_opcion_padre)
           .subscribe(res => {
-            this.info_menu_opcion_padre = <MenuOpcionPadre>res;
+            this.info_menu_opcion_padre = <MenuOpcionPadre><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'MenuOpcionPadre created');
           });

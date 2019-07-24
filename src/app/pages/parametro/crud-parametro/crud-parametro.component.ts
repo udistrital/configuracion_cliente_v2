@@ -129,7 +129,7 @@ export class CrudParametroComponent implements OnInit {
         this.info_parametro = <Parametro>parametro;
         this.configuracionService.post('parametro', this.info_parametro)
           .subscribe(res => {
-            this.info_parametro = <Parametro>res;
+            this.info_parametro = <Parametro><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'Parametro created');
           });
