@@ -11,15 +11,15 @@
   </nb-card-header>
   <nb-card-body>
     <mat-list>
-      <mat-list-item *ngFor="let notificacion of notificaciones" (click)="redirect(notificacion.Content)">
-        <img matListAvatar  class="menu-app" [id]="notificacion.EstiloIcono">
-        <h3 matLine> {{notificacion.Alias}} </h3>
-        <h4 matLine>
-          {{notificacion.Content.Message}}
-        </h4>
-        <h4 matLine>
-          {{notificacion.FechaCreacion | amLocale:'es' | amTimeAgo:true }}
-        </h4>
+      <mat-list-item *ngFor="let notificacion of notificaciones" (click)="redirect(notificacion.Content.Message.Link,notificacion.Id)" [id]="notificacion.Estado">
+          <img matListAvatar  class="menu-app" [id]="notificacion.EstiloIcono">
+          <h3 matLine> {{notificacion.Alias}} </h3>
+          <h4 matLine>
+            {{notificacion.Content.Message.Message}}
+          </h4>
+          <h4 matLine>
+            {{notificacion.FechaCreacion | amLocale:'es' | amTimeAgo:true }}
+          </h4>
       </mat-list-item>
     </mat-list>
   </nb-card-body>

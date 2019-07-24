@@ -7,6 +7,7 @@ import { webSocket } from 'rxjs/webSocket';
 import { map } from 'rxjs-compat/operators/map';
 import { ImplicitAutenticationService } from './implicit_autentication.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NotificacionEstadoUsuario } from '../data/models/notificacion_estado_usuario';
 
 const { NOTIFICACION_SERVICE, production } = environment;
 
@@ -18,6 +19,7 @@ export class NotificacionesService {
 
     public listMessage: any;
     public payload: any;
+    private notificacion_estado_usuario: any
 
     private noNotifySubject = new Subject();
     public noNotify$ = this.noNotifySubject.asObservable();
@@ -33,6 +35,7 @@ export class NotificacionesService {
         private confService: ConfiguracionService,
     ) {
         this.listMessage = [];
+        this.notificacion_estado_usuario = []
         this.connect();
         if (this.autenticacion.live()) {
             this.queryNotification();
@@ -40,8 +43,12 @@ export class NotificacionesService {
     }
 
     getNotificaciones() {
-        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'Enviada')).length)
+        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'enviada')).length)
         this.arrayMessagesSubject.next(this.listMessage);
+    }
+
+    getNotificacionEstadoUsuario(id) {
+       return this.notificacion_estado_usuario.filter(data => data.Id === id)
     }
 
     send_ping() {
@@ -83,13 +90,13 @@ export class NotificacionesService {
 
     addMessage(message) {
         this.listMessage = [...[message], ...this.listMessage];
-        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'Enviada')).length);
+        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'enviada')).length);
         this.arrayMessagesSubject.next(this.listMessage);
         console.info(this.listMessage)
     }
 
     changeStateNoView(user) {
-        if (this.listMessage.filter(data => data.Estado === 'Enviada').length >= 1) {
+        if (this.listMessage.filter(data => data.Estado === 'enviada').length >= 1) {
             this.confService.post('notificacion_estado_usuario/changeStateNoView/' + user, {})
                 .subscribe(res => {
                     this.listMessage = [];
@@ -98,14 +105,34 @@ export class NotificacionesService {
         }
     }
 
+    changeStateToView(id) {
+        var notificacion = this.getNotificacionEstadoUsuario(id);
+        notificacion[0].Activo = false
+        this.confService.put('notificacion_estado_usuario',notificacion[0])
+                .subscribe(res => {
+        });  
+        notificacion[0].Id = null
+        notificacion[0].Activo = true
+        notificacion[0].NotificacionEstado = {
+            Id: 3,
+        }
+        this.confService.post('notificacion_estado_usuario',notificacion[0])
+                .subscribe(res => {
+                    this.listMessage = [];
+                    this.queryNotification();
+        }); 
+    }
+
     queryNotification() {
         this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.payload.sub + ',Activo:true&sortby=id&order=asc&limit=-1')
             .subscribe((resp: any) => {
                 if (resp !== null) {
+                    this.notificacion_estado_usuario = resp
                     from(resp)
                         .subscribe((notify: any) => {
                             if (typeof notify.Notificacion !== 'undefined') {
                                 const message = {
+                                    Id: notify.Id,
                                     Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
                                     Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
                                     User: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Nombre,
