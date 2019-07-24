@@ -98,6 +98,15 @@ export class NotificacionesService {
         }
     }
 
+    changeStateToView(id) {
+            this.confService.put('notificacion_estado_usuario/' + id, {})
+                .subscribe(res => {
+                    this.listMessage = [];
+                    this.queryNotification();
+                });
+        
+    }
+
     queryNotification() {
         this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.payload.sub + ',Activo:true&sortby=id&order=asc&limit=-1')
             .subscribe((resp: any) => {
@@ -106,6 +115,7 @@ export class NotificacionesService {
                         .subscribe((notify: any) => {
                             if (typeof notify.Notificacion !== 'undefined') {
                                 const message = {
+                                    Id: notify.Id,
                                     Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
                                     Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
                                     User: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Nombre,
