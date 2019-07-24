@@ -18,7 +18,7 @@ export class ConfiguracionService {
   }
 
   put(endpoint, element) {
-    return this.requestManager.put(endpoint + '/' + element.Id, element);
+    return this.requestManager.put(endpoint, element);
   }
 
   delete(endpoint, element) {
