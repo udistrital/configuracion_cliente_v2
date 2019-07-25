@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { AutenticationService } from '../@core/utils/autentication.service';
 import { SharedModule } from '../shared/shared.module';
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { MomentModule } from 'ngx-moment';
 
 import {
@@ -47,46 +47,46 @@ import {
 } from '@angular/material';
 
 const MAT_MODULES = [
-    CdkTableModule,
-    CdkTreeModule,
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
-  ];
+  CdkTableModule,
+  CdkTreeModule,
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatStepperModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+];
 
-export class DemoMaterialModule {}
+export class DemoMaterialModule { }
 
 
 /**  Copyright 2018 Google Inc. All Rights Reserved.
@@ -106,7 +106,7 @@ import {
   NbCheckboxModule,
   NbPopoverModule,
   NbContextMenuModule,
-  
+
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -125,6 +125,7 @@ import {
   ThemeSwitcherListComponent,
   LoadingComponent,
   ListadoComponent,
+  LoaderComponent,
 } from './components';
 
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
@@ -179,6 +180,7 @@ const COMPONENTS = [
   SelectComponent,
   LoadingComponent,
   ListadoComponent,
+  LoaderComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -198,7 +200,7 @@ const NB_THEME_PROVIDERS = [
       // name: 'default',
       name: 'corporate',
     },
-    [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, UD_THEME ],
+    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, UD_THEME],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
@@ -206,7 +208,7 @@ const NB_THEME_PROVIDERS = [
 
 
 @NgModule({
-  imports: [...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES,MomentModule],
+  imports: [...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],
   declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent],
   entryComponents: [...ENTRY_COMPONENTS],

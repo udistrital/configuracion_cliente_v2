@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { tap } from 'rxjs/operators';
+import { tap, finalize } from 'rxjs/operators';
 import { PopUpManager } from '../../managers/popUpManager'
 import { TranslateService } from '@ngx-translate/core';
+import { LoaderService } from '../utils/load.service';
 
 
 @Injectable()
@@ -13,10 +14,12 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router,
     private pUpManager: PopUpManager,
     private translate: TranslateService,
+    public loaderService: LoaderService,
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
+    this.loaderService.show();
     const acces_token = window.localStorage.getItem('access_token');
     if (acces_token !== null) {
 
@@ -57,7 +60,8 @@ export class AuthInterceptor implements HttpInterceptor {
             console.info(error);
             this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${error['status']}`))
           },
-        ));
+        ),
+        finalize(() => this.loaderService.hide()));
     } else {
       return next.handle(req).pipe(
         tap(event => {

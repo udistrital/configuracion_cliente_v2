@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
+import { LoaderService } from '../../../@core/utils/load.service';
 
 @Component({
   selector: 'ngx-loading',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 
 export class LoadingComponent {
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
+  constructor(public loaderService: LoaderService) {
+    this.isLoading.subscribe(console.info);
+  }
 }
