@@ -1,4 +1,4 @@
-import {interval as observableInterval,  Observable } from 'rxjs';
+import { interval as observableInterval, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from './../../../environments/environment';
@@ -28,42 +28,28 @@ export class ImplicitAutenticationService {
         }
         auth.setGeneral(environment.TOKEN);
         this.logOut = '';
-       // auth.timer();
+        // auth.timer();
     }
 
     public logout() {
-        
-
-         auth.logout();
+        auth.logout();
     }
 
-
-
-    
-
     getPayload() {
-
-            return auth.getPayload();
-        
+        return auth.getPayload();
     }
 
     public live() {
-        if (auth.live(true)){
+        if (auth.live(true)) {
             auth.liveToken();
             return true;
-        }else {
+        } else {
             return false;
         }
 
     }
 
     public getAuthorizationUrl(button): string {
-
         return auth.live(button);
     }
-
-
-
-
-
 }
