@@ -42,6 +42,7 @@ export class CrudMenuOpcionComponent implements OnInit {
   nodes = [];
   tree: any = {};
   app: any;
+  no_tree = false;
 
   update: any;
 
@@ -79,6 +80,7 @@ export class CrudMenuOpcionComponent implements OnInit {
     this.configuracionService.get(`perfil_x_menu_opcion/MenusPorAplicacion/${this.app.Id}`)
       .subscribe(res => {
         if (res !== null) {
+          this.no_tree = true;
           this.nodes = this.utils.translateTree(res);
           this.treeModel = this.treeComponent.treeModel;
           if (this.info_menu_opcion) {
@@ -87,6 +89,9 @@ export class CrudMenuOpcionComponent implements OnInit {
             }
           }
         }
+      }, error => {
+        this.no_tree = false;
+        this.nodes = []
       });
   }
 
@@ -169,9 +174,12 @@ export class CrudMenuOpcionComponent implements OnInit {
   }
 
   createMenuOpcion(menuOpcion: any): void {
-    const nodeSelected = this.treeModel.getFocusedNode();
-    console.info(nodeSelected);
-    const info = nodeSelected === null ? 'Seguro que desea crear menú principal?' : `Seguro que desea crear submenú de: ${nodeSelected.data.name}`;
+    let info = 'Seguro que desea crear menú principal?';
+    let nodeSelected = null;
+    if (this.no_tree) {
+      nodeSelected = this.treeModel.getFocusedNode();
+      info = nodeSelected === null ? 'Seguro que desea crear menú principal?' : `Seguro que desea crear submenú de: ${nodeSelected.data.name}`;
+    }
     const opt: any = {
       title: 'Creación de menú',
       text: info,
@@ -192,7 +200,7 @@ export class CrudMenuOpcionComponent implements OnInit {
               if (nodeSelected !== null) {
                 const relacion = {
                   Padre: { Id: nodeSelected.data.id },
-                  Hijo: { Id: this.info_menu_opcion.Id }
+                  Hijo: { Id: this.info_menu_opcion.Id },
                 }
                 this.configuracionService.post('menu_opcion_padre', relacion)
                   .subscribe(response => {

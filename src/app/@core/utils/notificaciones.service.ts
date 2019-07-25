@@ -38,6 +38,7 @@ export class NotificacionesService {
         this.notificacion_estado_usuario = []
         this.connect();
         if (this.autenticacion.live()) {
+            this.payload = this.autenticacion.getPayload();
             this.queryNotification();
         }
     }
