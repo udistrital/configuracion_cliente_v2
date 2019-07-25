@@ -4,7 +4,7 @@ import { LoaderService } from '../../../@core/utils/load.service';
 @Component({
     selector: 'ngx-loader',
     templateUrl: './loader.component.html',
-    styleUrls: ['./loader.component.css'],
+    styleUrls: ['./loader.component.scss'],
 })
 export class LoaderComponent {
     color = 'primary';
