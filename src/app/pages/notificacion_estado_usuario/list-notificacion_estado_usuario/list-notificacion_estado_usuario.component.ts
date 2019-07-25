@@ -11,7 +11,7 @@ import * as moment from 'moment';
   selector: 'ngx-list-notificacion-estado-usuario',
   templateUrl: './list-notificacion_estado_usuario.component.html',
   styleUrls: ['./list-notificacion_estado_usuario.component.scss'],
-  })
+})
 export class ListNotificacionEstadoUsuarioComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -52,9 +52,9 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.CuerpoNotificacion;
           },
-          filterFunction: (cell?: any, search?: string): boolean =>  {          
-            return  (((cell.CuerpoNotificacion).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
-          }
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.CuerpoNotificacion).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
+          },
         },
         NotificacionEstado: {
           title: this.translate.instant('GLOBAL.notificacion_estado'),
@@ -62,9 +62,9 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
-          filterFunction: (cell?: any, search?: string): boolean =>  {          
-            return  (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
-          }
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
+          },
         },
         Fecha: {
           title: this.translate.instant('GLOBAL.fecha'),
@@ -100,7 +100,7 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -127,17 +127,17 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('notificacion_estado_usuario/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'NotificacionEstadoUsuario deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('notificacion_estado_usuario/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'NotificacionEstadoUsuario deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {
