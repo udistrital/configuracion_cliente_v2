@@ -83,6 +83,8 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
           this.treeModelMenu = this.treeComponentMenu.treeModel;
           this.treeModelMenu.update();
         }
+      }, error => {
+        this.nodesMenu = []
       });
   }
 
@@ -113,6 +115,8 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
         } else {
           this.treeModelRol.update();
         }
+      }, error => {
+        this.nodesRol = []
       });
   }
 
