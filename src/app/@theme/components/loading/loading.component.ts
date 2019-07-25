@@ -14,6 +14,5 @@ export class LoadingComponent {
   value = 50;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   constructor(public loaderService: LoaderService) {
-    this.isLoading.subscribe(console.info);
   }
 }
