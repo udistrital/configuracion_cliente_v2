@@ -7,28 +7,32 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'lib-notioas',
   template: `
-    <div class="row">
-    <div class="input-group">
-      <input type="text" class="form-control" (keyup)="searchTerm$.next($event.target.value)" placeholder="Search ...">
-      <span class="input-group-append">
-      </span>
-    </div>
-    </div>
-    <br>
       <div class="row">
-        <ul>
-          <li *ngFor="let notificacion of notificaciones"
-          (click)="redirect(notificacion.Content.Message.Link,notificacion.Id)" [id]="notificacion.Estado">
-              <img  class="menu-app" [id]="notificacion.EstiloIcono">
-              <h3> {{notificacion.Alias}} </h3>
-              <h4>
-                {{notificacion.Content.Message.Message}}
-              </h4>
-              <h4>
-                {{ notificacion.FechaCreacion }}
-              </h4>
-          </li>
-        </ul>
+        <div class="input-group">
+          <input type="text" class="form-control" (keyup)="searchTerm$.next($event.target.value)" placeholder="Search ...">
+          <span class="input-group-append">
+          </span>
+        </div>
+      </div>
+      <br>
+      <div>
+        <h4>Notificaciones</h4>
+      </div>
+      <div class="notifications-container">
+      <div *ngFor="let notificacion of notificaciones" (click)="redirect(notificacion.Content.Message.Link,notificacion.Id)" [id]="notificacion.Estado" class="notification-item">
+        <div class="notifications-image-container">
+          <img class="menu-app" [id]="notificacion.EstiloIcono">
+        </div>
+        <div class="notifications-text-container" >
+          <p> {{notificacion.Alias}} </p>
+          <p>
+          {{notificacion.Content.Message.Message}}
+          </p>
+          <p>
+          {{notificacion.FechaCreacion | amLocale:'es' | amTimeAgo:true }}
+          </p>
+        </div>
+      </div>
       </div>
   `,
   styles: [
@@ -45,13 +49,26 @@ import { Router } from '@angular/router';
     background-color: grey
   }`,
 
-    `.mat-list-base .mat-list-item .mat-list-avatar{
-    height: 75px;
-    width: 75px;
+  `.notification-item{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
   }`,
 
-    `.mat-list-base .mat-list-item .mat-line{
-      white-space: normal;
+  `.notifications-image-container{
+    width: 25%;
+  }`,
+
+    `.notifications-text-container{
+    width: 68%;
+  }`,
+
+    `.notifications-text-container p{
+    margin: 0;
+    font-family: "Exo";
+    color: black;
+    white-space: normal;
   }`,
 
     `.form-control{
@@ -110,7 +127,8 @@ export class NotioasComponent {
 
   searchEntries(term) {
     const array = []
-    array.push(this.notificacionService.listMessage.filter(notify => notify.Content.Message.indexOf(term) !== -1 || notify.User.indexOf(term) !== -1));
+    array.push(this.notificacionService.listMessage.filter(
+      (notify: any) => notify.Content.Message.Message.indexOf(term) !== -1 || notify.User.indexOf(term) !== -1));
     return array
   }
 

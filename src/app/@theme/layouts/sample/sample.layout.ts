@@ -48,7 +48,7 @@ import { StateService } from '../../../@core/data/state.service';
                    state="collapsed"
                    fixed
                    [end]="sidebar.id !== 'end'">
-                   <ngx-listado></ngx-listado>
+                   <lib-notioas></lib-notioas>
       </nb-sidebar>
     </nb-layout>
   `,

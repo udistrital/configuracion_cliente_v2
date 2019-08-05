@@ -5,16 +5,14 @@ import { ConfiguracionService } from './../data/configuracion.service';
 import { from, interval } from 'rxjs';
 import { webSocket } from 'rxjs/webSocket';
 import { map } from 'rxjs-compat/operators/map';
-import { ImplicitAutenticationService } from './implicit_autentication.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { NotificacionEstadoUsuario } from '../data/models/notificacion_estado_usuario';
 
-const { NOTIFICACION_SERVICE, production } = environment;
+const { NOTIFICACION_SERVICE } = environment;
 
 @Injectable({
     providedIn: 'root',
 })
 export class NotificacionesService {
+    NOTIFICACION_SERVICE = '';
     public messagesSubject: Subject<any>;
 
     public listMessage: any;
@@ -26,7 +24,6 @@ export class NotificacionesService {
 
     private arrayMessagesSubject = new Subject();
     public arrayMessages$ = this.arrayMessagesSubject.asObservable();
-    private autenticacion = new ImplicitAutenticationService;
     timerPing$ = interval(30000);
     roles: any;
 
@@ -36,11 +33,14 @@ export class NotificacionesService {
     ) {
         this.listMessage = [];
         this.notificacion_estado_usuario = []
+
+    }
+
+    initLib(payload: object, path: string) {
+        this.NOTIFICACION_SERVICE = path;
+        this.payload = payload;
         this.connect();
-        if (this.autenticacion.live()) {
-            this.payload = this.autenticacion.getPayload();
-            this.queryNotification();
-        }
+        this.queryNotification();
     }
 
     getNotificaciones() {
@@ -49,7 +49,7 @@ export class NotificacionesService {
     }
 
     getNotificacionEstadoUsuario(id) {
-       return this.notificacion_estado_usuario.filter(data => data.Id === id)
+        return (this.notificacion_estado_usuario.filter(data => data.Id === id))[0];
     }
 
     send_ping() {
@@ -57,32 +57,29 @@ export class NotificacionesService {
     }
 
     connect() {
-        if (this.autenticacion.live() && production) {
-            this.payload = this.autenticacion.getPayload();
-            this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
-            this.messagesSubject = webSocket(`${NOTIFICACION_SERVICE}?id=${this.payload.sub}&profiles=${this.roles}`);
-            this.messagesSubject
-                .pipe(
-                    map((msn) => {
-                        if (msn.Estado === 'conected') {
-                            this.send_ping();
-                        } else {
-                            this.listMessage = [...[msn], ...this.listMessage];
-                            this.noNotifySubject.next(this.listMessage.length);
-                            this.arrayMessagesSubject.next(this.listMessage);
-                        }
-                        return msn
-                    }),
-                )
-                .subscribe(
-                    (msg: any) => this.send_ping(),
-                    err => {
-                        console.info(err);
-                        // this.connect();
-                    },
-                    () => console.info('complete'),
-                );
-        }
+        this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
+        this.messagesSubject = webSocket(`${NOTIFICACION_SERVICE}?id=${this.payload.sub}&profiles=${this.roles}`);
+        this.messagesSubject
+            .pipe(
+                map((msn) => {
+                    if (msn.Estado === 'conected') {
+                        this.send_ping();
+                    } else {
+                        this.listMessage = [...[msn], ...this.listMessage];
+                        this.noNotifySubject.next(this.listMessage.length);
+                        this.arrayMessagesSubject.next(this.listMessage);
+                    }
+                    return msn
+                }),
+            )
+            .subscribe(
+                (msg: any) => this.send_ping(),
+                err => {
+                    console.info(err);
+                    // this.connect();
+                },
+                () => console.info('complete'),
+            );
     }
 
     close() {
@@ -107,21 +104,21 @@ export class NotificacionesService {
     }
 
     changeStateToView(id) {
-        var notificacion = this.getNotificacionEstadoUsuario(id);
-        notificacion[0].Activo = false
-        this.confService.put('notificacion_estado_usuario',notificacion[0])
-                .subscribe(res => {
-        });  
-        notificacion[0].Id = null
-        notificacion[0].Activo = true
-        notificacion[0].NotificacionEstado = {
+        const notificacion = this.getNotificacionEstadoUsuario(id);
+        notificacion.Activo = false
+        this.confService.put('notificacion_estado_usuario', notificacion)
+            .subscribe(res => {
+            });
+        notificacion.Id = null
+        notificacion.Activo = true
+        notificacion.NotificacionEstado = {
             Id: 3,
         }
-        this.confService.post('notificacion_estado_usuario',notificacion[0])
-                .subscribe(res => {
-                    this.listMessage = [];
-                    this.queryNotification();
-        }); 
+        this.confService.post('notificacion_estado_usuario', notificacion)
+            .subscribe(res => {
+                this.listMessage = [];
+                this.queryNotification();
+            });
     }
 
     queryNotification() {

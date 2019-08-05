@@ -13,7 +13,6 @@ export class NotioasService {
     public messagesSubject: Subject<any>;
 
     public listMessage: any;
-    public payload: any;
     private notificacion_estado_usuario: any
 
     private noNotifySubject = new Subject();
@@ -23,6 +22,7 @@ export class NotioasService {
     public arrayMessages$ = this.arrayMessagesSubject.asObservable();
     timerPing$ = interval(30000);
     roles: any;
+    user: any;
 
 
     constructor(
@@ -33,10 +33,9 @@ export class NotioasService {
 
     }
 
-    initLib(payload: object, path: string, endpoint: string) {
-      this.confService.setPath(path);
-        this.NOTIFICACION_SERVICE = endpoint;
-        this.payload = payload;
+    initLib(pathConfiguracion: string, pathNotificacion: string) {
+        this.confService.setPath(pathConfiguracion);
+        this.NOTIFICACION_SERVICE = pathNotificacion;
         this.connect();
         this.queryNotification();
     }
@@ -55,8 +54,12 @@ export class NotioasService {
     }
 
     connect() {
-            this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
-            this.messagesSubject = webSocket(`${this.NOTIFICACION_SERVICE}?id=${this.payload.sub}&profiles=${this.roles}`);
+        const id_token = localStorage.getItem('id_token');
+        if (id_token !== null) {
+            this.roles = (JSON.parse(atob(id_token.split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
+            this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
+            const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
+            this.messagesSubject = webSocket(connWs);
             this.messagesSubject
                 .pipe(
                     map((msn) => {
@@ -78,6 +81,8 @@ export class NotioasService {
                     },
                     () => console.info('complete'),
                 );
+        }
+
     }
 
     close() {
@@ -120,7 +125,7 @@ export class NotioasService {
     }
 
     queryNotification() {
-        this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.payload.sub + ',Activo:true&sortby=id&order=asc&limit=-1')
+        this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.user + ',Activo:true&sortby=id&order=asc&limit=-1')
             .subscribe((resp: any) => {
                 if (resp !== null) {
                     this.notificacion_estado_usuario = resp
