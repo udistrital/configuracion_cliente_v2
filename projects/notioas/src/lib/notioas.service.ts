@@ -41,7 +41,7 @@ export class NotioasService {
     }
 
     getNotificaciones() {
-        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'enviada')).length)
+        this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length)
         this.arrayMessagesSubject.next(this.listMessage);
     }
 
@@ -67,7 +67,7 @@ export class NotioasService {
                             this.send_ping();
                         } else {
                             this.listMessage = [...[msn], ...this.listMessage];
-                            this.noNotifySubject.next(this.listMessage.length);
+                            this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
                             this.arrayMessagesSubject.next(this.listMessage);
                         }
                         return msn
@@ -91,13 +91,13 @@ export class NotioasService {
 
     addMessage(message) {
         this.listMessage = [...[message], ...this.listMessage];
-        this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'enviada')).length);
+        this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
         this.arrayMessagesSubject.next(this.listMessage);
         console.info(this.listMessage)
     }
 
     changeStateNoView() {
-        if (this.listMessage.filter(data => data.Estado === 'enviada').length >= 1) {
+        if (this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada').length >= 1) {
             this.confService.post('notificacion_estado_usuario/changeStateNoView/' + this.user, {})
                 .subscribe(res => {
                     this.listMessage = [];
