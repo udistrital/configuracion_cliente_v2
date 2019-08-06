@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { userInfo } from 'os';
+import { NotioasService } from 'notioas-fabian';
+import { environment } from './../../../../environments/environment';
 
+const { NOTIFICACION_SERVICE, CONFIGURACION_SERVICE } = environment;
 
 @Component({
   selector: 'ngx-header',
@@ -31,7 +34,7 @@ export class HeaderComponent {
     private menuService: NbMenuService,
     private analyticsService: AnalyticsService,
     private router: Router,
-    public notificacionService: NotificacionesService,
+    public notificacionService: NotioasService,
     public translate: TranslateService) {
     this.translate = translate;
     this.itemClick = this.menuService.onItemClick()
@@ -39,13 +42,6 @@ export class HeaderComponent {
         this.onContecxtItemSelection(event.item.title);
       });
 
-    this.notificacionService.arrayMessages$
-      .subscribe((notification: any) => {
-        const temp = notification.map((notify: any) => {
-          return { title: notify.Content.Message, icon: 'fa fa-commenting-o'}
-        });
-        this.userMenu = [...temp.slice(0, 7), ...[{ title: 'ver todas', icon: 'fa fa-list' }]];
-      });
     this.liveToken();
   }
 
@@ -57,6 +53,7 @@ export class HeaderComponent {
     if (this.autenticacion.live()) {
       this.liveTokenValue = this.autenticacion.live();
       this.username = (this.autenticacion.getPayload()).sub;
+      this.notificacionService.initLib(CONFIGURACION_SERVICE, NOTIFICACION_SERVICE)
     }
     return this.autenticacion.live();
   }
@@ -67,9 +64,6 @@ export class HeaderComponent {
     }
   }
 
-  changeStateNoView(): void {
-    this.notificacionService.changeStateNoView(this.username)
-  }
 
   logout() {
     this.autenticacion.logout();
@@ -83,7 +77,7 @@ export class HeaderComponent {
 
   toggleNotifications(): boolean {
     this.sidebarService.toggle(false, 'notifications-sidebar');
-    this.changeStateNoView()
+    this.notificacionService.changeStateNoView();
     return false;
   }
 

@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
-import { environment } from './../../../environments/environment';
-import { ConfiguracionService } from './../data/configuracion.service';
+import { ConfiguracionService } from './configuracion.service';
 import { from, interval } from 'rxjs';
 import { webSocket } from 'rxjs/webSocket';
 import { map } from 'rxjs-compat/operators/map';
 
-const { NOTIFICACION_SERVICE } = environment;
-
 @Injectable({
     providedIn: 'root',
 })
-export class NotificacionesService {
+export class NotioasService {
     NOTIFICACION_SERVICE = '';
     public messagesSubject: Subject<any>;
 
     public listMessage: any;
-    public payload: any;
     private notificacion_estado_usuario: any
 
     private noNotifySubject = new Subject();
@@ -26,6 +22,7 @@ export class NotificacionesService {
     public arrayMessages$ = this.arrayMessagesSubject.asObservable();
     timerPing$ = interval(30000);
     roles: any;
+    user: any;
 
 
     constructor(
@@ -36,9 +33,9 @@ export class NotificacionesService {
 
     }
 
-    initLib(payload: object, path: string) {
-        this.NOTIFICACION_SERVICE = path;
-        this.payload = payload;
+    initLib(pathConfiguracion: string, pathNotificacion: string) {
+        this.confService.setPath(pathConfiguracion);
+        this.NOTIFICACION_SERVICE = pathNotificacion;
         this.connect();
         this.queryNotification();
     }
@@ -57,29 +54,35 @@ export class NotificacionesService {
     }
 
     connect() {
-        this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
-        this.messagesSubject = webSocket(`${NOTIFICACION_SERVICE}?id=${this.payload.sub}&profiles=${this.roles}`);
-        this.messagesSubject
-            .pipe(
-                map((msn) => {
-                    if (msn.Estado === 'conected') {
-                        this.send_ping();
-                    } else {
-                        this.listMessage = [...[msn], ...this.listMessage];
-                        this.noNotifySubject.next(this.listMessage.length);
-                        this.arrayMessagesSubject.next(this.listMessage);
-                    }
-                    return msn
-                }),
-            )
-            .subscribe(
-                (msg: any) => this.send_ping(),
-                err => {
-                    console.info(err);
-                    // this.connect();
-                },
-                () => console.info('complete'),
-            );
+        const id_token = localStorage.getItem('id_token');
+        if (id_token !== null) {
+            this.roles = (JSON.parse(atob(id_token.split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
+            this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
+            const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
+            this.messagesSubject = webSocket(connWs);
+            this.messagesSubject
+                .pipe(
+                    map((msn) => {
+                        if (msn.Estado === 'conected') {
+                            this.send_ping();
+                        } else {
+                            this.listMessage = [...[msn], ...this.listMessage];
+                            this.noNotifySubject.next(this.listMessage.length);
+                            this.arrayMessagesSubject.next(this.listMessage);
+                        }
+                        return msn
+                    }),
+                )
+                .subscribe(
+                    (msg: any) => this.send_ping(),
+                    err => {
+                        console.info(err);
+                        // this.connect();
+                    },
+                    () => console.info('complete'),
+                );
+        }
+
     }
 
     close() {
@@ -93,9 +96,9 @@ export class NotificacionesService {
         console.info(this.listMessage)
     }
 
-    changeStateNoView(user) {
+    changeStateNoView() {
         if (this.listMessage.filter(data => data.Estado === 'enviada').length >= 1) {
-            this.confService.post('notificacion_estado_usuario/changeStateNoView/' + user, {})
+            this.confService.post('notificacion_estado_usuario/changeStateNoView/' + this.user, {})
                 .subscribe(res => {
                     this.listMessage = [];
                     this.queryNotification();
@@ -103,26 +106,19 @@ export class NotificacionesService {
         }
     }
 
-    changeStateToView(id) {
-        const notificacion = this.getNotificacionEstadoUsuario(id);
-        notificacion.Activo = false
-        this.confService.put('notificacion_estado_usuario', notificacion)
-            .subscribe(res => {
+    changeStateToView(id, estado) {
+        if (estado === 'noleida') {
+            const notificacion = this.getNotificacionEstadoUsuario(id);
+            this.confService.get('notificacion_estado_usuario/changeStateToView/' + notificacion.Id)
+                    .subscribe(res => {
+                        this.listMessage = [];
+                        this.queryNotification();
             });
-        notificacion.Id = null
-        notificacion.Activo = true
-        notificacion.NotificacionEstado = {
-            Id: 3,
         }
-        this.confService.post('notificacion_estado_usuario', notificacion)
-            .subscribe(res => {
-                this.listMessage = [];
-                this.queryNotification();
-            });
     }
 
     queryNotification() {
-        this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.payload.sub + ',Activo:true&sortby=id&order=asc&limit=-1')
+        this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.user + ',Activo:true&sortby=id&order=asc&limit=-1')
             .subscribe((resp: any) => {
                 if (resp !== null) {
                     this.notificacion_estado_usuario = resp
