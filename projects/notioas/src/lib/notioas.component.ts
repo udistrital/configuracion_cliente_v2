@@ -7,33 +7,34 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'lib-notioas',
   template: `
-      <div class="row">
-        <div class="input-group">
-          <input type="text" class="form-control" (keyup)="searchTerm$.next($event.target.value)" placeholder="Search ...">
-          <span class="input-group-append">
-          </span>
-        </div>
-      </div>
-      <br>
-      <div>
-        <h4>Notificaciones</h4>
-      </div>
-      <div class="notifications-container">
-      <div *ngFor="let notificacion of notificaciones" (click)="redirect(notificacion.Content.Message.Link,notificacion.Id)" [id]="notificacion.Estado" class="notification-item">
-        <div class="notifications-image-container">
-          <img class="menu-app" [id]="notificacion.EstiloIcono">
-        </div>
-        <div class="notifications-text-container" >
-          <p> {{notificacion.Alias}} </p>
-          <p>
-          {{notificacion.Content.Message.Message}}
-          </p>
-          <p>
-          {{notificacion.FechaCreacion | amLocale:'es' | amTimeAgo:true }}
-          </p>
-        </div>
-      </div>
-      </div>
+  <div class="row">
+    <div class="input-group">
+      <input type="text" class="form-control" (keyup)="searchTerm$.next($event.target.value)" placeholder="Search ...">
+      <span class="input-group-append">
+      </span>
+    </div>
+  </div>
+  <br>
+  <div>
+    <h4>Notificaciones</h4>
+  </div>
+  <div class="notifications-container">
+      <div *ngFor="let notificacion of notificaciones" (click)="redirect(notificacion)"
+      [id]="notificacion.Estado" class="notification-item">
+          <div class="notifications-image-container">
+            <img class="menu-app" [id]="notificacion.EstiloIcono">
+          </div>
+          <div class="notifications-text-container" >
+            <p> {{notificacion.Alias}} </p>
+            <p>
+              {{notificacion.Content.Message.Message}}
+            </p>
+            <p>
+              {{notificacion.FechaCreacion | amLocale:'es' | amTimeAgo:true }}
+            </p>
+          </div>
+    </div>
+  </div>
   `,
   styles: [
     `.menu-app{
@@ -49,14 +50,14 @@ import { Router } from '@angular/router';
     background-color: grey
   }`,
 
-  `.notification-item{
+    `.notification-item{
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
   }`,
 
-  `.notifications-image-container{
+    `.notifications-image-container{
     width: 25%;
   }`,
 
@@ -107,7 +108,7 @@ export class NotioasComponent {
   searchTerm$ = new Subject<string>();
 
   notificaciones: any;
-  constructor(private notificacionService: NotioasService,    private router: Router) {
+  constructor(private notificacionService: NotioasService, private router: Router) {
     this.notificaciones = [];
     this.notificacionService.arrayMessages$
       .subscribe((notification: any) => {
@@ -132,9 +133,15 @@ export class NotioasComponent {
     return array
   }
 
-  redirect(content: any, id: any) {
-    this.router.navigate([content]);
-    this.notificacionService.changeStateToView(id);
+  redirect(noti) {
+    this.notificacionService.changeStateToView(noti.Id, noti.Estado);
+    console.info(noti);
+    const path_sub = window.location.origin;
+    if (noti.Content.Message.Link.indexOf(path_sub)) {
+      window.open(noti.Content.Message.Link, '_blank');
+    } else {
+      this.router.navigate([noti.Content.Message.Link]);
+    }
   }
 
 

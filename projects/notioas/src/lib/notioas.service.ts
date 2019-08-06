@@ -96,9 +96,9 @@ export class NotioasService {
         console.info(this.listMessage)
     }
 
-    changeStateNoView(user) {
+    changeStateNoView() {
         if (this.listMessage.filter(data => data.Estado === 'enviada').length >= 1) {
-            this.confService.post('notificacion_estado_usuario/changeStateNoView/' + user, {})
+            this.confService.post('notificacion_estado_usuario/changeStateNoView/' + this.user, {})
                 .subscribe(res => {
                     this.listMessage = [];
                     this.queryNotification();
@@ -106,22 +106,15 @@ export class NotioasService {
         }
     }
 
-    changeStateToView(id) {
-        const notificacion = this.getNotificacionEstadoUsuario(id);
-        notificacion.Activo = false
-        this.confService.put('notificacion_estado_usuario', notificacion)
-            .subscribe(res => {
+    changeStateToView(id, estado) {
+        if (estado === 'noleida') {
+            const notificacion = this.getNotificacionEstadoUsuario(id);
+            this.confService.get('notificacion_estado_usuario/changeStateToView/' + notificacion.Id)
+                    .subscribe(res => {
+                        this.listMessage = [];
+                        this.queryNotification();
             });
-        notificacion.Id = null
-        notificacion.Activo = true
-        notificacion.NotificacionEstado = {
-            Id: 3,
         }
-        this.confService.post('notificacion_estado_usuario', notificacion)
-            .subscribe(res => {
-                this.listMessage = [];
-                this.queryNotification();
-            });
     }
 
     queryNotification() {

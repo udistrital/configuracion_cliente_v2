@@ -64,9 +64,6 @@ export class HeaderComponent {
     }
   }
 
-  changeStateNoView(): void {
-    this.notificacionService.changeStateNoView(this.username)
-  }
 
   logout() {
     this.autenticacion.logout();
@@ -80,7 +77,7 @@ export class HeaderComponent {
 
   toggleNotifications(): boolean {
     this.sidebarService.toggle(false, 'notifications-sidebar');
-    this.changeStateNoView()
+    this.notificacionService.changeStateNoView();
     return false;
   }
 
