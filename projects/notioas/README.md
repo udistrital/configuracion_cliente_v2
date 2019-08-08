@@ -1,5 +1,3 @@
-# Notioas
-
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
 
 ## Code scaffolding
@@ -19,6 +17,46 @@ After building your library with `ng build notioas`, go to the dist folder `cd d
 
 Run `ng test notioas` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Ejemplos
+`header.component.ts`
+```js
+import { NotioasService } from 'notioas-fabian';
+const { NOTIFICACION_SERVICE, CONFIGURACION_SERVICE } = environment;
+export class HeaderComponent {
+  ...
+  constructor(private sidebarService: NbSidebarService,
+    ...
+    public notificacionService: NotioasService,
+	...
+	){
+	...
+	}
+	liveToken() {
+		if (this.autenticacion.live()) {
+		  ...
+		  this.notificacionService.initLib(CONFIGURACION_SERVICE, NOTIFICACION_SERVICE)
+		}
+		...
+	  }
+	toggleNotifications(): boolean {
+		this.sidebarService.toggle(false, 'notifications-sidebar');
+		this.notificacionService.changeStateNoView();
+		return false;
+ 	 }
+  }
+```
+`header.component.html`
+```html
+<nb-action class="control-item" icon="nb-notifications" [badgeText]="notificacionService.noNotify$ | async"
+    badgeStatus="danger" (click)="toggleNotifications()"></nb-action>
+```
+`theme.module.ts`
+```js
+import { NotioasModule } from 'notioas-fabian';
+@NgModule({
+  imports: [...[NotioasModule], ...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
+  exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],
+  declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent],
+  entryComponents: [...ENTRY_COMPONENTS],
+})
+```
