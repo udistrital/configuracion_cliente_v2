@@ -17,7 +17,7 @@
     &.collapsed {
       width: 0;
 
-      /deep/ .main-container {
+      ::ng-deep .main-container {
         width: 0;
 
         .scrollable {
@@ -27,7 +27,7 @@
       }
     }
 
-    /deep/ .main-container {
+    ::ng-deep .main-container {
       width: $sidebar-width;
       background: nb-theme(color-bg);
       transition: width 0.3s ease;
@@ -53,7 +53,7 @@
     &.collapsed {
       width: 0;
 
-      /deep/ .main-container {
+      ::ng-deep .main-container {
         width: 0;
 
         .scrollable {
@@ -63,7 +63,7 @@
       }
     }
 
-    /deep/ .main-container {
+    ::ng-deep .main-container {
       width: $sidebar-width;
       background: nb-theme(color-bg);
       transition: width 0.3s ease;
@@ -91,7 +91,7 @@
       margin-top: -4px;
     }
 
-    /deep/ .main-container {
+    ::ng-deep .main-container {
       height:
         calc(#{nb-theme(sidebar-height)} - #{nb-theme(header-height)} - #{nb-theme(sidebar-header-gap)}) !important;
       @include nb-ltr(border-top-right-radius, nb-theme(radius));
@@ -104,7 +104,7 @@
       }
     }
 
-    /deep/ .scrollable {
+    ::ng-deep .scrollable {
       @include nb-for-theme(corporate) {
         padding-top: 0;
 
@@ -114,7 +114,7 @@
       }
     }
 
-    /deep/ nb-sidebar-header {
+    ::ng-deep nb-sidebar-header {
       padding-bottom: 0.5rem;
       text-align: center;
     }
@@ -156,7 +156,7 @@
 
     &.compacted {
 
-      /deep/ nb-sidebar-header {
+      ::ng-deep nb-sidebar-header {
         padding-left: 0;
         padding-right: 0;
       }
@@ -187,7 +187,7 @@
     nb-sidebar.menu-sidebar {
       margin-top: 0;
 
-      /deep/ .main-container {
+      ::ng-deep .main-container {
         height: calc(#{nb-theme(sidebar-height)} - #{nb-theme(header-height)}) !important;
         @include nb-ltr(border-top-right-radius, 0);
         @include nb-rtl(border-top-left-radius, 0);
