@@ -93,7 +93,6 @@ export class NotioasService {
         this.listMessage = [...[message], ...this.listMessage];
         this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
         this.arrayMessagesSubject.next(this.listMessage);
-        console.info(this.listMessage)
     }
 
     changeStateNoView() {

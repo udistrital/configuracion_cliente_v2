@@ -54,6 +54,7 @@ import { Router } from '@angular/router';
     display: flex;
     flex-direction: row;
     width: 100%;
+    cursor:pointer;
     align-items: center;
   }`,
 
