@@ -23,21 +23,21 @@ Run `ng test notioas` to execute the unit tests via [Karma](https://karma-runner
 import { NotioasService } from 'notioas-fabian';
 const { NOTIFICACION_SERVICE, CONFIGURACION_SERVICE } = environment;
 export class HeaderComponent {
-  ...
-  constructor(private sidebarService: NbSidebarService,
-    ...
-    public notificacionService: NotioasService,
 	...
-	){
-	...
-	}
+	constructor(private sidebarService: NbSidebarService,
+		...
+		public notificacionService: NotioasService,
+		...
+		){
+		...
+		}
 	liveToken() {
 		if (this.autenticacion.live()) {
 		  ...
 		  this.notificacionService.initLib(CONFIGURACION_SERVICE, NOTIFICACION_SERVICE)
 		}
 		...
-	  }
+	}
 	toggleNotifications(): boolean {
 		this.sidebarService.toggle(false, 'notifications-sidebar');
 		this.notificacionService.changeStateNoView();
@@ -58,5 +58,24 @@ import { NotioasModule } from 'notioas-fabian';
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],
   declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent],
   entryComponents: [...ENTRY_COMPONENTS],
+})
+```
+`sample.layout.ts`
+```js
+@Component({
+  selector: 'ngx-sample-layout',
+  styleUrls: ['./sample.layout.scss'],
+  template: `
+    <nb-layout [center]="layout.id === 'center-column'" windowMode>
+	  ...	
+      <nb-sidebar class="notifications-sidebar"
+                   tag="notifications-sidebar"
+                   state="collapsed"
+                   fixed
+                   [end]="sidebar.id !== 'end'">
+                   <lib-notioas></lib-notioas>
+      </nb-sidebar>
+    </nb-layout>
+  `,
 })
 ```
