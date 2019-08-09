@@ -138,12 +138,10 @@ export class NotioasComponent {
     this.notificacionService.changeStateToView(noti.Id, noti.Estado);
     console.info(noti);
     const path_sub = window.location.origin;
-    if (noti.Content.Message.Link.indexOf(path_sub)) {
+    if (noti.Content.Message.Link.indexOf(path_sub) === -1) {
       window.open(noti.Content.Message.Link, '_blank');
     } else {
-      this.router.navigate([noti.Content.Message.Link]);
+      this.router.navigate([noti.Content.Message.Link.substring(noti.Content.Message.Link.indexOf('#') + 1)]);
     }
   }
-
-
 }
