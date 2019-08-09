@@ -20,7 +20,7 @@ Run `ng test notioas` to execute the unit tests via [Karma](https://karma-runner
 ## Ejemplos
 `header.component.ts`
 ```js
-import { NotioasService } from 'notioas-fabian';
+import { NotioasService } from 'notioas';
 const { NOTIFICACION_SERVICE, CONFIGURACION_SERVICE } = environment;
 export class HeaderComponent {
 	...
@@ -52,7 +52,7 @@ export class HeaderComponent {
 ```
 `theme.module.ts`
 ```js
-import { NotioasModule } from 'notioas-fabian';
+import { NotioasModule } from 'notioas';
 @NgModule({
   imports: [...[NotioasModule], ...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],

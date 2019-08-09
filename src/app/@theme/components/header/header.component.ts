@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { userInfo } from 'os';
-import { NotioasService } from 'notioas-fabian';
+import { NotioasService } from 'notioas';
 import { environment } from './../../../../environments/environment';
 
 const { NOTIFICACION_SERVICE, CONFIGURACION_SERVICE } = environment;

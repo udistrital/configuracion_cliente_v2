@@ -18,7 +18,7 @@
 // install the framework and custom global styles
 @include nb-install() {
 
-    ::ng-deep .mat-input-element::placeholder {
+  ::ng-deep .mat-input-element ::placeholder {
     color: transparentize($color: nb-theme(color-fg-heading), $amount: 0.6);
   }
 
