@@ -5,9 +5,7 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
-import { userInfo } from 'os';
 import { NotioasService } from 'notioas';
 import { environment } from './../../../../environments/environment';
 
@@ -43,6 +41,9 @@ export class HeaderComponent {
       });
 
     this.liveToken();
+  }
+  ngAfterViewInit(){
+
   }
 
   useLanguage(language: string) {

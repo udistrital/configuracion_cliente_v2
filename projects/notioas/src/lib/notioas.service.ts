@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
 import { ConfiguracionService } from './configuracion.service';
 import { from, interval } from 'rxjs';
-import { webSocket } from 'rxjs/webSocket';
+import { webSocket, WebSocketSubjectConfig } from 'rxjs/webSocket';
 import { map } from 'rxjs-compat/operators/map';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { map } from 'rxjs-compat/operators/map';
 export class NotioasService {
     NOTIFICACION_SERVICE = '';
     public messagesSubject: Subject<any>;
+    public wsSubjects: WebSocketSubjectConfig;
 
     public listMessage: any;
     private notificacion_estado_usuario: any
@@ -59,7 +60,7 @@ export class NotioasService {
             this.roles = (JSON.parse(atob(id_token.split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
             this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
             const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
-            this.messagesSubject = webSocket(connWs);
+            this.messagesSubject = webSocket({url: connWs, protocol: [] });
             this.messagesSubject
                 .pipe(
                     map((msn) => {

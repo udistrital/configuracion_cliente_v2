@@ -125,7 +125,6 @@ import {
   SelectComponent,
   ThemeSwitcherListComponent,
   LoadingComponent,
-  ListadoComponent,
 } from './components';
 
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
@@ -179,7 +178,6 @@ const COMPONENTS = [
   DinamicformComponent,
   SelectComponent,
   LoadingComponent,
-  ListadoComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -221,5 +219,3 @@ export class ThemeModule {
     };
   }
 }
-
-
