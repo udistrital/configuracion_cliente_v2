@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
 import { ConfiguracionService } from './configuracion.service';
 import { from, interval } from 'rxjs';
-import { webSocket, WebSocketSubjectConfig } from 'rxjs/webSocket';
+import { webSocket } from 'rxjs/webSocket';
 import { map } from 'rxjs-compat/operators/map';
 
 @Injectable({
@@ -10,8 +10,8 @@ import { map } from 'rxjs-compat/operators/map';
 })
 export class NotioasService {
     NOTIFICACION_SERVICE = '';
+    TIME_PING = 30000;
     public messagesSubject: Subject<any>;
-    public wsSubjects: WebSocketSubjectConfig;
 
     public listMessage: any;
     private notificacion_estado_usuario: any
@@ -21,7 +21,8 @@ export class NotioasService {
 
     private arrayMessagesSubject = new Subject();
     public arrayMessages$ = this.arrayMessagesSubject.asObservable();
-    timerPing$ = interval(30000);
+
+    timerPing$ = interval(this.TIME_PING);
     roles: any;
     user: any;
 
@@ -51,34 +52,39 @@ export class NotioasService {
     }
 
     send_ping() {
+        // sending ping every 30 seconds
         this.timerPing$.subscribe(() => (this.messagesSubject.next('ping')));
     }
 
     connect() {
         const id_token = localStorage.getItem('id_token');
-        if (id_token !== null) {
+        const access_token = localStorage.getItem('access_token');
+        if (id_token !== null && access_token !== null) {
             this.roles = (JSON.parse(atob(id_token.split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
             this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
             const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
-            this.messagesSubject = webSocket({url: connWs, protocol: [] });
+            this.messagesSubject = webSocket({
+                url: connWs,
+                protocol: [`Authorization: Bearer ${access_token}`],
+                openObserver: {
+                    next: () => {
+                        this.send_ping();
+                    },
+                },
+            });
             this.messagesSubject
                 .pipe(
                     map((msn) => {
-                        if (msn.Estado === 'conected') {
-                            this.send_ping();
-                        } else {
-                            this.listMessage = [...[msn], ...this.listMessage];
-                            this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
-                            this.arrayMessagesSubject.next(this.listMessage);
-                        }
+                        this.listMessage = [...[msn], ...this.listMessage];
+                        this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
+                        this.arrayMessagesSubject.next(this.listMessage);
                         return msn
                     }),
                 )
                 .subscribe(
-                    (msg: any) => this.send_ping(),
+                    (msg: any) => {},
                     err => {
-                        console.info(err);
-                        // this.connect();
+                        console.info('websocketError:', err);
                     },
                     () => console.info('complete'),
                 );
@@ -110,10 +116,10 @@ export class NotioasService {
         if (estado === 'noleida') {
             const notificacion = this.getNotificacionEstadoUsuario(id);
             this.confService.get('notificacion_estado_usuario/changeStateToView/' + notificacion.Id)
-                    .subscribe(res => {
-                        this.listMessage = [];
-                        this.queryNotification();
-            });
+                .subscribe(res => {
+                    this.listMessage = [];
+                    this.queryNotification();
+                });
         }
     }
 
