@@ -11,7 +11,7 @@ import * as moment from 'moment';
   selector: 'ngx-list-notificacion',
   templateUrl: './list-notificacion.component.html',
   styleUrls: ['./list-notificacion.component.scss'],
-  })
+})
 export class ListNotificacionComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -66,9 +66,9 @@ export class ListNotificacionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.EndPoint;
           },
-          filterFunction: (cell?: any, search?: string): boolean =>  {          
-            return  (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')       
-          }
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
+          },
         },
       },
     };
@@ -83,7 +83,7 @@ export class ListNotificacionComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -110,17 +110,17 @@ export class ListNotificacionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('notificacion/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'Notificacion deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('notificacion/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'Notificacion deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

@@ -102,7 +102,6 @@ export class CrudParametroComponent implements OnInit {
     Swal(opt)
     .then((willDelete) => {
       if (willDelete.value) {
-        console.log(parametro);
         this.info_parametro = <Parametro>parametro;
         this.configuracionService.put('parametro', this.info_parametro)
           .subscribe(res => {

@@ -14,7 +14,7 @@ const routes: Routes = [{
   }, {
     path: 'crud-notificacion',
     component: CrudNotificacionComponent,
-  },],
+  }],
 }];
 
 @NgModule({

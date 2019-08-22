@@ -26,7 +26,7 @@ export class HeaderComponent {
   username = '';
   userMenu = [{ title: 'ver todas', icon: 'fa fa-list' }];
   public noNotify: any = '0';
-  private autenticacion= new ImplicitAutenticationService;
+  private autenticacion = new ImplicitAutenticationService;
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
@@ -41,9 +41,6 @@ export class HeaderComponent {
       });
 
     this.liveToken();
-  }
-  ngAfterViewInit(){
-
   }
 
   useLanguage(language: string) {
@@ -68,7 +65,7 @@ export class HeaderComponent {
 
   logout() {
     this.autenticacion.logout();
-   // this.liveTokenValue = auth.live(true);
+    // this.liveTokenValue = auth.live(true);
   }
 
   toggleSidebar(): boolean {

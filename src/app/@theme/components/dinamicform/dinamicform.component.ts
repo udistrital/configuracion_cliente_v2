@@ -14,10 +14,15 @@ export class DinamicformComponent implements OnInit, OnChanges {
   @Input('normalform') normalform: any;
   @Input('modeloData') modeloData: any;
   @Input('clean') clean: boolean;
+  // tslint:disable-next-line: no-output-rename
   @Output('result') result: EventEmitter<any> = new EventEmitter();
+  // tslint:disable-next-line: no-output-rename
   @Output('resultAux') resultAux: EventEmitter<any> = new EventEmitter();
+  // tslint:disable-next-line: no-output-rename
   @Output('resultSmart') resultSmart: EventEmitter<any> = new EventEmitter();
+  // tslint:disable-next-line: no-output-rename
   @Output('interlaced') interlaced: EventEmitter<any> = new EventEmitter();
+  // tslint:disable-next-line: no-output-rename
   @Output('percentage') percentage: EventEmitter<any> = new EventEmitter();
   data: any;
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
@@ -151,9 +156,9 @@ export class DinamicformComponent implements OnInit, OnChanges {
     if (c.requerido && ((c.valor === '' && c.etiqueta !== 'file') || c.valor === null || c.valor === undefined ||
       (JSON.stringify(c.valor) === '{}' && c.etiqueta !== 'file') || JSON.stringify(c.valor) === '[]')
       || ((c.etiqueta === 'file' && c.valor.name === undefined) && (c.etiqueta === 'file' && c.urlTemp === undefined))) {
-      if(c.prefix){
+      if (c.prefix) {
         c.alerta = '** Este patrón no es aceptado'
-      }else{
+      } else {
         c.alerta = '** Debe llenar este campo';
 
       }
@@ -256,7 +261,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
 
     this.result.emit(this.data);
     if (this.data.valid)
-    this.percentage.emit(this.data.percentage);
+      this.percentage.emit(this.data.percentage);
     return this.data;
   }
 

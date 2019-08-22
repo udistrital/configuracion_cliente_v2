@@ -20,7 +20,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   config: ToasterConfig;
   perfil_id: number;
 
-  //tree rol
+  // tree rol
   treeModelRol: TreeModel;
   treeNodeRol: TreeNode;
   nodesRol = [];
@@ -34,7 +34,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
     childrenField: 'Opciones',
   };
 
-  //tree menu
+  // tree menu
   treeModelMenu: TreeModel;
   treeNodeMenu: TreeNode;
   nodesMenu = [];

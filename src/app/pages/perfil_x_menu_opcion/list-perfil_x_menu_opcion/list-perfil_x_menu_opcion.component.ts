@@ -64,7 +64,7 @@ export class ListPerfilXMenuOpcionComponent implements OnInit {
           },
           filterFunction: (cell?: any, search?: string): boolean => {
             return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          }
+          },
         },
       },
     };

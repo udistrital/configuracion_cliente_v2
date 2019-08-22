@@ -42,14 +42,15 @@ export class CrudNotificacionConfiguracionComponent implements OnInit {
     this.loadOptionsMetodoHttp();
     this.loadOptionsTipo();
     this.loadOptionsAplicacion();
-   }
+  }
 
   construirForm() {
     this.formNotificacionConfiguracion.titulo = this.translate.instant('GLOBAL.notificacion_configuracion');
     this.formNotificacionConfiguracion.btn = this.translate.instant('GLOBAL.guardar');
     for (let i = 0; i < this.formNotificacionConfiguracion.campos.length; i++) {
       this.formNotificacionConfiguracion.campos[i].label = this.translate.instant('GLOBAL.' + this.formNotificacionConfiguracion.campos[i].label_i18n);
-      this.formNotificacionConfiguracion.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' + this.formNotificacionConfiguracion.campos[i].label_i18n);
+      this.formNotificacionConfiguracion.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' +
+        this.formNotificacionConfiguracion.campos[i].label_i18n);
     }
   }
 
@@ -59,33 +60,33 @@ export class CrudNotificacionConfiguracionComponent implements OnInit {
 
   loadOptionsMetodoHttp(): void {
     let metodoHttp: Array<any> = [];
-      this.configuracionService.get('metodo_http/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            metodoHttp = <Array<MetodoHttp>>res;
-          }
-          this.formNotificacionConfiguracion.campos[ this.getIndexForm('MetodoHttp') ].opciones = metodoHttp;
-        });
+    this.configuracionService.get('metodo_http/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          metodoHttp = <Array<MetodoHttp>>res;
+        }
+        this.formNotificacionConfiguracion.campos[this.getIndexForm('MetodoHttp')].opciones = metodoHttp;
+      });
   }
   loadOptionsTipo(): void {
     let tipo: Array<any> = [];
-      this.configuracionService.get('notificacion_tipo/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            tipo = <Array<NotificacionTipo>>res;
-          }
-          this.formNotificacionConfiguracion.campos[ this.getIndexForm('Tipo') ].opciones = tipo;
-        });
+    this.configuracionService.get('notificacion_tipo/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          tipo = <Array<NotificacionTipo>>res;
+        }
+        this.formNotificacionConfiguracion.campos[this.getIndexForm('Tipo')].opciones = tipo;
+      });
   }
   loadOptionsAplicacion(): void {
     let aplicacion: Array<any> = [];
-      this.configuracionService.get('aplicacion/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            aplicacion = <Array<Aplicacion>>res;
-          }
-          this.formNotificacionConfiguracion.campos[ this.getIndexForm('Aplicacion') ].opciones = aplicacion;
-        });
+    this.configuracionService.get('aplicacion/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          aplicacion = <Array<Aplicacion>>res;
+        }
+        this.formNotificacionConfiguracion.campos[this.getIndexForm('Aplicacion')].opciones = aplicacion;
+      });
   }
 
   getIndexForm(nombre: String): number {
@@ -107,7 +108,7 @@ export class CrudNotificacionConfiguracionComponent implements OnInit {
             this.info_notificacion_configuracion = <NotificacionConfiguracion>res[0];
           }
         });
-    } else  {
+    } else {
       this.info_notificacion_configuracion = undefined;
       this.clean = !this.clean;
     }
@@ -124,17 +125,17 @@ export class CrudNotificacionConfiguracionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_notificacion_configuracion = <NotificacionConfiguracion>notificacionConfiguracion;
-        this.configuracionService.put('notificacion_configuracion', this.info_notificacion_configuracion)
-          .subscribe(res => {
-            this.loadNotificacionConfiguracion();
-            this.eventChange.emit(true);
-            this.showToast('info', 'updated', 'NotificacionConfiguracion updated');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_notificacion_configuracion = <NotificacionConfiguracion>notificacionConfiguracion;
+          this.configuracionService.put('notificacion_configuracion', this.info_notificacion_configuracion)
+            .subscribe(res => {
+              this.loadNotificacionConfiguracion();
+              this.eventChange.emit(true);
+              this.showToast('info', 'updated', 'NotificacionConfiguracion updated');
+            });
+        }
+      });
   }
 
   createNotificacionConfiguracion(notificacionConfiguracion: any): void {
@@ -147,17 +148,17 @@ export class CrudNotificacionConfiguracionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_notificacion_configuracion = <NotificacionConfiguracion>notificacionConfiguracion;
-        this.configuracionService.post('notificacion_configuracion', this.info_notificacion_configuracion)
-          .subscribe(res => {
-            this.info_notificacion_configuracion = <NotificacionConfiguracion><unknown>res;
-            this.eventChange.emit(true);
-            this.showToast('info', 'created', 'NotificacionConfiguracion created');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_notificacion_configuracion = <NotificacionConfiguracion>notificacionConfiguracion;
+          this.configuracionService.post('notificacion_configuracion', this.info_notificacion_configuracion)
+            .subscribe(res => {
+              this.info_notificacion_configuracion = <NotificacionConfiguracion><unknown>res;
+              this.eventChange.emit(true);
+              this.showToast('info', 'created', 'NotificacionConfiguracion created');
+            });
+        }
+      });
   }
 
   ngOnInit() {

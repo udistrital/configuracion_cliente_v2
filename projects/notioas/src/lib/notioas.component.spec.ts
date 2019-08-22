@@ -8,9 +8,9 @@ describe('NotioasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotioasComponent ]
+      declarations: [NotioasComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

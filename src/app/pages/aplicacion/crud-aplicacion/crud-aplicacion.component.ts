@@ -36,7 +36,7 @@ export class CrudAplicacionComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.construirForm();
     });
-   }
+  }
 
   construirForm() {
     this.formAplicacion.titulo = this.translate.instant('GLOBAL.aplicacion');
@@ -71,7 +71,7 @@ export class CrudAplicacionComponent implements OnInit {
             this.info_aplicacion = <Aplicacion>res[0];
           }
         });
-    } else  {
+    } else {
       this.info_aplicacion = undefined;
       this.clean = !this.clean;
     }
@@ -88,17 +88,17 @@ export class CrudAplicacionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_aplicacion = <Aplicacion>aplicacion;
-        this.configuracionService.put('aplicacion', this.info_aplicacion)
-          .subscribe(res => {
-            this.loadAplicacion();
-            this.eventChange.emit(true);
-            this.showToast('info', 'updated', 'Aplicacion updated');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_aplicacion = <Aplicacion>aplicacion;
+          this.configuracionService.put('aplicacion', this.info_aplicacion)
+            .subscribe(res => {
+              this.loadAplicacion();
+              this.eventChange.emit(true);
+              this.showToast('info', 'updated', 'Aplicacion updated');
+            });
+        }
+      });
   }
 
   createAplicacion(aplicacion: any): void {
@@ -111,17 +111,17 @@ export class CrudAplicacionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_aplicacion = <Aplicacion>aplicacion;
-        this.configuracionService.post('aplicacion', this.info_aplicacion)
-          .subscribe(res => {
-            this.info_aplicacion = <Aplicacion><unknown>res;
-            this.eventChange.emit(true);
-            this.showToast('info', 'created', 'Aplicacion created');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_aplicacion = <Aplicacion>aplicacion;
+          this.configuracionService.post('aplicacion', this.info_aplicacion)
+            .subscribe(res => {
+              this.info_aplicacion = <Aplicacion><unknown>res;
+              this.eventChange.emit(true);
+              this.showToast('info', 'created', 'Aplicacion created');
+            });
+        }
+      });
   }
 
   ngOnInit() {

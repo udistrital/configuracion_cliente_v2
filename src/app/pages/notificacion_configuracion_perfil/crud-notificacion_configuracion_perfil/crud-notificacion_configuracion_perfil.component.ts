@@ -40,14 +40,16 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
     });
     this.loadOptionsNotificacionConfiguracion();
     this.loadOptionsPerfil();
-   }
+  }
 
   construirForm() {
     this.formNotificacionConfiguracionPerfil.titulo = this.translate.instant('GLOBAL.notificacion_configuracion_perfil');
     this.formNotificacionConfiguracionPerfil.btn = this.translate.instant('GLOBAL.guardar');
     for (let i = 0; i < this.formNotificacionConfiguracionPerfil.campos.length; i++) {
-      this.formNotificacionConfiguracionPerfil.campos[i].label = this.translate.instant('GLOBAL.' + this.formNotificacionConfiguracionPerfil.campos[i].label_i18n);
-      this.formNotificacionConfiguracionPerfil.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' + this.formNotificacionConfiguracionPerfil.campos[i].label_i18n);
+      this.formNotificacionConfiguracionPerfil.campos[i].label = this.translate.instant('GLOBAL.' +
+        this.formNotificacionConfiguracionPerfil.campos[i].label_i18n);
+      this.formNotificacionConfiguracionPerfil.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' +
+        this.formNotificacionConfiguracionPerfil.campos[i].label_i18n);
     }
   }
 
@@ -57,23 +59,23 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
 
   loadOptionsNotificacionConfiguracion(): void {
     let notificacionConfiguracion: Array<any> = [];
-      this.configuracionService.get('notificacion_configuracion/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            notificacionConfiguracion = <Array<NotificacionConfiguracion>>res;
-          }
-          this.formNotificacionConfiguracionPerfil.campos[ this.getIndexForm('NotificacionConfiguracion') ].opciones = notificacionConfiguracion;
-        });
+    this.configuracionService.get('notificacion_configuracion/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          notificacionConfiguracion = <Array<NotificacionConfiguracion>>res;
+        }
+        this.formNotificacionConfiguracionPerfil.campos[this.getIndexForm('NotificacionConfiguracion')].opciones = notificacionConfiguracion;
+      });
   }
   loadOptionsPerfil(): void {
     let perfil: Array<any> = [];
-      this.configuracionService.get('perfil/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            perfil = <Array<Perfil>>res;
-          }
-          this.formNotificacionConfiguracionPerfil.campos[ this.getIndexForm('Perfil') ].opciones = perfil;
-        });
+    this.configuracionService.get('perfil/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          perfil = <Array<Perfil>>res;
+        }
+        this.formNotificacionConfiguracionPerfil.campos[this.getIndexForm('Perfil')].opciones = perfil;
+      });
   }
 
   getIndexForm(nombre: String): number {
@@ -95,7 +97,7 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
             this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>res[0];
           }
         });
-    } else  {
+    } else {
       this.info_notificacion_configuracion_perfil = undefined;
       this.clean = !this.clean;
     }
@@ -112,17 +114,17 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>notificacionConfiguracionPerfil;
-        this.configuracionService.put('notificacion_configuracion_perfil', this.info_notificacion_configuracion_perfil)
-          .subscribe(res => {
-            this.loadNotificacionConfiguracionPerfil();
-            this.eventChange.emit(true);
-            this.showToast('info', 'updated', 'NotificacionConfiguracionPerfil updated');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>notificacionConfiguracionPerfil;
+          this.configuracionService.put('notificacion_configuracion_perfil', this.info_notificacion_configuracion_perfil)
+            .subscribe(res => {
+              this.loadNotificacionConfiguracionPerfil();
+              this.eventChange.emit(true);
+              this.showToast('info', 'updated', 'NotificacionConfiguracionPerfil updated');
+            });
+        }
+      });
   }
 
   createNotificacionConfiguracionPerfil(notificacionConfiguracionPerfil: any): void {
@@ -135,17 +137,17 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>notificacionConfiguracionPerfil;
-        this.configuracionService.post('notificacion_configuracion_perfil', this.info_notificacion_configuracion_perfil)
-          .subscribe(res => {
-            this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil><unknown>res;
-            this.eventChange.emit(true);
-            this.showToast('info', 'created', 'NotificacionConfiguracionPerfil created');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>notificacionConfiguracionPerfil;
+          this.configuracionService.post('notificacion_configuracion_perfil', this.info_notificacion_configuracion_perfil)
+            .subscribe(res => {
+              this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil><unknown>res;
+              this.eventChange.emit(true);
+              this.showToast('info', 'created', 'NotificacionConfiguracionPerfil created');
+            });
+        }
+      });
   }
 
   ngOnInit() {
