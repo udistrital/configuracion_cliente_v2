@@ -65,7 +65,7 @@ export class NotioasService {
             const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
             this.messagesSubject = webSocket({
                 url: connWs,
-                // protocol: [`Authorization: Bearer ${access_token}`],
+                protocol: [`synapse(Autorization='Bearer ${access_token}'`],
                 openObserver: {
                     next: () => {
                         this.send_ping();
