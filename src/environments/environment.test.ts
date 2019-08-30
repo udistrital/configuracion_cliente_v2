@@ -17,9 +17,9 @@ export const environment = {
     CLIENTE_ID: 'dmh4U7ixf4WnaXYPPVemP5DJZtca',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role documento',
-    REDIRECT_URL: 'http://10.20.0.254/configuraciontest/',
+    REDIRECT_URL: 'https://pruebasconfiguracion.portaloas.udistrital.edu.co/',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'http://10.20.0.254/configuraciontest/',
+    SIGN_OUT_REDIRECT_URL: 'https://pruebasconfiguracion.portaloas.udistrital.edu.co/',
   },
 
 };
