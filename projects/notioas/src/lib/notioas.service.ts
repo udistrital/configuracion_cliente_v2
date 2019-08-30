@@ -61,33 +61,36 @@ export class NotioasService {
         const access_token = localStorage.getItem('access_token');
         if (id_token !== null && access_token !== null) {
             this.roles = (JSON.parse(atob(id_token.split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
-            this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
-            const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
-            this.messagesSubject = webSocket({
-                url: connWs,
-                protocol: [`synapse(Autorization='Bearer ${access_token}'`],
-                openObserver: {
-                    next: () => {
-                        this.send_ping();
+            // this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
+            if (this.roles.length > 0) {
+                // const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
+                const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${access_token}`;
+                this.messagesSubject = webSocket({
+                    url: connWs,
+                    openObserver: {
+                        next: () => {
+                            this.send_ping();
+                        },
                     },
-                },
-            });
-            this.messagesSubject
-                .pipe(
-                    map((msn) => {
-                        this.listMessage = [...[msn], ...this.listMessage];
-                        this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
-                        this.arrayMessagesSubject.next(this.listMessage);
-                        return msn
-                    }),
-                )
-                .subscribe(
-                    (msg: any) => {},
-                    err => {
-                        console.info('websocketError:', err);
-                    },
-                    () => console.info('complete'),
-                );
+                });
+                this.messagesSubject
+                    .pipe(
+                        map((msn) => {
+                            this.listMessage = [...[msn], ...this.listMessage];
+                            this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
+                            this.arrayMessagesSubject.next(this.listMessage);
+                            return msn
+                        }),
+                    )
+                    .subscribe(
+                        (msg: any) => { },
+                        err => {
+                            console.info('websocketError:', err);
+                        },
+                        () => console.info('complete'),
+                    );
+            }
+
         }
 
     }

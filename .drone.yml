@@ -11,6 +11,7 @@ pipeline:
   nodejs:
     image: node:12.6.0
     commands:
+     - node --version
      - npm i
      - npm run build:test
     when:
@@ -20,6 +21,7 @@ pipeline:
   nodejs:  
     image: node:12.6.0
     commands:
+     - node --version
      - npm i
      - npm run build:prod
     when:

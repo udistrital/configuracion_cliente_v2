@@ -5,21 +5,20 @@
  */
 
 export const environment = {
-  production: true,
+  production: false,
   NUXEO: {
-    PATH: 'https://documental.udistrital.edu.co/nuxeo/',
+      PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },
-  CONFIGURACION_SERVICE: 'http://10.20.0.254/configuracion_api/v1/',
-  NOTIFICACION_SERVICE: 'ws://autenticacion.portaloas.udistrital.edu.co/notificacionws/v1/',
+  CONFIGURACION_SERVICE: 'http://localhost:8088/v1/',
+  NOTIFICACION_SERVICE: 'ws://localhost:8080/ws/join',
   CONF_MENU_SERVICE: 'http://10.20.0.254/configuracion_api/v1/menu_opcion_padre/ArbolMenus/',
   TOKEN: {
-    AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
-    CLIENTE_ID: '3Idp5LUlnZY7cOV10NaLuyRfzooa',
-    RESPONSE_TYPE: 'id_token token',
-    SCOPE: 'openid email role documento',
-    REDIRECT_URL: 'http://localhost:4200/',
-    SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'http://localhost:4200/',
+      AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
+      CLIENTE_ID: '3Idp5LUlnZY7cOV10NaLuyRfzooa',
+      RESPONSE_TYPE: 'id_token token',
+      SCOPE: 'openid email role documento',
+      REDIRECT_URL: 'http://localhost:4200/',
+      SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
+      SIGN_OUT_REDIRECT_URL: 'http://localhost:4200/',
   },
-
 };
