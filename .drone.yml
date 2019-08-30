@@ -4,6 +4,7 @@ workspace:
   when:
       branch: [master, test]
       event: [push, pull_request]
+      
 pipeline:
 
   # build and test the go program
