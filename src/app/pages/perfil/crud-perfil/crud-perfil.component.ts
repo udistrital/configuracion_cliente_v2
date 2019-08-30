@@ -128,7 +128,7 @@ export class CrudPerfilComponent implements OnInit {
         this.info_perfil = <Perfil>perfil;
         this.configuracionService.post('perfil', this.info_perfil)
           .subscribe(res => {
-            this.info_perfil = <Perfil>res;
+            this.info_perfil = <Perfil><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'Perfil created');
           });

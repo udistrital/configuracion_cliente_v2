@@ -10,7 +10,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-parametro',
   templateUrl: './list-parametro.component.html',
   styleUrls: ['./list-parametro.component.scss'],
-  })
+})
 export class ListParametroComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -70,7 +70,10 @@ export class ListParametroComponent implements OnInit {
           title: this.translate.instant('GLOBAL.aplicacion'),
           // type: 'aplicacion;',
           valuePrepareFunction: (value) => {
-            return value;
+            return value.Nombre;
+          },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
           },
         },
       },
@@ -86,7 +89,7 @@ export class ListParametroComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -113,17 +116,17 @@ export class ListParametroComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('parametro/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'Parametro deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('parametro/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'Parametro deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

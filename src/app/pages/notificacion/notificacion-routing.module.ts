@@ -5,7 +5,6 @@ import { ListNotificacionComponent } from './list-notificacion/list-notificacion
 import { CrudNotificacionComponent } from './crud-notificacion/crud-notificacion.component';
 
 
-
 const routes: Routes = [{
   path: '',
   component: NotificacionComponent,
@@ -20,10 +19,10 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [
-      RouterModule.forChild(routes),
+    RouterModule.forChild(routes),
   ],
   exports: [
-      RouterModule,
+    RouterModule,
   ],
 })
 

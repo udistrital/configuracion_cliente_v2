@@ -34,15 +34,6 @@ export let FORM_NOTIFICACION_ESTADO = {
         tipo: 'text',
     },
     {
-        etiqueta: 'checkbox',
-        claseGrid: 'col-6',
-        nombre: 'Activo',
-        label_i18n: 'activo',
-        placeholder_i18n: 'activo',
-        requerido: true,
-        tipo: 'checkbox',
-    },
-    {
         etiqueta: 'input',
         claseGrid: 'col-6',
         nombre: 'NumeroOrden',
@@ -50,6 +41,15 @@ export let FORM_NOTIFICACION_ESTADO = {
         placeholder_i18n: 'numero_orden',
         requerido: true,
         tipo: 'number',
+    },
+    {
+        etiqueta: 'checkbox',
+        claseGrid: 'col-6',
+        nombre: 'Activo',
+        label_i18n: 'activo',
+        placeholder_i18n: 'activo',
+        requerido: true,
+        tipo: 'checkbox',
     },
     ],
 }

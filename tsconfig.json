@@ -17,7 +17,14 @@
       "dom"
     ],
     "plugins": [
-      { "name": "tslint-language-service"}
-    ]
+      {
+        "name": "tslint-language-service"
+      }
+    ],
+    "paths": {
+      "notioas": [
+        "dist/notioas"
+      ]
+    }
   }
 }

@@ -10,7 +10,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-notificacion-configuracion-perfil',
   templateUrl: './list-notificacion_configuracion_perfil.component.html',
   styleUrls: ['./list-notificacion_configuracion_perfil.component.scss'],
-  })
+})
 export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -45,18 +45,14 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         NotificacionConfiguracion: {
           title: this.translate.instant('GLOBAL.notificacion_configuracion'),
           // type: 'notificacion_configuracion;',
           valuePrepareFunction: (value) => {
             return value.EndPoint;
+          },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
           },
         },
         Perfil: {
@@ -64,6 +60,9 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
           // type: 'perfil;',
           valuePrepareFunction: (value) => {
             return value.Nombre;
+          },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
           },
         },
       },
@@ -79,7 +78,7 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -106,17 +105,17 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('notificacion_configuracion_perfil/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'NotificacionConfiguracionPerfil deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('notificacion_configuracion_perfil/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'NotificacionConfiguracionPerfil deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

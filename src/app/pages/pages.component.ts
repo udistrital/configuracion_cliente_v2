@@ -3,17 +3,18 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { MenuItem } from './menu-item';
 import { MENU_ITEMS } from './pages-menu';
 // import { MENU_PUBLICO } from './pages-menu';
-import { ImplicitAutenticationService } from '../@core/utils/implicit_autentication.service';
 import { MenuService } from '../@core/data/menu.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { ImplicitAutenticationService } from './../@core/utils/implicit_autentication.service';
+
 
 @Component({
   selector: 'ngx-pages',
   template: `
     <ngx-sample-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu [items]='menu'></nb-menu>
       <router-outlet></router-outlet>
     </ngx-sample-layout>
   `,
@@ -29,27 +30,16 @@ export class PagesComponent implements OnInit {
   rol: String;
   dataMenu: any;
   roles: any;
+  private autenticacion= new ImplicitAutenticationService;
 
   constructor(
-    private autenticacion: ImplicitAutenticationService,
     public menuws: MenuService,
     private translate: TranslateService) { }
 
   ngOnInit() {
-    if (this.autenticacion.live()) {
-      this.roles = <any>this.autenticacion.getPayload().role;
-      if (this.roles.indexOf('ADMIN_CAMPUS') !== -1) {
-        this.rol = 'ASPIRANTE';
-      } else if (this.roles.indexOf('ASPIRANTE') !== -1) {
-        this.rol = 'ASPIRANTE';
-      } else if (this.roles.indexOf('ESTUDIANTE') !== -1) {
-        this.rol = 'ESTUDIANTE';
-      } else if (this.roles.indexOf('EGRESADO') !== -1) {
-        this.rol = 'EGRESADO';
-      } else {
-        this.rol = 'Menu%20campus';
-      }
-      this.menuws.get(this.rol + '/Campus').subscribe(
+    if (!this.autenticacion.live()) {
+      this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
+      this.menuws.get(this.roles + '/configuracionv2').subscribe(
         data => {
           this.dataMenu = <any>data;
           for (let i = 0; i < this.dataMenu.length; i++) {

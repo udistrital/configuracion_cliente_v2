@@ -10,7 +10,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-notificacion-configuracion',
   templateUrl: './list-notificacion_configuracion.component.html',
   styleUrls: ['./list-notificacion_configuracion.component.scss'],
-  })
+})
 export class ListNotificacionConfiguracionComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -45,13 +45,6 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         EndPoint: {
           title: this.translate.instant('GLOBAL.end_point'),
           // type: 'string;',
@@ -65,12 +58,18 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
+          },
         },
         Tipo: {
           title: this.translate.instant('GLOBAL.tipo'),
           // type: 'notificacion_tipo;',
           valuePrepareFunction: (value) => {
             return value.Nombre;
+          },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
           },
         },
         CuerpoNotificacion: {
@@ -86,6 +85,9 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
+          },
         },
       },
     };
@@ -100,7 +102,7 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -127,17 +129,17 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('notificacion_configuracion/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'NotificacionConfiguracion deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('notificacion_configuracion/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'NotificacionConfiguracion deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { GENERAL } from '../app-config';
+import { environment } from '../../environments/environment';
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -29,11 +29,11 @@ export class RequestManager {
 
 
   /**
-   * Use for set the source path of the service (service's name must be present at src/app/app-config.ts)
+   * Use for set the source path of the service (service's name must be present at src/environment/environment.ts)
    * @param service: string
    */
-  setPath(service: string) {
-    this.path = GENERAL.ENTORNO[service]
+  public setPath(service: string) {
+    this.path = environment[service]
   }
 
 
@@ -43,19 +43,16 @@ export class RequestManager {
    * @param params (an Key, Value object with que query params for the request)
    * @returns Observable<any>
    */
-  get(endpoint, params?) {
-    const queryParams = new HttpParams();
-    if (params) {
-      for (const [key, value] of Object.entries(params)) {
-        queryParams.append(key, value + '');
-      }
+  get(endpoint) {
 
-    }
-    this.httpOptions.params = queryParams;
     return this.http.get<any>(`${this.path}${endpoint}`, this.httpOptions).pipe(
       map(
         (res) => {
-          return res['Body'];
+          if (res.hasOwnProperty('Body')) {
+            return res['Body'];
+          } else {
+            return res;
+          }
         },
       ),
       catchError(this.errManager.handleError.bind(this)),

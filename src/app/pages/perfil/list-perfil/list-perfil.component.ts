@@ -10,7 +10,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-perfil',
   templateUrl: './list-perfil.component.html',
   styleUrls: ['./list-perfil.component.scss'],
-  })
+})
 export class ListPerfilComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -45,13 +45,13 @@ export class ListPerfilComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
+        // Id: {
+        //   title: this.translate.instant('GLOBAL.id'),
+        //   // type: 'number;',
+        //   valuePrepareFunction: (value) => {
+        //     return value;
+        //   },
+        // },
         Nombre: {
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
@@ -64,6 +64,9 @@ export class ListPerfilComponent implements OnInit {
           // type: 'aplicacion;',
           valuePrepareFunction: (value) => {
             return value.Nombre;
+          },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
           },
         },
       },
@@ -79,7 +82,7 @@ export class ListPerfilComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -106,17 +109,17 @@ export class ListPerfilComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('perfil/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'Perfil deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('perfil/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'Perfil deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

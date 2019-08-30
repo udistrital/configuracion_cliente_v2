@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { tap } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
-import { NbToastrService } from '@nebular/theme';
+import { tap, finalize, takeUntil } from 'rxjs/operators';
 import { PopUpManager } from '../../managers/popUpManager'
 import { TranslateService } from '@ngx-translate/core';
+import { LoaderService } from '../utils/load.service';
+import { Subject } from 'rxjs';
 
 
 @Injectable()
@@ -15,19 +15,32 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router,
     private pUpManager: PopUpManager,
     private translate: TranslateService,
+    public loaderService: LoaderService,
   ) { }
+  private cancelPendingRequests$ = new Subject<void>()
+
+
+  public onCancelPendingRequests() {
+    return this.cancelPendingRequests$.asObservable()
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
+    this.loaderService.show();
     const acces_token = window.localStorage.getItem('access_token');
 
-    if (acces_token) {
+    if (acces_token !== null) {
+
+      const authReq = req.clone({
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${acces_token}`,
+        }),
+      });
+
       // Clone the request and replace the original headers with
       // cloned headers, updated with the authorization.
-      const authToken = 'Bearer ' + acces_token;
-      const authReq = req.clone({
-        headers: req.headers.set('Authorization', authToken),
-      });
+
       // send cloned request with header to the next handler.
       return next.handle(authReq).pipe(
         tap(event => {
@@ -55,7 +68,10 @@ export class AuthInterceptor implements HttpInterceptor {
             console.info(error);
             this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${error['status']}`))
           },
-        ));
+        ),
+        finalize(() => this.loaderService.hide()),
+        takeUntil(this.onCancelPendingRequests()),
+        );
     } else {
       return next.handle(req).pipe(
         tap(event => {

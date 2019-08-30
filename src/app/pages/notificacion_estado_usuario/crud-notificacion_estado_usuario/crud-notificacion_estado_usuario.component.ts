@@ -40,14 +40,15 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
     });
     this.loadOptionsNotificacion();
     this.loadOptionsNotificacionEstado();
-   }
+  }
 
   construirForm() {
     this.formNotificacionEstadoUsuario.titulo = this.translate.instant('GLOBAL.notificacion_estado_usuario');
     this.formNotificacionEstadoUsuario.btn = this.translate.instant('GLOBAL.guardar');
     for (let i = 0; i < this.formNotificacionEstadoUsuario.campos.length; i++) {
       this.formNotificacionEstadoUsuario.campos[i].label = this.translate.instant('GLOBAL.' + this.formNotificacionEstadoUsuario.campos[i].label_i18n);
-      this.formNotificacionEstadoUsuario.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' + this.formNotificacionEstadoUsuario.campos[i].label_i18n);
+      this.formNotificacionEstadoUsuario.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' +
+        this.formNotificacionEstadoUsuario.campos[i].label_i18n);
     }
   }
 
@@ -57,23 +58,23 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
 
   loadOptionsNotificacion(): void {
     let notificacion: Array<any> = [];
-      this.configuracionService.get('notificacion/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            notificacion = <Array<Notificacion>>res;
-          }
-          this.formNotificacionEstadoUsuario.campos[ this.getIndexForm('Notificacion') ].opciones = notificacion;
-        });
+    this.configuracionService.get('notificacion/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          notificacion = <Array<Notificacion>>res;
+        }
+        this.formNotificacionEstadoUsuario.campos[this.getIndexForm('Notificacion')].opciones = notificacion;
+      });
   }
   loadOptionsNotificacionEstado(): void {
     let notificacionEstado: Array<any> = [];
-      this.configuracionService.get('notificacion_estado/?limit=0')
-        .subscribe(res => {
-          if (res !== null) {
-            notificacionEstado = <Array<NotificacionEstado>>res;
-          }
-          this.formNotificacionEstadoUsuario.campos[ this.getIndexForm('NotificacionEstado') ].opciones = notificacionEstado;
-        });
+    this.configuracionService.get('notificacion_estado/?limit=0')
+      .subscribe(res => {
+        if (res !== null) {
+          notificacionEstado = <Array<NotificacionEstado>>res;
+        }
+        this.formNotificacionEstadoUsuario.campos[this.getIndexForm('NotificacionEstado')].opciones = notificacionEstado;
+      });
   }
 
   getIndexForm(nombre: String): number {
@@ -95,7 +96,7 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
             this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>res[0];
           }
         });
-    } else  {
+    } else {
       this.info_notificacion_estado_usuario = undefined;
       this.clean = !this.clean;
     }
@@ -112,17 +113,17 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>notificacionEstadoUsuario;
-        this.configuracionService.put('notificacion_estado_usuario', this.info_notificacion_estado_usuario)
-          .subscribe(res => {
-            this.loadNotificacionEstadoUsuario();
-            this.eventChange.emit(true);
-            this.showToast('info', 'updated', 'NotificacionEstadoUsuario updated');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>notificacionEstadoUsuario;
+          this.configuracionService.put('notificacion_estado_usuario', this.info_notificacion_estado_usuario)
+            .subscribe(res => {
+              this.loadNotificacionEstadoUsuario();
+              this.eventChange.emit(true);
+              this.showToast('info', 'updated', 'NotificacionEstadoUsuario updated');
+            });
+        }
+      });
   }
 
   createNotificacionEstadoUsuario(notificacionEstadoUsuario: any): void {
@@ -135,17 +136,17 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>notificacionEstadoUsuario;
-        this.configuracionService.post('notificacion_estado_usuario', this.info_notificacion_estado_usuario)
-          .subscribe(res => {
-            this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>res;
-            this.eventChange.emit(true);
-            this.showToast('info', 'created', 'NotificacionEstadoUsuario created');
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete.value) {
+          this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario>notificacionEstadoUsuario;
+          this.configuracionService.post('notificacion_estado_usuario', this.info_notificacion_estado_usuario)
+            .subscribe(res => {
+              this.info_notificacion_estado_usuario = <NotificacionEstadoUsuario><unknown>res;
+              this.eventChange.emit(true);
+              this.showToast('info', 'created', 'NotificacionEstadoUsuario created');
+            });
+        }
+      });
   }
 
   ngOnInit() {
