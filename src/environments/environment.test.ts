@@ -14,7 +14,7 @@ export const environment = {
   CONF_MENU_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_api_test/menu_opcion_padre/ArbolMenus/',
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
-    CLIENTE_ID: 'dmh4U7ixf4WnaXYPPVemP5DJZtca',
+    CLIENTE_ID: 'AMYTVzeZyHljpTPT1UrTfuQKMvca',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role documento',
     REDIRECT_URL: 'https://pruebasconfiguracion.portaloas.udistrital.edu.co/',
