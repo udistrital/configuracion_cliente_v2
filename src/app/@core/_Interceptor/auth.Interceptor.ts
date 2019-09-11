@@ -17,12 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
     private translate: TranslateService,
     public loaderService: LoaderService,
   ) { }
-  private cancelPendingRequests$ = new Subject<void>()
-
-
-  public onCancelPendingRequests() {
-    return this.cancelPendingRequests$.asObservable()
-  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
@@ -30,9 +24,9 @@ export class AuthInterceptor implements HttpInterceptor {
     const acces_token = window.localStorage.getItem('access_token');
 
     if (acces_token !== null) {
-
       const authReq = req.clone({
         headers: new HttpHeaders({
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${acces_token}`,
         }),
@@ -70,8 +64,7 @@ export class AuthInterceptor implements HttpInterceptor {
           },
         ),
         finalize(() => this.loaderService.hide()),
-        takeUntil(this.onCancelPendingRequests()),
-        );
+      );
     } else {
       return next.handle(req).pipe(
         tap(event => {
