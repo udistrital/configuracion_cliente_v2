@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Rx';
 import { ConfiguracionService } from './configuracion.service';
-import { from, interval } from 'rxjs';
+import { from, interval, BehaviorSubject, Subject } from 'rxjs';
 import { webSocket } from 'rxjs/webSocket';
-import { map } from 'rxjs-compat/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -22,9 +21,13 @@ export class NotioasService {
     private arrayMessagesSubject = new Subject();
     public arrayMessages$ = this.arrayMessagesSubject.asObservable();
 
+    private activo = new BehaviorSubject({});
+    public activo$ = this.activo.asObservable();
+
     timerPing$ = interval(this.TIME_PING);
     roles: any;
     user: any;
+    public menuActivo: Boolean = false;
 
 
     constructor(
@@ -33,6 +36,15 @@ export class NotioasService {
         this.listMessage = [];
         this.notificacion_estado_usuario = []
 
+    }
+
+    toogleMenuNotify() {
+        this.menuActivo = !this.menuActivo;
+        const data = { activo: this.menuActivo }
+        this.activo.next(data);
+        if (this.menuActivo) {
+            this.changeStateNoView();
+        }
     }
 
     initLib(pathConfiguracion: string, pathNotificacion: string) {
@@ -61,7 +73,7 @@ export class NotioasService {
         const access_token = localStorage.getItem('access_token');
         if (id_token !== null && access_token !== null) {
             this.roles = (JSON.parse(atob(id_token.split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
-            // this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
+            this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
             if (this.roles.length > 0) {
                 // const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
                 const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${access_token}`;

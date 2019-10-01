@@ -1,4 +1,5 @@
 <div class="header-container" [class.left]="position === 'normal'" [class.right]="position === 'inverse'">
+  <lib-notioas></lib-notioas>
   <div class="logo-containter">
     <a (click)="toggleSidebar()" href="#" class="navigation">
       <i class="nb-menu"></i>
@@ -46,5 +47,6 @@
   <nb-action class="control-item">
     <nb-search type="rotate-layout" (click)="startSearch()"></nb-search>
   </nb-action>
-
 </nb-actions>
+
+
