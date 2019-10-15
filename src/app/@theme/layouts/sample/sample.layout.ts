@@ -39,17 +39,9 @@ import { StateService } from '../../../@core/data/state.service';
         <nb-menu [items]="subMenu"></nb-menu>
       </nb-layout-column>
 
-      <nb-layout-footer fixed>
+      <nb-layout-footer>
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
-
-      <nb-sidebar class="notifications-sidebar"
-                   tag="notifications-sidebar"
-                   state="collapsed"
-                   fixed
-                   [end]="sidebar.id !== 'end'">
-                   <lib-notioas></lib-notioas>
-      </nb-sidebar>
     </nb-layout>
   `,
 })
