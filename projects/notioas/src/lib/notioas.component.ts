@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './notioas.component.html',
   styleUrls: ['./notioas.component.css'],
 })
-export class NotioasComponent implements OnInit{
+export class NotioasComponent implements OnInit {
   ngOnInit(): void {
     this.notificacionService.activo$
     .subscribe((isActive: any) => {
