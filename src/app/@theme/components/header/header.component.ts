@@ -73,10 +73,8 @@ export class HeaderComponent {
     return false;
   }
 
-  toggleNotifications(): boolean {
-    this.sidebarService.toggle(false, 'notifications-sidebar');
-    this.notificacionService.changeStateNoView();
-    return false;
+  toggleNotifications() {
+    this.notificacionService.toogleMenuNotify();
   }
 
   goToHome() {
