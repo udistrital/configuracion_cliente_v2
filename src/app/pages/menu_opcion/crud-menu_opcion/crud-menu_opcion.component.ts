@@ -90,6 +90,7 @@ export class CrudMenuOpcionComponent implements OnInit {
           }
         }
       }, error => {
+        console.info(error);
         this.no_tree = false;
         this.nodes = []
       });
@@ -190,9 +191,11 @@ export class CrudMenuOpcionComponent implements OnInit {
     };
     Swal(opt)
       .then((willDelete) => {
+        console.info(willDelete);
         if (willDelete.value) {
           menuOpcion.TipoOpcion = menuOpcion.TipoOpcion.Nombre;
           this.info_menu_opcion = <MenuOpcion>menuOpcion;
+          console.info(this.info_menu_opcion)
           this.configuracionService.post('menu_opcion', this.info_menu_opcion)
             .subscribe(res => {
               this.info_menu_opcion = <MenuOpcion><unknown>res;
@@ -222,6 +225,8 @@ export class CrudMenuOpcionComponent implements OnInit {
 
   validarForm(event) {
     if (event.valid) {
+      console.info(event);
+      console.info(this.info_menu_opcion);
       if (this.info_menu_opcion === undefined) {
         this.createMenuOpcion(event.data.MenuOpcion);
       } else {
