@@ -10,7 +10,7 @@ export const environment = {
     PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },
   CONFIGURACION_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1/',
-  NOTIFICACION_SERVICE: 'ws://pruebasapi.intranetoas.udistrital.edu.co:8116/ws',
+  NOTIFICACION_SERVICE: 'wss://pruebasapi.portaloas.udistrital.edu.co:8116/ws',
   CONF_MENU_SERVICE: 'http://10.20.0.254/configuracion_api/v1/menu_opcion_padre/ArbolMenus/',
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
