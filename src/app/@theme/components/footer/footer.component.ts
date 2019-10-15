@@ -27,7 +27,7 @@ export class FooterComponent {
       }, {
         title: 'Phone',
         class: 'call',
-        value: ['323 93 00','Ext. 1112'],
+        value: ['323 93 00', 'Ext. 1112'],
       }, {
         title: 'Direccion',
         class: 'pin',
