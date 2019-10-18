@@ -100,7 +100,9 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   }
 
   opcionEnRol(data: any) {
-    return (this.perfil_x_menu.filter((p) => (p.Perfil.Id === this.info_perfil.Id && p.Opcion.Id === data.Id)));
+    console.info(data);
+    console.info(this.perfil_x_menu);
+    return (this.perfil_x_menu.filter((p: any) => (p.Perfil.Id === this.info_perfil.Id && p.Opcion.Id === data.Id)));
   }
 
 
