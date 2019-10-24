@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MomentModule } from 'ngx-moment';
-import { NotioasModule } from 'notioas';
+import { NotioasModule } from 'utilidades-core';
 
 import {
   MatAutocompleteModule,

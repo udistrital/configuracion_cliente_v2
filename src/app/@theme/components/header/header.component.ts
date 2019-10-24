@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
-import { NotioasService } from 'notioas';
+import { NotioasService } from 'utilidades-core';
 import { environment } from './../../../../environments/environment';
 
 const { NOTIFICACION_SERVICE, CONFIGURACION_SERVICE } = environment;
