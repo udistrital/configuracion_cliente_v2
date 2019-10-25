@@ -6,6 +6,9 @@
 
 export const environment = {
   production: false,
+  entorno: 'test',
+  notificaciones: true,
+  menuApps: true,
   NUXEO: {
     PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },

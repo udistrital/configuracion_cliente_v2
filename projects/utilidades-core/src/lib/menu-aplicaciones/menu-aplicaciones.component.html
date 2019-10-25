@@ -1,20 +1,16 @@
-<div id="menu-app" class="aplicaciones_menu_container" >
-  <div id="loading" class="hidden">
-    <div class="lds-ripple"><div></div><div></div></div>
-    <span class="menu-txt-app">Loading</span>
-    
-    
+<div id="menu" [ngClass]="{'aplicaciones_menu_container': true, 'menu_is_active': activo }">
+  <div class="container-aplicativos">
+    <article *ngFor="let categoria of menuService.eventFilter$ | async" class="card">
+      <div class="card-text-app-container">
+        <h3 class="card-title" id="categoria-title">{{categoria.nombre}}</h3>
+      </div>
+      <div class="card-app-container">
+        <div *ngFor="let aplicacion of categoria.aplicaciones" class="flip-card" (click)="redirect(aplicacion.url)">
+          <div class="notifications-image-container">
+            <div class="menu-app" [id]="aplicacion.estilo_logo"></div>
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
-      <div id ="refresh" >
-          <button class="button" >
-            <i class="fa fa-refresh" style="font-size:20px;"></i>
-            <span class="button-text"> 
-                  Failed to load menu
-              </span> 
-          </button>
-    </div>
-  <div id="apps">
-   </div >
-  <script type="text/javascript" src="menu.js">
-  </script>
 </div>

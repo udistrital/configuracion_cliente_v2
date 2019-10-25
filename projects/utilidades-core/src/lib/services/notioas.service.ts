@@ -47,8 +47,8 @@ export class NotioasService {
         }
     }
 
-    initLib(pathConfiguracion: string, pathNotificacion: string) {
-        this.confService.setPath(pathConfiguracion);
+    init(pathNotificacion: string) {
+        console.info('...Init lib notificaciones');
         this.NOTIFICACION_SERVICE = pathNotificacion;
         this.connect();
         this.queryNotification();
