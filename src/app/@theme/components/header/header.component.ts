@@ -84,4 +84,13 @@ export class HeaderComponent {
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
   }
+  abrirMenu(){
+    var menu=document.getElementById('menu-app')
+    if (!menu.className.includes("menu_is_active")){
+        console.log("entro a funcion")
+        menu.classList.add('menu_is_active')
+    }else{
+        menu.classList.remove('menu_is_active')
+    }
+  }
 }

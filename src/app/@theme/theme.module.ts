@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MomentModule } from 'ngx-moment';
-import { NotioasModule } from 'utilidades-core';
+import { NotioasModule,  MenuAplicacionesModule } from 'utilidades-core';
 
 import {
   MatAutocompleteModule,
@@ -205,7 +205,7 @@ const NB_THEME_PROVIDERS = [
 
 
 @NgModule({
-  imports: [...[NotioasModule], ...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
+  imports: [...[NotioasModule],...[MenuAplicacionesModule] ,...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],
   declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent],
   entryComponents: [...ENTRY_COMPONENTS],
