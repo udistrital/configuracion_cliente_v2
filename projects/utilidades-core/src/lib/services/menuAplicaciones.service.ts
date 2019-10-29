@@ -57,6 +57,7 @@ export class MenuAplicacionesService {
                 let nuevasAplicaciones = this.categorias.map((categoria: any) => {
                     categoria.aplicaciones = categoria.aplicaciones.filter((aplicacion: any) => (this.existe(aplicacion.nombre, data)));
                     categoria.aplicaciones = categoria.aplicaciones.map((app: any) => {return {...app, ...{estilo_logo: app.estilo.split('-')[0]}}
+                    
                 });
                     return categoria;
                 });

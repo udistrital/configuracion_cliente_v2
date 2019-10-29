@@ -1,14 +1,12 @@
 <div id="menu" [ngClass]="{'aplicaciones_menu_container': true, 'menu_is_active': activo }">
   <div class="container-aplicativos">
     <article *ngFor="let categoria of menuService.eventFilter$ | async" class="card">
-      <div class="card-text-app-container">
-        <h3 class="card-title" id="categoria-title">{{categoria.nombre}}</h3>
+      <div class="title-app-menu-div" [ngStyle]="{'background-color': categoria.color}">
+        <h3 class="categoria-title" >{{categoria.nombre}}</h3>
       </div>
-      <div class="card-app-container">
-        <div *ngFor="let aplicacion of categoria.aplicaciones" class="flip-card" (click)="redirect(aplicacion.url)">
-          <div class="notifications-image-container">
-            <div class="menu-app" [id]="aplicacion.estilo_logo"></div>
-          </div>
+      <div class="app-image-container">
+        <div *ngFor="let aplicacion of categoria.aplicaciones" class="image-application" (click)="redirect(aplicacion.url)">
+            <img class="menu-app" [id]="aplicacion.estilo_logo">
         </div>
       </div>
     </article>
