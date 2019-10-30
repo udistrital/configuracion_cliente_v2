@@ -6,10 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
-import { NotioasService } from 'notioas';
+import { NotioasService, MenuAplicacionesService, UtilidadesCoreService } from 'utilidades-core';
 import { environment } from './../../../../environments/environment';
-
-const { NOTIFICACION_SERVICE, CONFIGURACION_SERVICE } = environment;
 
 @Component({
   selector: 'ngx-header',
@@ -33,6 +31,9 @@ export class HeaderComponent {
     private analyticsService: AnalyticsService,
     private router: Router,
     public notificacionService: NotioasService,
+    private utilidadesService: UtilidadesCoreService,
+    private menuAplicacionesService: MenuAplicacionesService,
+
     public translate: TranslateService) {
     this.translate = translate;
     this.itemClick = this.menuService.onItemClick()
@@ -51,7 +52,8 @@ export class HeaderComponent {
     if (this.autenticacion.live()) {
       this.liveTokenValue = this.autenticacion.live();
       this.username = (this.autenticacion.getPayload()).sub;
-      this.notificacionService.initLib(CONFIGURACION_SERVICE, NOTIFICACION_SERVICE)
+      this.utilidadesService.initLib(environment);
+      // this.initLib(CONFIGURACION_SERVICE, NOTIFICACION_SERVICE)
     }
     return this.autenticacion.live();
   }
@@ -77,6 +79,10 @@ export class HeaderComponent {
     this.notificacionService.toogleMenuNotify();
   }
 
+  abrirMenu() {
+    this.menuAplicacionesService.toogleMenuNotify();
+  }
+
   goToHome() {
     this.menuService.navigateHome();
   }
@@ -84,4 +90,5 @@ export class HeaderComponent {
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
   }
+
 }

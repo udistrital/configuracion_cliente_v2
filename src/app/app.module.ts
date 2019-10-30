@@ -68,6 +68,7 @@ import {
 } from '@angular/material';
 
 import { ImplicitAutenticationService } from './@core/utils/implicit_autentication.service';
+import { MenuAplicacionesComponent } from './projects/utilidades-core/src/lib/menu-aplicaciones/menu-aplicaciones.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -123,6 +124,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTooltipModule,
     MatTreeModule,
   ],
+  declarations: [MenuAplicacionesComponent],
 })
 export class MaterialModule { }
 
