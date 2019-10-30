@@ -3,6 +3,7 @@ import { ConfiguracionService } from './configuracion.service';
 import { from, interval, BehaviorSubject, Subject } from 'rxjs';
 import { webSocket } from 'rxjs/webSocket';
 import { map } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -35,6 +36,16 @@ export class NotioasService {
     ) {
         this.listMessage = [];
         this.notificacion_estado_usuario = []
+        const up$ = fromEvent(document, 'mouseup');
+        up$.subscribe((data: any) => {
+            if (this.activo) {
+                if(((data.path
+                    .map((info: any)=>{return (info.localName)}))
+                    .filter((data: any )=>(data === 'lib-notioas'))).length === 0){
+                    this.closePanel();
+                }
+            }
+        });
 
     }
 
@@ -45,6 +56,11 @@ export class NotioasService {
         if (this.menuActivo) {
             this.changeStateNoView();
         }
+    }
+    
+    closePanel() {
+        this.menuActivo = false;
+        this.activo.next({ activo: this.menuActivo });
     }
 
     init(pathNotificacion: string) {

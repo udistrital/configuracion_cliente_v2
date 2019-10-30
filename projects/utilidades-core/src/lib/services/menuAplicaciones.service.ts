@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConfiguracionService } from './configuracion.service';
-import { from, BehaviorSubject, Subject } from 'rxjs';
-import { map, retry, catchError } from 'rxjs/operators';
+import {  BehaviorSubject, fromEvent } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -20,6 +20,20 @@ export class MenuAplicacionesService {
 
     constructor(private configuracionService: ConfiguracionService) {
         this.roles = this.getRole();
+        const up$ = fromEvent(document, 'mouseup');
+
+        up$.subscribe((data: any) => {
+            if (this.activo) {
+                if(((data.path.map((info: any)=>{return (info.localName)})).filter((data: any )=>(data === 'menu-aplicaciones'))).length === 0){
+                    this.closePanel();
+                }
+            }
+        });
+    }
+        
+    closePanel() {
+        this.menuActivo = false;
+        this.activo.next({ activo: this.menuActivo });
     }
 
     getRole() {

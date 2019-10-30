@@ -2,7 +2,7 @@
   <div class="container-aplicativos">
     <article *ngFor="let categoria of menuService.eventFilter$ | async" class="card">
       <div class="title-app-menu-div" [ngStyle]="{'background-color': categoria.color}">
-        <h3 class="categoria-title" >{{categoria.nombre}}</h3>
+        <h5 class="categoria-title" >{{categoria.nombre}}</h5>
       </div>
       <div class="app-image-container">
         <div *ngFor="let aplicacion of categoria.aplicaciones" class="image-application" (click)="redirect(aplicacion.url)">

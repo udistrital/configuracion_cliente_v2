@@ -5,7 +5,7 @@ import { MenuAplicacionesComponent } from './menu-aplicaciones.component';
 @NgModule({
   declarations: [MenuAplicacionesComponent],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [MenuAplicacionesComponent],
 })
