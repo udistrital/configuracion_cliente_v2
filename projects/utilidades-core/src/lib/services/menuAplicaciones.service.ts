@@ -23,7 +23,6 @@ export class MenuAplicacionesService {
         const up$ = fromEvent(document, 'mouseup');
 
         up$.subscribe((data: any) => {
-            console.info(data);
             if (this.activo) {
                 if (!((window.innerWidth - 320 ) < data.pageX && data.pageY > 77 && data.pageY < 578 )) {
                     this.closePanel();
