@@ -23,8 +23,9 @@ export class MenuAplicacionesService {
         const up$ = fromEvent(document, 'mouseup');
 
         up$.subscribe((data: any) => {
+            console.info(data);
             if (this.activo) {
-                if(((data.path.map((info: any)=>{return (info.localName)})).filter((data: any )=>(data === 'menu-aplicaciones'))).length === 0){
+                if (!((window.innerWidth - 320 ) < data.pageX && data.pageY > 77 && data.pageY < 578 )) {
                     this.closePanel();
                 }
             }
