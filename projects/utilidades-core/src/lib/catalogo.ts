@@ -1,7 +1,7 @@
 export const catalogo = {
     test: [
         {
-            nombre: 'Gestión Administrativa',
+            nombre: 'GAIA - Gestión Administrativa',
             color: '#8E2825',
             aplicaciones: [
                 {
@@ -24,13 +24,13 @@ export const catalogo = {
                 },
                 {
                     nombre: 'CUMPLIDOS',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebascumplidos.portaloas.udistrital.edu.co',
                     estilo: 'cumplidos-info',
                     descripcion: 'Apoyo de procesos postcontractuales tanto para docentes de vinculacion especial como CPS',
                 },
                 {
                     nombre: 'RESOLUCIONES',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebasresoluciones.portaloas.udistrital.edu.co',
                     estilo: 'resoluciones-info',
                     descripcion: 'Gestión del vinculo contractual de los docentes de vinculación especial apoyando procesos de RRHH',
                 },
@@ -52,10 +52,16 @@ export const catalogo = {
                     estilo: 'temis-info',
                     descripcion: 'Apoyo en la definición y cálculo de las cuotas partes pensionales con entidades externas',
                 },
+                {
+                    nombre: 'PERSEO',
+                    url: 'https://www.google.com',
+                    estilo: 'perseo-info',
+                    descripcion: 'Permitir el desarrollo de procesos electorales dentro de la universidad de forma digital',
+                },
             ],
         },
         {
-            nombre: 'Gestión Académica',
+            nombre: 'URANO - Gestión Académica',
             color: '#15485E',
             aplicaciones: [
                 {
@@ -78,19 +84,31 @@ export const catalogo = {
                 },
                 {
                     nombre: 'SGA',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebassga.portaloas.udistrital.edu.co',
                     estilo: 'sga-info',
                     descripcion: 'Apoya el desarrollo de la misión de la universidad, así como diversos procesos administrativos',
+                },
+                {
+                    nombre: 'CAMPUS',
+                    url: 'https://www.google.com',
+                    estilo: 'campus-info',
+                    descripcion: 'Campus Virtual para postgrados',
+                },
+                {
+                    nombre: 'SICIUD',
+                    url: 'https://www.google.com',
+                    estilo: 'siciud-info',
+                    descripcion: 'Una breve descripción acerca de sisiud',
                 },
             ],
         },
         {
-            nombre: 'Gestión Financiera',
+            nombre: 'NIX - Gestión Financiera',
             color: '#DE9E0F',
             aplicaciones: [
                 {
                     nombre: 'KRONOS',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebaspresupuesto.portaloas.udistrital.edu.co',
                     estilo: 'kronos-info',
                     descripcion: 'Apoyar el libre desarrollo de los procesos financieros y reporte de información a entes de control',
                 },
@@ -103,21 +121,33 @@ export const catalogo = {
             ],
         },
         {
-            nombre: 'Voto Electrónico',
+            nombre: 'ATHENEA - Analíticos',
             color: '#397A18',
             aplicaciones: [
                 {
-                    nombre: 'PERSEO',
+                    nombre: 'SPAGOBI',
                     url: 'https://www.google.com',
-                    estilo: 'perseo-info',
-                    descripcion: 'Permitir el desarrollo de procesos electorales dentro de la universidad de forma digital',
+                    estilo: 'spagobi-info',
+                    descripcion: 'Una breve descripción acerca de spagobi',
+                },
+                {
+                    nombre: 'CIRENE',
+                    url: 'https://www.google.com',
+                    estilo: 'cirene-info',
+                    descripcion: 'Una breve descripción acerca de cirene',
+                },
+                {
+                    nombre: 'APEA',
+                    url: 'https://www.google.com',
+                    estilo: 'apea-info',
+                    descripcion: 'Una breve descripción acerca de apea',
                 },
             ],
         },
     ],
     prod: [
         {
-            nombre: 'Gestión Administrativa',
+            nombre: 'GAIA - Gestión Administrativa',
             color: '#8E2825',
             aplicaciones: [
                 {
@@ -140,13 +170,13 @@ export const catalogo = {
                 },
                 {
                     nombre: 'CUMPLIDOS',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebascumplidos.portaloas.udistrital.edu.co',
                     estilo: 'cumplidos-info',
                     descripcion: 'Apoyo de procesos postcontractuales tanto para docentes de vinculacion especial como CPS',
                 },
                 {
                     nombre: 'RESOLUCIONES',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebasresoluciones.portaloas.udistrital.edu.co',
                     estilo: 'resoluciones-info',
                     descripcion: 'Gestión del vinculo contractual de los docentes de vinculación especial apoyando procesos de RRHH',
                 },
@@ -168,10 +198,16 @@ export const catalogo = {
                     estilo: 'temis-info',
                     descripcion: 'Apoyo en la definición y cálculo de las cuotas partes pensionales con entidades externas',
                 },
+                {
+                    nombre: 'PERSEO',
+                    url: 'https://www.google.com',
+                    estilo: 'perseo-info',
+                    descripcion: 'Permitir el desarrollo de procesos electorales dentro de la universidad de forma digital',
+                },
             ],
         },
         {
-            nombre: 'Gestión Académica',
+            nombre: 'URANO - Gestión Académica',
             color: '#15485E',
             aplicaciones: [
                 {
@@ -194,19 +230,31 @@ export const catalogo = {
                 },
                 {
                     nombre: 'SGA',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebassga.portaloas.udistrital.edu.co',
                     estilo: 'sga-info',
                     descripcion: 'Apoya el desarrollo de la misión de la universidad, así como diversos procesos administrativos',
+                },
+                {
+                    nombre: 'CAMPUS',
+                    url: 'https://www.google.com',
+                    estilo: 'campus-info',
+                    descripcion: 'Campus Virtual para postgrados',
+                },
+                {
+                    nombre: 'SICIUD',
+                    url: 'https://www.google.com',
+                    estilo: 'siciud-info',
+                    descripcion: 'Una breve descripción acerca de sisiud',
                 },
             ],
         },
         {
-            nombre: 'Gestión Financiera',
+            nombre: 'NIX - Gestión Financiera',
             color: '#DE9E0F',
             aplicaciones: [
                 {
                     nombre: 'KRONOS',
-                    url: 'https://www.google.com',
+                    url: 'https://pruebaspresupuesto.portaloas.udistrital.edu.co',
                     estilo: 'kronos-info',
                     descripcion: 'Apoyar el libre desarrollo de los procesos financieros y reporte de información a entes de control',
                 },
@@ -219,14 +267,26 @@ export const catalogo = {
             ],
         },
         {
-            nombre: 'Voto Electrónico',
+            nombre: 'ATHENEA - Analíticos',
             color: '#397A18',
             aplicaciones: [
                 {
-                    nombre: 'PERSEO',
+                    nombre: 'SPAGOBI',
                     url: 'https://www.google.com',
-                    estilo: 'perseo-info',
-                    descripcion: 'Permitir el desarrollo de procesos electorales dentro de la universidad de forma digital',
+                    estilo: 'spagobi-info',
+                    descripcion: 'Una breve descripción acerca de spagobi',
+                },
+                {
+                    nombre: 'CIRENE',
+                    url: 'https://www.google.com',
+                    estilo: 'cirene-info',
+                    descripcion: 'Una breve descripción acerca de cirene',
+                },
+                {
+                    nombre: 'APEA',
+                    url: 'https://www.google.com',
+                    estilo: 'apea-info',
+                    descripcion: 'Una breve descripción acerca de apea',
                 },
             ],
         },
