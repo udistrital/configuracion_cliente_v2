@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MomentModule } from 'ngx-moment';
-import { NotioasModule,  MenuAplicacionesModule, UtilidadesCoreModule } from 'utilidades-core';
+import { NotioasModule,  MenuAplicacionesModule, UtilidadesCoreModule, ImplicitAutenticationService } from 'utilidades-core';
 
 import {
   MatAutocompleteModule,
@@ -215,7 +215,7 @@ export class ThemeModule {
     return <ModuleWithProviders>{
       ngModule: ThemeModule,
       providers: [...NB_THEME_PROVIDERS,
-        ConfiguracionService],
+        ConfiguracionService, ImplicitAutenticationService],
     };
   }
 }

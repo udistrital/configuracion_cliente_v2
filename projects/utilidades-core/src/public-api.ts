@@ -11,6 +11,7 @@ export * from './lib/notioas/notioas.component';
 export * from './lib/notioas/notioas.module';
 
 export * from './lib/services/menuAplicaciones.service';
+export * from './lib/services/implicit_autentication.service';
 
 export * from './lib/menu-aplicaciones/menu-aplicaciones.component';
 export * from './lib/menu-aplicaciones/menu-aplicaciones.module';

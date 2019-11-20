@@ -67,7 +67,7 @@ import {
   MatTreeModule,
 } from '@angular/material';
 
-import { ImplicitAutenticationService } from './@core/utils/implicit_autentication.service';
+
 import { MenuAplicacionesComponent } from './projects/utilidades-core/src/lib/menu-aplicaciones/menu-aplicaciones.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -154,7 +154,7 @@ export class MaterialModule { }
     }),
   ],
   bootstrap: [AppComponent],
-  providers: [ImplicitAutenticationService,
+  providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })
