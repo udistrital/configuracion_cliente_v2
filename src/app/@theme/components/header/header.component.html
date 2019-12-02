@@ -28,8 +28,7 @@
   </nb-action>
   <nb-action class="control-item" icon="nb-notifications" [badgeText]="notificacionService.noNotify$ | async"
     badgeStatus="danger" (click)="toggleNotifications()"></nb-action>
-    <nb-action class="control-item" icon="nb-menu" (click)="abrirMenu()">
-    </nb-action>
+  <nb-action class="control-item" icon="nb-menu" (click)="abrirMenu()"></nb-action>
   <nb-action [hidden]="liveTokenValue">
     <div class="dropdown ghost-dropdown">
       <div class="btn-with-icon-example">

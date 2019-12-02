@@ -94,7 +94,6 @@ export class ImplicitAutenticationService {
         while (!!(m = regex.exec(queryString))) {
             state = decodeURIComponent(m[2]);
         }
-        console.info("state: "+state)
         if (window.localStorage.getItem('state') === state) {
             this.clearStorage();
             valid = true;

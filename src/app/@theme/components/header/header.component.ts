@@ -5,7 +5,7 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { NotioasService, MenuAplicacionesService, UtilidadesCoreService, ImplicitAutenticationService  } from 'utilidades-core';
+import { NotioasService, MenuAplicacionesService, UtilidadesCoreService  } from 'utilidades-core';
 import { environment } from './../../../../environments/environment';
 
 
