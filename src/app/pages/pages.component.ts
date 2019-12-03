@@ -7,7 +7,7 @@ import { MenuService } from '../@core/data/menu.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { ImplicitAutenticationService } from './../@core/utils/implicit_autentication.service';
+import { ImplicitAutenticationService } from 'utilidades-core';
 
 
 @Component({

@@ -7,7 +7,18 @@ import { SharedModule } from '../shared/shared.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MomentModule } from 'ngx-moment';
-import { NotioasModule,  MenuAplicacionesModule, UtilidadesCoreModule } from 'utilidades-core';
+
+import { 
+  NotioasModule,  
+  MenuAplicacionesModule, 
+  UtilidadesCoreModule, 
+} from 'utilidades-core';
+
+const UTILIDADES_CORE = [
+  NotioasModule,
+  MenuAplicacionesModule,
+  UtilidadesCoreModule, 
+];
 
 import {
   MatAutocompleteModule,
@@ -192,30 +203,25 @@ const PIPES = [
 ];
 
 const NB_THEME_PROVIDERS = [
-  ...NbThemeModule.forRoot(
-    {
-      // name: 'default',
-      name: 'corporate',
-    },
-    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, UD_THEME],
-  ).providers,
+  ...NbThemeModule.forRoot({
+      name: 'corporate',},[DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, UD_THEME]).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
 ];
 
 
 @NgModule({
-  imports: [...[NotioasModule],...[MenuAplicacionesModule] ,...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
+  imports: [...UTILIDADES_CORE,...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],
   declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent],
   entryComponents: [...ENTRY_COMPONENTS],
 })
+
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       ngModule: ThemeModule,
-      providers: [...NB_THEME_PROVIDERS,
-        ConfiguracionService],
+      providers: [...NB_THEME_PROVIDERS],
     };
   }
 }

@@ -27,7 +27,7 @@
 
       overflow: hidden;
       text-overflow: ellipsis;
-      max-height: calc(1rem * 8 * #{nb-theme(line-height)});
+      max-height: calc(1rem * 15 * #{nb-theme(line-height)});
     }
 
     

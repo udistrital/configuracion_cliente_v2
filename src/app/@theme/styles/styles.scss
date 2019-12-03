@@ -56,7 +56,7 @@
     &:hover {
       color: nb-theme(link-color-hover);
       @include nb-for-theme(default) {
-        color: #4ba0e2 !important;
+        color: var(--primary) ;
       }
       text-decoration: underline;
     }

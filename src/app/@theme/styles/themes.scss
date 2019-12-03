@@ -5,13 +5,16 @@
 // import angular material theme
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+@import url('https://pruebasassets.portaloas.udistrital.edu.co/athenea-style.css');
 
 // which themes you what to enable (empty to enable all)
 $nb-enabled-themes: (corporate, corporate);
 //0095DD F2F2F2
-$primary-color-theme: #2f5573;
-$secundary-color-theme: #f2f2f2;
+$primary-color-theme: var(--primary);
+$secundary-color-theme: var(--color0);
 $nb-enabled-themes: (default, cosmic, corporate, ud);
+$color-primary: var(--primary);
+
 
 $nb-themes: nb-register-theme((
   // footer
@@ -85,7 +88,7 @@ $nb-themes: nb-register-theme((
   //header
   header-font-family: 'sans-serif',
   header-font-size: 0.7rem,
-  header-height: 5.5rem,
+  header-height: 5.0rem,
   header-padding: none,
   header-fg: $secundary-color-theme,
   header-bg: $primary-color-theme,
@@ -96,7 +99,7 @@ $nb-themes: nb-register-theme((
 
   switcher-background: $primary-color-theme,
   switcher-background-percentage: 14%,
-  drops-icon-line-gadient: -webkit-linear-gradient(#01dbb5, #0bbb79),
+  drops-icon-line-gadient: -webkit-linear-gradient( var(--color3), var(--color4)),
 ), default, default);
 
 $nb-themes: nb-register-theme((
@@ -143,9 +146,10 @@ $nb-themes: nb-register-theme((
 
 $nb-themes: nb-register-theme((
     // footer
-    footer-fg: #fff,
-    footer-bg: #252525,
+    footer-fg: var(--primary),
+    footer-bg: #fff,
     footer-height: auto,
+  //  color-primary: var(--primary),
   // app wise variables for each theme
   sidebar-header-gap: 2rem,
   sidebar-header-height: initial,
@@ -154,15 +158,17 @@ $nb-themes: nb-register-theme((
   font-main: Roboto,
   font-secondary: Exo,
 
-  switcher-background: #000,
+  switcher-background: var(--primary),
   switcher-background-percentage: 14%,
   drops-icon-line-gadient: -webkit-linear-gradient(#e9e8eb, #a7a2be),
-  sidebar-bg: #212121,
-  sidebar-fg: $secundary-color-theme,
+
+  sidebar-bg: var(--primary),
+  sidebar-fg: #fff,
   sidebar-shadow: none,
   sidebar-padding: 0.3rem,
   sidebar-margin-top: 0,
-  tabs-fg: gray,
+  
+  tabs-fg: var(--color3),
 
   color-fg: #777777,
   menu-icon-color: $secundary-color-theme,
@@ -170,25 +176,33 @@ $nb-themes: nb-register-theme((
 
   header-height: 5.5rem,
 
-  menu-bg: #000,
-  menu-fg: $secundary-color-theme,
-  menu-active-bg: #f2f2f2,
-  menu-active-fg: #212121,
-  menu-font-size: 0.8rem,
-  menu-item-separator: #212121,
+  header-fg: $primary-color-theme,
+  header-bg: #fff,
 
-  menu-submenu-bg: #000,
-  menu-submenu-fg: $secundary-color-theme,
-  menu-submenu-active-bg: #f2f2f2,
-  menu-submenu-active-fg: $primary-color-theme,
+  menu-bg: var(--primary),
+  menu-fg: #fff,
+
+  menu-active-bg: #fff,
+  menu-active-fg: var(--primary),
+
+  menu-font-size: 0.8rem,
+  menu-item-separator: var(--color3),
+
+  menu-submenu-bg: var(--primary),
+  menu-submenu-fg: #fff,
+  
+  menu-submenu-active-bg: #fff,
+  menu-submenu-active-fg: var(--primary),
+
   menu-submenu-item-border-width: 0,
   menu-submenu-item-padding: none,
   menu-submenu-item-container-padding: none,
   menu-submenu-padding: none,
   menu-submenu-item-border-radius: 0,
   menu-icon-font-size: 1.5rem,
-  scrollbar-fg: #212121,
-  scrollbar-bg: #fff,
+  
+  scrollbar-fg: var(--primary),
+  scrollbar-bg: var(--color3),
 ), corporate, corporate);
 
 $nb-themes: nb-register-theme((

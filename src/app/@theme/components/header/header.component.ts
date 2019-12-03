@@ -5,9 +5,9 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
-import { NotioasService, MenuAplicacionesService, UtilidadesCoreService } from 'utilidades-core';
+import { NotioasService, MenuAplicacionesService, UtilidadesCoreService  } from 'utilidades-core';
 import { environment } from './../../../../environments/environment';
+
 
 @Component({
   selector: 'ngx-header',
@@ -24,7 +24,7 @@ export class HeaderComponent {
   username = '';
   userMenu = [{ title: 'ver todas', icon: 'fa fa-list' }];
   public noNotify: any = '0';
-  private autenticacion = new ImplicitAutenticationService;
+  
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
@@ -49,13 +49,13 @@ export class HeaderComponent {
   }
 
   liveToken() {
-    if (this.autenticacion.live()) {
-      this.liveTokenValue = this.autenticacion.live();
-      this.username = (this.autenticacion.getPayload()).sub;
+    if (window.Auth.live()) {
+      this.liveTokenValue = window.Auth.live();
+      this.username = (window.Auth.getPayload()).sub;
       this.utilidadesService.initLib(environment);
       // this.initLib(CONFIGURACION_SERVICE, NOTIFICACION_SERVICE)
     }
-    return this.autenticacion.live();
+    return window.Auth.live();
   }
 
   onContecxtItemSelection(title) {
@@ -66,12 +66,12 @@ export class HeaderComponent {
 
 
   logout() {
-    this.autenticacion.logout();
+    window.Auth.logout();
     // this.liveTokenValue = auth.live(true);
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(false, 'menu-sidebar');
+    this.sidebarService.toggle(true, 'menu-sidebar');
     return false;
   }
 
