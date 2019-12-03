@@ -2,6 +2,9 @@
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
 
+@import url('https://pruebasassets.portaloas.udistrital.edu.co/logo-header.css');
+
+
 @include nb-install-component() {
   display: flex;
   justify-content: space-between;
@@ -61,8 +64,6 @@
       img {
         display: none;
       }
-      content: url('../../../../assets/images/configuracion_logo.png');
-      height: 75px;
 
       span {
         font-weight: nb-theme(font-weight-normal);
@@ -142,7 +143,7 @@
     line-height: 1;
 
     i {
-      color: nb-theme(color-fg-highlight);
+      color: var(--primary);
       font-size: 2.25rem;
       border-radius: 50%;
       position: relative;

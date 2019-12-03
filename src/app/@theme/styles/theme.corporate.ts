@@ -1,7 +1,12 @@
+const primary = (getComputedStyle(document.documentElement)
+    .getPropertyValue('--primary')) + "";
+    console.log(primary);
+    
 export const CORPORATE_THEME = {
   name: 'corporate',
   base: 'default',
   variables: {
+    colorPrimary: primary,
     temperature: [
       '#ffa36b',
       '#ffa36b',
@@ -9,6 +14,7 @@ export const CORPORATE_THEME = {
       '#ff9888',
       '#ff8ea0',
     ],
+
 
     solar: {
       gradientLeft: '#ff8ea0',

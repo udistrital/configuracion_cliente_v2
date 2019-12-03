@@ -83,6 +83,7 @@
     "ngx-dynamic-form": "^1.0.12",
     "ngx-echarts": "^4.1.1",
     "ngx-moment": "^3.4.0",
+    "node-sass": "^4.13.0",
     "normalize.css": "6.0.0",
     "nuxeo": "^3.6.0",
     "oidc-auth": "^0.5.0",
