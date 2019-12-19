@@ -8,7 +8,7 @@ import { Md5 } from 'ts-md5'
 })
 
 export class ImplicitAutenticationService {
-    
+
     environment: any;
     logout_url: any;
     bearer: { headers: HttpHeaders; };
@@ -34,9 +34,20 @@ export class ImplicitAutenticationService {
             const query = 'https://' + window.location.host + '?' + queryString;
             req.open('GET', query, true);
             if (params['id_token'] !== null && params['id_token'] !== undefined) {
-                window.localStorage.setItem('access_token', params['access_token']);
                 //if token setear
-                window.localStorage.setItem('id_token', params['id_token']);
+                const id_token_array = (params['id_token']).split('.')
+                const payload = JSON.parse(atob(id_token_array[1]));
+                console.table(payload);
+                if (typeof payload.role === 'undefined') {
+                    const role = { role: ['no_role'] };
+                    const sub = { sub: (payload.sub.split("@"))[0] }
+                    const new_payload = btoa(JSON.stringify({ ...payload, ...role, ...sub}));
+                    id_token_array[1] = new_payload;
+                    window.localStorage.setItem('id_token', id_token_array.join('.'));
+                } else {
+                    window.localStorage.setItem('id_token', params['id_token']);
+                }
+                window.localStorage.setItem('access_token', params['access_token']);
                 window.localStorage.setItem('expires_in', params['expires_in']);
                 window.localStorage.setItem('state', params['state']);
             } else {
@@ -59,7 +70,7 @@ export class ImplicitAutenticationService {
         this.clearUrl();
     }
 
-    
+
 
     constructor() {
         this.bearer = {
@@ -81,7 +92,8 @@ export class ImplicitAutenticationService {
 
     public getPayload() {
         const id_token = window.localStorage.getItem('id_token').split('.');
-        return JSON.parse(atob(id_token[1]));
+        const payload = JSON.parse(atob(id_token[1]))
+        return payload;
     }
 
 

@@ -43,6 +43,7 @@ export class MenuAplicacionesService {
             // tslint:disable-next-line: variable-name
             const id_token = window.localStorage.getItem('id_token').split('.');
             const payload = JSON.parse(atob(id_token[1]));
+            console.table(payload);
             return payload.role.map((element) => ({ Nombre: element }));
         } else {
             this.isLogin = false;
