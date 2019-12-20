@@ -1,68 +1,73 @@
+workspace:
+  base: /go
+  path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
+  when:
+      branch:
+      - master
+      - test
 kind: pipeline
 name: cliente_deploy
 
 steps:
-  - name: nodejs-test
+  # build and test the go program
+  - name: nodejs
     image: node:12.6.0
     commands:
      - node --version
      - npm i
      - npm run build:test
+     - ls -la
     when:
-      branch:
-        - test
-      event:
-        - push
+      branch: [test]
+      event: [push]
 
-  - name: nodejs-master
+  - name: nodejs_prod
     image: node:12.6.0
     commands:
      - node --version
      - npm i
      - npm run build:prod
+     - ls -la
     when:
-      branch:
-      - master
-      event:
-      - push
+      branch: [master]
+      event: [push, pull_request]
 
-  - name: publish-s3-test
+  # upload app.zip to s3 bucket for CodePipline
+  - name: publish_s3
     image: plugins/s3
     settings:
-      bucket: cliente-pruebas
       access_key:
         from_secret: aws_access_key_id
       secret_key:
         from_secret: aws_secret_access_key
-      region: us-east-1
+      region: "us-east-1"    
+      bucket: "cliente-pruebas"
       source: dist/**/*
       target: /pruebas${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
       strip_prefix: dist/
     when:
-      branch:
-      - test
-      event:
-      - push
+      branch: [test]
+      event: [push, pull_request] 
 
-  - name: publish-s3-master
+ # upload app.zip to s3 bucket for CodePipline
+  - name: publish_s3_prod
     image: plugins/s3
     settings:
-      bucket: cliente-prod
       access_key:
         from_secret: aws_access_key_id
       secret_key:
         from_secret: aws_secret_access_key
-      region: us-east-1
+      region: "us-east-1"    
+      bucket: "cliente-prod"
       source: dist/**/*
       target: /${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
       strip_prefix: dist/
     when:
-      branch:
-      - master
-      event:
-      - push
+      branch: [master]
+      event: [push, pull_request] 
 
-  - name: NotifyTelegram
+  #Notify results to telegram
+  - name: notify_telegram
     image: appleboy/drone-telegram
     settings:
       token:
@@ -74,18 +79,11 @@ steps:
         {{#success build.status}}
           <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">SUCCESS</a>
           <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
-          <code> By:{{commit.author}}</code>
         {{else}}
           <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">FAILURE</a>
           <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
-          <code> By:{{commit.author}}</code>
         {{/success}}
     when:
-      branch:
-      - master
-      - test
-      event:
-      - push
-      status:
-      - failure
-      - success
+      status: [success, failure]
+      branch: [master, test]
+      event: [push, pull_request]
