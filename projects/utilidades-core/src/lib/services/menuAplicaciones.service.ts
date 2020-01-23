@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConfiguracionService } from './configuracion.service';
-import {  BehaviorSubject, fromEvent } from 'rxjs';
+import { ImplicitAutenticationService } from './implicit_autentication.service'
+import { BehaviorSubject, fromEvent } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 @Injectable({
@@ -16,40 +17,35 @@ export class MenuAplicacionesService {
     categorias: any;
     isLogin = false;
     roles: any;
+    userInfo: any;
     public menuActivo: Boolean = false;
 
-    constructor(private configuracionService: ConfiguracionService) {
-        this.roles = this.getRole();
+    constructor(private configuracionService: ConfiguracionService,
+        private implicitAutenticationService: ImplicitAutenticationService) {
+        this.implicitAutenticationService.user$.subscribe((res: any) => {
+            this.userInfo = res;
+            if (typeof this.userInfo.role !== 'undefined') {
+                this.isLogin = true;
+                this.roles = this.userInfo.role.map((element) => ({ Nombre: element }));
+                this.getAplication();
+            }
+        });
         const up$ = fromEvent(document, 'mouseup');
 
         up$.subscribe((data: any) => {
             if (this.activo) {
-                if (!((window.innerWidth - 320 ) < data.pageX && data.pageY > 77 && data.pageY < 578 )) {
+                if (((data.path.map((info: any) => { return (info.localName) })).filter((data: any) => (data === 'menu-aplicaciones'))).length === 0) {
                     this.closePanel();
                 }
             }
         });
     }
-        
+
     closePanel() {
         this.menuActivo = false;
         this.activo.next({ activo: this.menuActivo });
     }
 
-    getRole() {
-        const data = [];
-        if (window.localStorage.getItem('id_token') !== null) {
-            this.isLogin = true;
-            // tslint:disable-next-line: variable-name
-            const id_token = window.localStorage.getItem('id_token').split('.');
-            const payload = JSON.parse(atob(id_token[1]));
-            console.table(payload);
-            return payload.role.map((element) => ({ Nombre: element }));
-        } else {
-            this.isLogin = false;
-            this.dataFilterSubject.next(this.categorias);
-        }
-    }
     toogleMenuNotify() {
         this.menuActivo = !this.menuActivo;
         const data = { activo: this.menuActivo }
@@ -57,30 +53,31 @@ export class MenuAplicacionesService {
     }
 
     init(categorias: any) {
-        console.info('...Init lib menu');
-        console.info(categorias);
-
+        console.info('...Init lib menu', categorias);
         this.categorias = categorias;
         this.dataFilterSubject.next(this.categorias);
-        this.getAplication();
     }
 
     public getAplication(): any {
+        const id_token = localStorage.getItem('id_token');
+        const access_token = localStorage.getItem('access_token');
+        if (id_token !== null && access_token !== null) {
+            this.configuracionService.post('aplicacion_rol/aplicacion_rol', this.roles)
+                .subscribe((data: any) => {
+                    let nuevasAplicaciones = this.categorias.map((categoria: any) => {
+                        categoria.aplicaciones = categoria.aplicaciones.filter((aplicacion: any) => (this.existe(aplicacion.nombre, data)));
+                        categoria.aplicaciones = categoria.aplicaciones.map((app: any) => {
+                            return { ...app, ...{ estilo_logo: app.estilo.split('-')[0] } }
 
-        this.configuracionService.post('aplicacion_rol/aplicacion_rol', this.roles)
-            .subscribe((data: any) => {
-                let nuevasAplicaciones = this.categorias.map((categoria: any) => {
-                    categoria.aplicaciones = categoria.aplicaciones.filter((aplicacion: any) => (this.existe(aplicacion.nombre, data)));
-                    categoria.aplicaciones = categoria.aplicaciones.map((app: any) => {return {...app, ...{estilo_logo: app.estilo.split('-')[0]}}
-                    
+                        });
+                        return categoria;
+                    });
+                    nuevasAplicaciones = nuevasAplicaciones.filter((categoria) => (categoria.aplicaciones.length > 0));
+                    console.info(nuevasAplicaciones);
+                    this.dataFilterSubject.next(nuevasAplicaciones);
                 });
-                    return categoria;
-                });
-                nuevasAplicaciones = nuevasAplicaciones.filter((categoria) => (categoria.aplicaciones.length > 0));
-                console.info(nuevasAplicaciones);
-                this.dataFilterSubject.next(nuevasAplicaciones);
-            });
-        return this.eventFilter$;
+            return this.eventFilter$;
+        }
     }
 
     existe(nombre: string, array: any) {

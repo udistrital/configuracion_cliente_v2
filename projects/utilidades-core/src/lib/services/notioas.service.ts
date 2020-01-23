@@ -4,6 +4,7 @@ import { from, interval, BehaviorSubject, Subject } from 'rxjs';
 import { webSocket } from 'rxjs/webSocket';
 import { map } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
+import { ImplicitAutenticationService } from './implicit_autentication.service';
 
 @Injectable({
     providedIn: 'root',
@@ -33,13 +34,16 @@ export class NotioasService {
 
     constructor(
         private confService: ConfiguracionService,
+        private autenticacionService: ImplicitAutenticationService
     ) {
         this.listMessage = [];
         this.notificacion_estado_usuario = []
         const up$ = fromEvent(document, 'mouseup');
         up$.subscribe((data: any) => {
             if (this.activo) {
-                if (!((window.innerWidth - 320 ) < data.pageX && data.pageY > 77 && data.pageY < 798 )) {
+                if (((data.path
+                    .map((info: any) => { return (info.localName) }))
+                    .filter((data: any) => (data === 'lib-notioas'))).length === 0) {
                     this.closePanel();
                 }
             }
@@ -55,7 +59,7 @@ export class NotioasService {
             this.changeStateNoView();
         }
     }
-    
+
     closePanel() {
         this.menuActivo = false;
         this.activo.next({ activo: this.menuActivo });
@@ -64,8 +68,14 @@ export class NotioasService {
     init(pathNotificacion: string) {
         console.info('...Init lib notificaciones');
         this.NOTIFICACION_SERVICE = pathNotificacion;
-        this.connect();
-        this.queryNotification();
+        this.autenticacionService.user$.subscribe((res: any) => {
+            if (typeof res.user !== 'undefined') {
+                this.user = res.user;
+                this.roles = res.role;
+                this.connect();
+                this.queryNotification();
+            }
+        })
     }
 
     getNotificaciones() {
@@ -83,11 +93,10 @@ export class NotioasService {
     }
 
     connect() {
+
         const id_token = localStorage.getItem('id_token');
         const access_token = localStorage.getItem('access_token');
         if (id_token !== null && access_token !== null) {
-            this.roles = (JSON.parse(atob(id_token.split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
-            this.user = JSON.parse(atob(id_token.split('.')[1])).sub;
             if (this.roles.length > 0) {
                 // const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${this.user}&profiles=${this.roles}`;
                 const connWs = `${this.NOTIFICACION_SERVICE}/join?id=${access_token}`;
@@ -125,7 +134,7 @@ export class NotioasService {
         this.messagesSubject.unsubscribe();
     }
 
-    addMessage(message) {
+    addMessage(message: any) {
         this.listMessage = [...[message], ...this.listMessage];
         this.noNotifySubject.next((this.listMessage.filter(data => (data.Estado).toLowerCase() === 'enviada')).length);
         this.arrayMessagesSubject.next(this.listMessage);
@@ -153,30 +162,34 @@ export class NotioasService {
     }
 
     queryNotification() {
-        this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.user + ',Activo:true&sortby=notificacion&order=asc&limit=-1')
-            .subscribe((resp: any) => {
-                if (resp !== null) {
-                    this.notificacion_estado_usuario = resp
-                    from(resp)
-                        .subscribe((notify: any) => {
-                            if (typeof notify.Notificacion !== 'undefined') {
-                                const message = {
-                                    Id: notify.Id,
-                                    Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
-                                    Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
-                                    User: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Nombre,
-                                    Alias: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Alias,
-                                    EstiloIcono: notify.Notificacion.NotificacionConfiguracion.Aplicacion.EstiloIcono,
-                                    FechaCreacion: new Date(notify.Notificacion.FechaCreacion),
-                                    FechaEdicion: new Date(notify.Fecha),
-                                    Estado: notify.NotificacionEstado.CodigoAbreviacion,
-                                };
-                                this.addMessage(message);
-                            }
-                        });
-                }
+        const id_token = localStorage.getItem('id_token');
+        const access_token = localStorage.getItem('access_token');
+        if (id_token !== null && access_token !== null) {
+            this.confService.get('notificacion_estado_usuario?query=Usuario:' + this.user + ',Activo:true&sortby=notificacion&order=asc&limit=-1')
+                .subscribe((resp: any) => {
+                    if (resp !== null) {
+                        this.notificacion_estado_usuario = resp
+                        from(resp)
+                            .subscribe((notify: any) => {
+                                if (typeof notify.Notificacion !== 'undefined') {
+                                    const message = {
+                                        Id: notify.Id,
+                                        Type: notify.Notificacion.NotificacionConfiguracion.Tipo.Id,
+                                        Content: JSON.parse(notify.Notificacion.CuerpoNotificacion),
+                                        User: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Nombre,
+                                        Alias: notify.Notificacion.NotificacionConfiguracion.Aplicacion.Alias,
+                                        EstiloIcono: notify.Notificacion.NotificacionConfiguracion.Aplicacion.EstiloIcono,
+                                        FechaCreacion: new Date(notify.Notificacion.FechaCreacion),
+                                        FechaEdicion: new Date(notify.Fecha),
+                                        Estado: notify.NotificacionEstado.CodigoAbreviacion,
+                                    };
+                                    this.addMessage(message);
+                                }
+                            });
+                    }
 
-            });
+                });
+        }
 
     }
 

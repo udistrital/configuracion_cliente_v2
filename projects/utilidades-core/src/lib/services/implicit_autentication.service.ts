@@ -1,7 +1,8 @@
 
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Md5 } from 'ts-md5'
+import { BehaviorSubject } from 'rxjs';;
 
 @Injectable({
     providedIn: 'root',
@@ -11,15 +12,19 @@ export class ImplicitAutenticationService {
 
     environment: any;
     logout_url: any;
-    bearer: { headers: HttpHeaders; };
     params: any;
     payload: any;
+    private user: any;
+
+    private userSubject = new BehaviorSubject({});
+    public user$ = this.userSubject.asObservable();
+
+    httpOptions: { headers: HttpHeaders; };
 
     init(entorno): any {
         this.environment = entorno;
-
-        if (window.localStorage.getItem('access_token') === null ||
-            window.localStorage.getItem('access_token') === undefined) {
+        const id_token = window.localStorage.getItem('id_token');
+        if (window.localStorage.getItem('id_token') === null) {
             var params = {},
                 queryString = location.hash.substring(1),
                 regex = /([^&=]+)=([^&]*)/g;
@@ -37,19 +42,30 @@ export class ImplicitAutenticationService {
                 //if token setear
                 const id_token_array = (params['id_token']).split('.')
                 const payload = JSON.parse(atob(id_token_array[1]));
-                console.table(payload);
-                if (typeof payload.role === 'undefined') {
-                    const role = { role: ['no_role'] };
-                    const sub = { sub: (payload.sub.split("@"))[0] }
-                    const new_payload = btoa(JSON.stringify({ ...payload, ...role, ...sub}));
-                    id_token_array[1] = new_payload;
-                    window.localStorage.setItem('id_token', id_token_array.join('.'));
-                } else {
-                    window.localStorage.setItem('id_token', params['id_token']);
-                }
                 window.localStorage.setItem('access_token', params['access_token']);
                 window.localStorage.setItem('expires_in', params['expires_in']);
                 window.localStorage.setItem('state', params['state']);
+                window.localStorage.setItem('id_token', params['id_token']);
+
+                if (typeof payload.role === 'undefined') {
+                    
+                    this.httpOptions = {
+                        headers: new HttpHeaders({
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${params['access_token']}`,
+                        }),
+                    }
+                    console.log(this.httpOptions);
+                    this.user = { user: (payload.email.split('@'))[0] };
+                    this.httpClient.post<any>(this.environment.AUTENTICACION_MID, {
+                        user: (payload.email.split('@'))[0]
+                    }, this.httpOptions)
+                        .subscribe((res: any) => {
+                            this.user = {...this.user,...res};
+                            console.info(this.user);
+                            this.userSubject.next(this.user);
+                        })
+                }
             } else {
                 this.clearStorage();
             }
@@ -64,6 +80,25 @@ export class ImplicitAutenticationService {
                     }
                 }
             };
+        } else {
+            const id_token = window.localStorage.getItem('id_token').split('.');
+            const payload = JSON.parse(atob(id_token[1]));
+            this.httpOptions = {
+                headers: new HttpHeaders({
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                }),
+            }
+            this.user = { user: (payload.email.split('@'))[0] };
+            this.httpClient.post<any>(this.environment.AUTENTICACION_MID, {
+                user: (payload.email.split('@'))[0]
+            }, this.httpOptions)
+                .subscribe((res: any) => {
+                    this.user = {...this.user,...res}
+                    console.info(this.user);
+
+                    this.userSubject.next(this.user);
+                })
         }
         this.setExpiresAt();
         this.timer();
@@ -71,14 +106,8 @@ export class ImplicitAutenticationService {
     }
 
 
+    constructor(private httpClient: HttpClient) {
 
-    constructor() {
-        this.bearer = {
-            headers: new HttpHeaders({
-                'Accept': 'application/json',
-                'authorization': 'Bearer ' + window.localStorage.getItem('access_token'),
-            }),
-        }
     }
 
     public logout() {

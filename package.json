@@ -98,7 +98,7 @@
     "ts-md5": "^1.2.4",
     "tslib": "^1.9.0",
     "typeface-exo": "0.0.22",
-    "utilidades-core": "7.0.7",
+    "utilidades-core": "^7.0.8-beta1",
     "web-animations-js": "2.2.5",
     "zone.js": "^0.8.29"
   },

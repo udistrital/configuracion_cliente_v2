@@ -5,7 +5,7 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { NotioasService, MenuAplicacionesService, UtilidadesCoreService  } from 'utilidades-core';
+import { NotioasService, MenuAplicacionesService, UtilidadesCoreService, ImplicitAutenticationService  } from 'utilidades-core';
 import { environment } from './../../../../environments/environment';
 
 
@@ -33,8 +33,12 @@ export class HeaderComponent {
     public notificacionService: NotioasService,
     private utilidadesService: UtilidadesCoreService,
     private menuAplicacionesService: MenuAplicacionesService,
-
+    private implicitAutenticationService: ImplicitAutenticationService,
     public translate: TranslateService) {
+
+    this.implicitAutenticationService.user$.subscribe((dataUser: any) => {
+      this.username = dataUser.user;
+    })
     this.translate = translate;
     this.itemClick = this.menuService.onItemClick()
       .subscribe((event) => {
