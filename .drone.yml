@@ -43,7 +43,7 @@ steps:
       region: "us-east-1"    
       bucket: "cliente-pruebas"
       source: dist/**/*
-      target: /pruebas${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
+      target: /${DRONE_REPO_NAME}
       strip_prefix: dist/
     when:
       branch: [test]
@@ -60,7 +60,7 @@ steps:
       region: "us-east-1"    
       bucket: "cliente-prod"
       source: dist/**/*
-      target: /${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
+      target: /${DRONE_REPO_NAME}
       strip_prefix: dist/
     when:
       branch: [master]
