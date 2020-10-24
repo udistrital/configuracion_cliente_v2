@@ -85,5 +85,5 @@ steps:
         {{/success}}
     when:
       status: [success, failure]
-      branch: [master, test]
+      branch: [master, test] 
       event: [push, pull_request]
