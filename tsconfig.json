@@ -17,7 +17,18 @@
       "dom"
     ],
     "plugins": [
-      { "name": "tslint-language-service"}
-    ]
+      {
+        "name": "tslint-language-service"
+      }
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "notioas": [
+        "dist/notioas"
+      ],
+      "utilidades-core": [
+        "dist/utilidades-core"
+      ]
+    }
   }
 }

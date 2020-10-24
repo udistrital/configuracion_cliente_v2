@@ -3,14 +3,31 @@
     "TITLE": "CONFIGURACION",
     "SELECT": "Cambiar idioma",
     "LOGIN": "Iniciar sesion",
-    "LOGOUT": "Cerra sesion"
+    "LOGOUT": "Cerra sesion",
+    "THEME": "Tema"
   },
   "MENU": {
+    "menu": {
+      "menu": "Menú",
+      "rol": "Rol",
+      "opciones": "Opciones",
+      "configurar_rol":"Rol"
+    },
+    "aplicaciones": "Aplicaciones",
+    "roles": "Roles",
+    "opciones": "Opciones",
+    "notificaciones": "Notificaciones",
     "dashboard": "Inicio",
     "notificacion_estado": {
       "notificacion_estado": "notificacion_estado",
       "lista_notificacion_estado": "lista notificacion_estado",
       "crud_notificacion_estado": "Crud notificacion_estado"
+    },
+
+    "general": {
+      "general": "General",
+      "aplicaciones": "Aplicaciones",
+      "roles": "roles"
     },
     "metodo_http": {
       "metodo_http": "metodo_http",
@@ -38,9 +55,12 @@
       "crud_notificacion_configuracion": "Crud notificacion_configuracion"
     },
     "notificacion": {
-      "notificacion": "notificacion",
-      "lista_notificacion": "lista notificacion",
-      "crud_notificacion": "Crud notificacion"
+      "notificacion": "Notificaciones",
+      "lista_notificacion": "Lista Notificaciones",
+      "crud_notificacion": "Crud notificacion",
+      "lista_notificacion_configuracion": "Configurar Notificaciones",
+      "lista_notificacion_configuracion_perfil": "Configurar Rol",
+      "lista_notificacion_estado_usuario": "Estado Notificaciones"
     },
     "notificacion_estado_usuario": {
       "notificacion_estado_usuario": "notificacion_estado_usuario",
@@ -72,7 +92,6 @@
       "lista_menu_opcion_padre": "lista menu_opcion_padre",
       "crud_menu_opcion_padre": "Crud menu_opcion_padre"
     },
-  
     "auth": {
       "auth": "Autenticacion",
       "login": "Login",
@@ -161,7 +180,7 @@
     "actualizar": "actualizar",
     "crear": "crear",
     "registrar": "registrar",
-    "guardar" : "guardar",
+    "guardar": "guardar",
     "formulario": "formulario",
     "lista": "lista",
     "regresar": "regresar"

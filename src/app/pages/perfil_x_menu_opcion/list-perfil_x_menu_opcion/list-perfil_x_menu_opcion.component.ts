@@ -10,7 +10,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-perfil-x-menu-opcion',
   templateUrl: './list-perfil_x_menu_opcion.component.html',
   styleUrls: ['./list-perfil_x_menu_opcion.component.scss'],
-  })
+})
 export class ListPerfilXMenuOpcionComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -35,35 +35,35 @@ export class ListPerfilXMenuOpcionComponent implements OnInit {
         cancelButtonContent: '<i class="nb-close"></i>',
       },
       edit: {
-        editButtonContent: '<i class="nb-edit"></i>',
+        editButtonContent: '<i class="nb-compose"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
-      delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
-        confirmDelete: true,
-      },
+      actions: { delete: false, add: false },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
+        // Id: {
+        //   title: this.translate.instant('GLOBAL.id'),
+        //   // type: 'number;',
+        //   valuePrepareFunction: (value) => {
+        //     return value;
+        //   },
+        // },
+        Nombre: {
+          title: this.translate.instant('GLOBAL.nombre'),
+          // type: 'string;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Perfil: {
-          title: this.translate.instant('GLOBAL.perfil'),
-          // type: 'number;',
+        Aplicacion: {
+          title: this.translate.instant('GLOBAL.aplicacion'),
+          // type: 'aplicacion;',
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
-        },
-        Opcion: {
-          title: this.translate.instant('GLOBAL.opcion'),
-          // type: 'menu_opcion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
           },
         },
       },
@@ -75,11 +75,11 @@ export class ListPerfilXMenuOpcionComponent implements OnInit {
   }
 
   loadData(): void {
-    this.configuracionService.get('perfil_x_menu_opcion/?limit=0').subscribe(res => {
+    this.configuracionService.get('perfil/?limit=0').subscribe(res => {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -99,24 +99,24 @@ export class ListPerfilXMenuOpcionComponent implements OnInit {
   onDelete(event): void {
     const opt: any = {
       title: 'Deleting?',
-      text: 'Delete PerfilXMenuOpcion!',
+      text: 'Delete Perfil!',
       icon: 'warning',
       buttons: true,
       dangerMode: true,
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('perfil_x_menu_opcion/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'PerfilXMenuOpcion deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('perfil/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'Perfil deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

@@ -5,12 +5,13 @@ import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-t
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ngx-list-notificacion',
   templateUrl: './list-notificacion.component.html',
   styleUrls: ['./list-notificacion.component.scss'],
-  })
+})
 export class ListNotificacionComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -45,18 +46,11 @@ export class ListNotificacionComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
-          title: this.translate.instant('GLOBAL.id'),
-          // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
-        },
         FechaCreacion: {
           title: this.translate.instant('GLOBAL.fecha_creacion'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
-            return value;
+            return moment(value).format('MM/DD/YYYY');
           },
         },
         CuerpoNotificacion: {
@@ -72,6 +66,9 @@ export class ListNotificacionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.EndPoint;
           },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
+          },
         },
       },
     };
@@ -86,7 +83,7 @@ export class ListNotificacionComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -113,17 +110,17 @@ export class ListNotificacionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('notificacion/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'Notificacion deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('notificacion/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'Notificacion deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

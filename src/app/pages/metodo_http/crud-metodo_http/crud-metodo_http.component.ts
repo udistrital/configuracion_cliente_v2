@@ -116,7 +116,7 @@ export class CrudMetodoHttpComponent implements OnInit {
         this.info_metodo_http = <MetodoHttp>metodoHttp;
         this.configuracionService.post('metodo_http', this.info_metodo_http)
           .subscribe(res => {
-            this.info_metodo_http = <MetodoHttp>res;
+            this.info_metodo_http = <MetodoHttp><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'MetodoHttp created');
           });

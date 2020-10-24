@@ -116,7 +116,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
         this.info_notificacion_tipo = <NotificacionTipo>notificacionTipo;
         this.configuracionService.post('notificacion_tipo', this.info_notificacion_tipo)
           .subscribe(res => {
-            this.info_notificacion_tipo = <NotificacionTipo>res;
+            this.info_notificacion_tipo = <NotificacionTipo><unknown>res;
             this.eventChange.emit(true);
             this.showToast('info', 'created', 'NotificacionTipo created');
           });

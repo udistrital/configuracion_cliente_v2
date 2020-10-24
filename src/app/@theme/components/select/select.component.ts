@@ -35,6 +35,7 @@ export class SelectComponent implements OnChanges, OnInit {
 
     @Input('campo') campo: any;
     @Input('tipo') tipo: any;
+    // tslint:disable-next-line: no-output-rename
     @Output('valor') valor: EventEmitter<any> = new EventEmitter();
 
     validCampo() {

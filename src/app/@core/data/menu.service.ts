@@ -1,62 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { GENERAL } from '../../app-config';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { environment } from './../../../environments/environment'
+import { RequestManager } from '../../managers/requestManager';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Accept': 'application/json',
-  }),
-}
-
-const path = GENERAL.ENTORNO.CONF_MENU_SERVICE;
+const path = environment.CONF_MENU_SERVICE;
 
 @Injectable()
 export class MenuService {
 
-  constructor(private http: HttpClient) {
+  constructor(private requestManager: RequestManager) {
+    this.requestManager.setPath('CONFIGURACION_SERVICE');
   }
 
   get(endpoint) {
-    return this.http.get(path + endpoint, httpOptions).pipe(
-      catchError(this.handleError),
-    );
+    return this.requestManager.get(endpoint);
   }
 
   post(endpoint, element) {
-    return this.http.post(path + endpoint, element, httpOptions).pipe(
-      catchError(this.handleError),
-    );
+    return this.requestManager.post(endpoint, element);
   }
 
   put(endpoint, element) {
-    return this.http.put(path + endpoint + '/' + element.Id, element, httpOptions).pipe(
-      catchError(this.handleError),
-    );
+    return this.requestManager.put(endpoint, element);
   }
 
   delete(endpoint, element) {
-    return this.http.delete(path + endpoint + '/' + element.Id, httpOptions).pipe(
-      catchError(this.handleError),
-    );
+    return this.requestManager.delete(endpoint, element.Id);
   }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError({
-      status: error.status,
-      message: 'Something bad happened; please try again later.',
-    });
-  };
 }

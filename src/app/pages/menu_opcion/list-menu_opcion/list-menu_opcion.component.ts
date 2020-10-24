@@ -10,7 +10,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-menu-opcion',
   templateUrl: './list-menu_opcion.component.html',
   styleUrls: ['./list-menu_opcion.component.scss'],
-  })
+})
 export class ListMenuOpcionComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
@@ -86,6 +86,9 @@ export class ListMenuOpcionComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filterFunction: (cell?: any, search?: string): boolean => {
+            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
+          },
         },
         TipoOpcion: {
           title: this.translate.instant('GLOBAL.tipo_opcion'),
@@ -107,7 +110,7 @@ export class ListMenuOpcionComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -134,17 +137,17 @@ export class ListMenuOpcionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        this.configuracionService.delete('menu_opcion/', event.data).subscribe(res => {
-          if (res !== null) {
-            this.loadData();
-            this.showToast('info', 'deleted', 'MenuOpcion deleted');
+        if (willDelete.value) {
+          this.configuracionService.delete('menu_opcion/', event.data).subscribe(res => {
+            if (res !== null) {
+              this.loadData();
+              this.showToast('info', 'deleted', 'MenuOpcion deleted');
             }
-         });
-      }
-    });
+          });
+        }
+      });
   }
 
   activetab(): void {

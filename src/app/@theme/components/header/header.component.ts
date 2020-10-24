@@ -3,59 +3,63 @@ import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 // import { AutenticationService } from '../../../@core/utils/autentication.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
+import { NotioasService, MenuAplicacionesService, UtilidadesCoreService, ImplicitAutenticationService  } from 'utilidades-core';
+import { environment } from './../../../../environments/environment';
+
 
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input() position = 'normal';
   itemClick: Subscription;
-
+  liveTokenValue: boolean = false;
   user: any;
   title: any;
   username = '';
   userMenu = [{ title: 'ver todas', icon: 'fa fa-list' }];
   public noNotify: any = '0';
+  
+
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private analyticsService: AnalyticsService,
-    private autenticacion: ImplicitAutenticationService,
     private router: Router,
-    private notificacionService: NotificacionesService,
+    public notificacionService: NotioasService,
+    private utilidadesService: UtilidadesCoreService,
+    private menuAplicacionesService: MenuAplicacionesService,
+    private implicitAutenticationService: ImplicitAutenticationService,
     public translate: TranslateService) {
+
+    this.implicitAutenticationService.user$.subscribe((dataUser: any) => {
+      this.username = dataUser.user;
+    })
     this.translate = translate;
     this.itemClick = this.menuService.onItemClick()
       .subscribe((event) => {
         this.onContecxtItemSelection(event.item.title);
       });
 
-    this.notificacionService.arrayMessages$
-      .subscribe((notification: any) => {
-        const temp = notification.map((notify: any) => {
-          return { title: notify.Content.Message, icon: 'fa fa-commenting-o' }
-        });
-        this.userMenu = [...temp.slice(0, 7), ...[{ title: 'ver todas', icon: 'fa fa-list' }]];
-      });
+    this.liveToken();
   }
 
   useLanguage(language: string) {
     this.translate.use(language);
   }
-  ngOnInit() {
-    this.autenticacion.init();
-  }
+
   liveToken() {
-    if (this.autenticacion.live()) {
-      this.username = (this.autenticacion.getPayload()).sub;
+    if (window.Auth.live()) {
+      this.liveTokenValue = window.Auth.live();
+      this.username = (window.Auth.getPayload()).sub;
+      this.utilidadesService.initLib(environment);
+      // this.initLib(CONFIGURACION_SERVICE, NOTIFICACION_SERVICE)
     }
-    return this.autenticacion.live();
+    return window.Auth.live();
   }
 
   onContecxtItemSelection(title) {
@@ -64,13 +68,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  login() {
-    window.location.replace(this.autenticacion.getAuthorizationUrl());
-  }
 
   logout() {
-    console.info(this.autenticacion.logout());
-    // window.location.replace(this.autenticacion.logout());
+    window.Auth.logout();
+    // this.liveTokenValue = auth.live(true);
   }
 
   toggleSidebar(): boolean {
@@ -78,9 +79,12 @@ export class HeaderComponent implements OnInit {
     return false;
   }
 
-  toggleSettings(): boolean {
-    this.sidebarService.toggle(false, 'settings-sidebar');
-    return false;
+  toggleNotifications() {
+    this.notificacionService.toogleMenuNotify();
+  }
+
+  abrirMenu() {
+    this.menuAplicacionesService.toogleMenuNotify();
   }
 
   goToHome() {
@@ -90,4 +94,5 @@ export class HeaderComponent implements OnInit {
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
   }
+
 }
