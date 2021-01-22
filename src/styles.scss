@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("https://pruebasassets.portaloas.udistrital.edu.co/gaia-style.css");
+@import url("https://pruebasassets.portaloas.udistrital.edu.co/urano-style.css");
 html,
 body {
     height: 100%;
@@ -11,13 +11,14 @@ body {
 }
 
 .main-container {
-    margin: 1rem;
-    width: calc(-2.2rem + 100vw);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100vw;
     display: flex;
     flex-wrap: nowrap;
     position: fixed;
-    top: 5.5rem;
-    height: calc(-200px + 100vh);
+    top: 5.6rem;
+    height: calc(-165px + 100vh);
     left: 0;
     overflow: auto;
 }
@@ -31,26 +32,30 @@ body {
 // tables
 table {
     thead {
-        border: 2px solid var(--color200);
+        border: 2px solid var(--primary);
         tr {
             th {
-                border-left: 2px solid var(--color200);
+                background-color: var(--primary);
+                text-align: center;
                 .ng2-smart-action.ng2-smart-action-add-add.ng-star-inserted {
-                    color: var(--primary);
+                    color: #fff;
                 }
                 .ng2-smart-title,
                 .ng2-smart-title > * > a {
-                    color: var(--primary);
+                    color: #fff;
                 }
                 * > div > * > a {
-                    color: var(--primary);
+                    color: #fff;
                 }
-                color: var(--primary);
+                color: #fff;
+                &:nth-child(n+2) {
+                    border-left: 2px solid var(--color200);
+                }
             }
         }
     }
     tbody {
-        border: 2px solid var(--color200);
+        border: 2px solid var(--primary);
         tr {
             &.selected {
                 background-color: var(--color100) !important;
@@ -59,7 +64,9 @@ table {
                 font-size: 0.875em !important;
                 margin: 0 !important;
                 padding: 0.2em 0.5em !important;
-                border: 1px solid var(--color200);
+                &:nth-child(n+2) {
+                    border-left: 1px solid var(--primary);
+                }
                 *:nth-child(2) > a {
                     color: var(--primary);
                 }
