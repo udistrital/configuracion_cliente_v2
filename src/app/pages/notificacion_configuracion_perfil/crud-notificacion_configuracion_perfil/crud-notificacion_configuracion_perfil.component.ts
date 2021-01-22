@@ -113,7 +113,7 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>notificacionConfiguracionPerfil;
@@ -136,7 +136,7 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           this.info_notificacion_configuracion_perfil = <NotificacionConfiguracionPerfil>notificacionConfiguracionPerfil;
@@ -176,7 +176,7 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,

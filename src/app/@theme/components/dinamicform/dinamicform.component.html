@@ -270,11 +270,11 @@
                         <input type="file" name="{{c.nombre}}" class="{{c.clase}}" *ngSwitchCase="'file'"
                             (change)="onChange($event,c)" />
                         <div class="{{c.clase}}">
-                            <nb-card size="small">
-                                <nb-card-body>
+                            <mat-card>
+                                <mat-card-content>
                                     <img class="carousel-image" src="{{c.img}}" alt="imagen">
-                                </nb-card-body>
-                            </nb-card>
+                                </mat-card-content>
+                            </mat-card>
                         </div>
                     </div>
 
@@ -393,16 +393,16 @@
                                 {{c.requerido?'* '+c.label:c.label}}
                             </label>
 
-                            <nb-card>
-                                <nb-card-header>
+                            <mat-card>
+                                <mat-card-title>
                                     Tiny MCE
-                                </nb-card-header>
-                                <nb-card-body>
+                                </mat-card-title>
+                                <mat-card-content>
                                     <ngx-tiny-mce ngDefaultControl [(ngModel)]="c.valor"
                                         [ngModelOptions]="{standalone: true}" id="{{c.nombre}}" name="{{c.nombre}}"
                                         (ngModelChange)="validCampo(c)" type="text"></ngx-tiny-mce>
-                                </nb-card-body>
-                            </nb-card>
+                                </mat-card-content>
+                            </mat-card>
 
                             <mat-hint class=" text-danger ">{{c.alerta}}</mat-hint>
                         </div>
@@ -420,16 +420,16 @@
 
                                 </div>
                                 <div class="col-4">
-                                    <nb-card-body class="col-4" *ngIf="c.tipo == 'image'">
+                                    <mat-card-content class="col-4" *ngIf="c.tipo == 'image'">
                                         <img id="{{c.nombre}}" class="carousel-image" [src]="c.url"
                                             (click)="download(c.urlTemp,c.nombre,300,300)" class="img-thumbnail"
                                             alt="Foto" width="100px" height="100px">
-                                    </nb-card-body>
-                                    <nb-card-body class="col-4" *ngIf="!(c.tipo == 'image')">
+                                    </mat-card-content>
+                                    <mat-card-content class="col-4" *ngIf="!(c.tipo == 'image')">
                                         <img class="carousel-image" [src]="'assets/images/file.png'"
                                             (click)="download(c.urlTemp,c.nombre,500,500)" class="img-thumbnail"
                                             alt="Foto" width="100px" height="100px">
-                                    </nb-card-body>
+                                    </mat-card-content>
                                 </div>
                             </div>
                         </div>

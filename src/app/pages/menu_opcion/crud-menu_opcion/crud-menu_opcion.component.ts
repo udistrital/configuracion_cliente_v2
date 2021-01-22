@@ -159,7 +159,7 @@ export class CrudMenuOpcionComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           menuOpcion.TipoOpcion = menuOpcion.TipoOpcion.Nombre;
@@ -189,7 +189,7 @@ export class CrudMenuOpcionComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
         console.info(willDelete);
         if (willDelete.value) {
@@ -247,7 +247,7 @@ export class CrudMenuOpcionComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,

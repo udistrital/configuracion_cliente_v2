@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://pruebasassets.portaloas.udistrital.edu.co/athenea-style.css");
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    background-color: #f1f5f8;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main-container {
+    margin: 1rem;
+    width: calc(-2.2rem + 100vw);
+    display: flex;
+    flex-wrap: nowrap;
+    position: fixed;
+    top: 5.5rem;
+    height: calc(-200px + 100vh);
+    left: 0;
+    overflow: auto;
+}
+
+.main-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+}
+
+$table-font-color: #606c71;
+$table-border-color: #000;
+
+:host ::ng-deep tr,th {
+    background-color: aqua;
+    font-style: italic;
+    text-align:right;
+    border: 3px solid black;
+    width: 100%;
+    height: 50px;
+    }

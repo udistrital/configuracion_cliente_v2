@@ -1,4 +1,3 @@
-import { NbMenuService } from '@nebular/theme';
 import { Component } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -9,7 +8,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 })
 export class NotFoundComponent {
 
-  constructor(private translate: TranslateService, private menuService: NbMenuService) {
+  constructor(private translate: TranslateService) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
     });
   }
@@ -18,7 +17,4 @@ export class NotFoundComponent {
     this.translate.use(language);
   }
 
-  goToHome() {
-    this.menuService.navigateHome();
-  }
 }

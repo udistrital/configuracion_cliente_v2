@@ -110,7 +110,7 @@ export class CrudMenuOpcionPadreComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_menu_opcion_padre = <MenuOpcionPadre>menuOpcionPadre;
@@ -133,7 +133,7 @@ export class CrudMenuOpcionPadreComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_menu_opcion_padre = <MenuOpcionPadre>menuOpcionPadre;
@@ -173,7 +173,7 @@ export class CrudMenuOpcionPadreComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,

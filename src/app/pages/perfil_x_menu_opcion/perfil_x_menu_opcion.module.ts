@@ -8,9 +8,15 @@ import { SharedModule } from '../../shared/shared.module';
 import { CrudPerfilXMenuOpcionComponent } from './crud-perfil_x_menu_opcion/crud-perfil_x_menu_opcion.component';
 import { ToasterService} from 'angular2-toaster';
 import { TreeModule } from 'angular-tree-component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
+    MatTabsModule,
+    MatCardModule,
     ThemeModule,
     PerfilXMenuOpcionRoutingModule,
     Ng2SmartTableModule,

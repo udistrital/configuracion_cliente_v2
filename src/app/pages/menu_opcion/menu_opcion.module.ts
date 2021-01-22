@@ -7,18 +7,21 @@ import { ToasterModule } from 'angular2-toaster';
 import { SharedModule } from '../../shared/shared.module';
 import { CrudMenuOpcionComponent } from './crud-menu_opcion/crud-menu_opcion.component';
 import { ToasterService} from 'angular2-toaster';
-import { NbTreeGridModule, NbSelectModule } from '@nebular/theme';
 import { TreeModule } from 'angular-tree-component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
+    MatCardModule,
+    MatTabsModule,
     ThemeModule,
     MenuOpcionRoutingModule,
     Ng2SmartTableModule,
     ToasterModule,
     SharedModule,
-    NbTreeGridModule,
-    NbSelectModule,
     TreeModule,
   ],
   declarations: [
