@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("https://pruebasassets.portaloas.udistrital.edu.co/athenea-style.css");
+@import url("https://pruebasassets.portaloas.udistrital.edu.co/gaia-style.css");
 html,
 body {
     height: 100%;
@@ -27,14 +27,75 @@ body {
     border-radius: 2px;
 }
 
-$table-font-color: #606c71;
-$table-border-color: #000;
 
-:host ::ng-deep tr,th {
-    background-color: aqua;
-    font-style: italic;
-    text-align:right;
-    border: 3px solid black;
-    width: 100%;
-    height: 50px;
+// tables
+table {
+    thead {
+        border: 2px solid var(--color200);
+        tr {
+            th {
+                border-left: 2px solid var(--color200);
+                .ng2-smart-action.ng2-smart-action-add-add.ng-star-inserted {
+                    color: var(--primary);
+                }
+                .ng2-smart-title,
+                .ng2-smart-title > * > a {
+                    color: var(--primary);
+                }
+                * > div > * > a {
+                    color: var(--primary);
+                }
+                color: var(--primary);
+            }
+        }
     }
+    tbody {
+        border: 2px solid var(--color200);
+        tr {
+            &.selected {
+                background-color: var(--color100) !important;
+            }
+            td {
+                font-size: 0.875em !important;
+                margin: 0 !important;
+                padding: 0.2em 0.5em !important;
+                border: 1px solid var(--color200);
+                *:nth-child(2) > a {
+                    color: var(--primary);
+                }
+            }
+        }
+    }
+    & + * {
+        justify-content: center !important;
+        margin-top: 1em;
+        nav > ul > li {
+            &.active > span.page-link {
+                color: #fff;
+                background-color: var(--primary) !important;
+                border-color: var(--primary) !important;
+            }
+            a.page-link:focus {
+                box-shadow: 0 0 0 0.2rem var(--color200);
+            }
+            a.page-link:hover {
+                background-color: var(--color100);
+            }
+            a {
+                color: var(--primary) !important;
+            }
+        }
+    }
+}
+
+.mat-card-title {
+    color: var(--primary);
+}
+
+.form-control {
+    border: 1px solid var(--color200);
+    &:focus {
+        border-color: var(--color500);
+        box-shadow: 0 0 0 0.2rem var(--color100);
+    }
+}

@@ -47,6 +47,7 @@ export class ListMenuOpcionComponent implements OnInit {
       columns: {
         Id: {
           title: this.translate.instant('GLOBAL.id'),
+          width: '5%',
           // type: 'number;',
           valuePrepareFunction: (value) => {
             return value;

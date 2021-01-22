@@ -46,7 +46,6 @@ export class PagesComponent implements OnInit {
             })
           this.loaded = true;
         }
-
       })
   }
 
