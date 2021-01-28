@@ -22,6 +22,7 @@ const PAGES_COMPONENTS = [
     MatCardModule,
     CommonModule,
     MatTabsModule,
+    HttpClientModule,
     PagesRoutingModule,
     DashboardModule,
     ToasterModule.forRoot(),

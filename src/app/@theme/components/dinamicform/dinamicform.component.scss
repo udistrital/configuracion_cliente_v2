@@ -1,21 +1,21 @@
-::ng-deep .mat-input-element::placeholder {
-  color: var(--primary);
-}
+// ::ng-deep .mat-input-element::placeholder {
+//   color: var(--primary);
+// }
 
-::ng-deep .mat-input-placeholder {
-  color: var(--primary);
-}
+// ::ng-deep .mat-input-placeholder {
+//   color: var(--primary);
+// }
 
-::ng-deep .mat-select-value {
-  color: var(--primary);
-}
+// ::ng-deep .mat-select-value {
+//   color: var(--primary);
+// }
 
-::ng-deep .mat-select-placeholder {
-  color: var(--primary);
-}
+// ::ng-deep .mat-select-placeholder {
+//   color: var(--primary);
+// }
 
-::ng-deep .mat-form-field-underline {
-  background-color: var(--primary);
+::ng-deep .mat-form-field-flex {
+  color: var(--primary);
 }
 
 mat-card-content {
@@ -39,10 +39,6 @@ legend {
   }
 }
 
-.dinamic-form {
-  background-color: var(--primary);
-  padding: 1rem;
-}
 
 .demo-checkboxes {
   display: flex;
@@ -149,4 +145,11 @@ img {
 
 ngb-rating {
   outline: none;
+}
+
+
+.buttons-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
 }

@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 import { Perfil } from '../../../@core/data/models/perfil';
-import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from 'angular-tree-component';
+import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from '@circlon/angular-tree-component';
 import { UtilidadesService } from '../../../@core/utils/utilidades.service';
 import { from } from 'rxjs';
 

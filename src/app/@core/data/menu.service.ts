@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from './../../../environments/environment'
-import { RequestManager } from '../../managers/requestManager';
+import { RequestManager } from './../managers/requestManager';
 
 const path = environment.CONF_MENU_SERVICE;
 

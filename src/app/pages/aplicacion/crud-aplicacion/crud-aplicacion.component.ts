@@ -23,12 +23,15 @@ export class CrudAplicacionComponent implements OnInit {
     this.loadAplicacion();
   }
 
+
   @Output() eventChange = new EventEmitter();
+  @Output('returnEvent') returnEvent = new EventEmitter();
 
   info_aplicacion: Aplicacion;
   formAplicacion: any;
   regAplicacion: any;
   clean: boolean;
+  return = true;
 
   constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
     this.formAplicacion = FORM_APLICACION;
@@ -36,6 +39,7 @@ export class CrudAplicacionComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.construirForm();
     });
+    this.return = true;
   }
 
   construirForm() {
@@ -100,7 +104,7 @@ export class CrudAplicacionComponent implements OnInit {
         }
       });
   }
-
+  cambiotab
   createAplicacion(aplicacion: any): void {
     const opt: any = {
       title: 'Create?',
@@ -157,6 +161,11 @@ export class CrudAplicacionComponent implements OnInit {
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
     this.toasterService.popAsync(toast);
+  }
+
+  backwards(event){
+    console.log(event);
+    this.returnEvent.emit(event);
   }
 
 }

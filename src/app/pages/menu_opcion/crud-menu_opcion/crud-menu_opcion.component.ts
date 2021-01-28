@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 import { Observable } from 'rxjs';
 import { UtilidadesService } from '../../../@core/utils/utilidades.service';
-import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from 'angular-tree-component';
+import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from '@circlon/angular-tree-component';
 
 
 @Component({
