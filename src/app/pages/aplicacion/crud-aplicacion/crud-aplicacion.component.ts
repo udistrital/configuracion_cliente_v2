@@ -23,12 +23,15 @@ export class CrudAplicacionComponent implements OnInit {
     this.loadAplicacion();
   }
 
+
   @Output() eventChange = new EventEmitter();
+  @Output('returnEvent') returnEvent = new EventEmitter();
 
   info_aplicacion: Aplicacion;
   formAplicacion: any;
   regAplicacion: any;
   clean: boolean;
+  return = true;
 
   constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
     this.formAplicacion = FORM_APLICACION;
@@ -36,6 +39,7 @@ export class CrudAplicacionComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.construirForm();
     });
+    this.return = true;
   }
 
   construirForm() {
@@ -87,7 +91,7 @@ export class CrudAplicacionComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           this.info_aplicacion = <Aplicacion>aplicacion;
@@ -100,7 +104,7 @@ export class CrudAplicacionComponent implements OnInit {
         }
       });
   }
-
+  cambiotab
   createAplicacion(aplicacion: any): void {
     const opt: any = {
       title: 'Create?',
@@ -110,7 +114,7 @@ export class CrudAplicacionComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           this.info_aplicacion = <Aplicacion>aplicacion;
@@ -150,13 +154,18 @@ export class CrudAplicacionComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
     this.toasterService.popAsync(toast);
+  }
+
+  backwards(event){
+    console.log(event);
+    this.returnEvent.emit(event);
   }
 
 }

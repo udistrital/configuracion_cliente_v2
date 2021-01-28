@@ -87,7 +87,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_notificacion_tipo = <NotificacionTipo>notificacionTipo;
@@ -110,7 +110,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_notificacion_tipo = <NotificacionTipo>notificacionTipo;
@@ -150,7 +150,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,

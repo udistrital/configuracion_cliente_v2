@@ -22,7 +22,9 @@ export class DinamicformComponent implements OnInit, OnChanges {
   @Output('resultSmart') resultSmart: EventEmitter<any> = new EventEmitter();
   // tslint:disable-next-line: no-output-rename
   @Output('interlaced') interlaced: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename
+  // tslint:disable-next-line: no-output-rename}
+  @Output('anyoption') anyoption: EventEmitter<any> = new EventEmitter();
+  // tslint:disable-next-line: no-output-rename}
   @Output('percentage') percentage: EventEmitter<any> = new EventEmitter();
   data: any;
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;

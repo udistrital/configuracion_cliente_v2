@@ -7,9 +7,15 @@ import { ToasterModule } from 'angular2-toaster';
 import { SharedModule } from '../../shared/shared.module';
 import { CrudNotificacionConfiguracionPerfilComponent } from './crud-notificacion_configuracion_perfil/crud-notificacion_configuracion_perfil.component';
 import { ToasterService} from 'angular2-toaster';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
+    MatCardModule,
+    MatTabsModule,
     ThemeModule,
     NotificacionConfiguracionPerfilRoutingModule,
     Ng2SmartTableModule,

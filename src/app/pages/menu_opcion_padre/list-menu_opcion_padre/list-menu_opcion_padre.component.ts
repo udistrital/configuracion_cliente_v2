@@ -13,7 +13,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   })
 export class ListMenuOpcionPadreComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
+  cambiotab: boolean = true;
   config: ToasterConfig;
   settings: any;
 
@@ -30,17 +30,17 @@ export class ListMenuOpcionPadreComponent implements OnInit {
   cargarCampos() {
     this.settings = {
       add: {
-        addButtonContent: '<i class="nb-plus"></i>',
+        addButtonContent: '<span class="material-icons">add</span>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
       edit: {
-        editButtonContent: '<i class="nb-edit"></i>',
+        editButtonContent: '<span class="material-icons">edit</span>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
       delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
+        deleteButtonContent: '<span class="material-icons">delete</span>',
         confirmDelete: true,
       },
       mode: 'external',
@@ -105,7 +105,7 @@ export class ListMenuOpcionPadreComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
     .then((willDelete) => {
 
       if (willDelete.value) {
@@ -124,7 +124,7 @@ export class ListMenuOpcionPadreComponent implements OnInit {
   }
 
   selectTab(event): void {
-    if (event.tabTitle === this.translate.instant('GLOBAL.lista')) {
+    if (event.label === this.translate.instant('GLOBAL.lista')) {
       this.cambiotab = false;
     } else {
       this.cambiotab = true;
@@ -155,7 +155,7 @@ export class ListMenuOpcionPadreComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,

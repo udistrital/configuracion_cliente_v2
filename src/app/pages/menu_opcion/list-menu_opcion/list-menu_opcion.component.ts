@@ -30,23 +30,25 @@ export class ListMenuOpcionComponent implements OnInit {
   cargarCampos() {
     this.settings = {
       add: {
-        addButtonContent: '<i class="nb-plus"></i>',
+        addButtonContent: '<span class="material-icons">add</span>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
-      edit: {
-        editButtonContent: '<i class="nb-edit"></i>',
-        saveButtonContent: '<i class="nb-checkmark"></i>',
-        cancelButtonContent: '<i class="nb-close"></i>',
-      },
-      delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
-        confirmDelete: true,
-      },
+      // edit: {
+      //   editButtonContent: '<span class="material-icons">edit</span>',
+      //   saveButtonContent: '<i class="nb-checkmark"></i>',
+      //   cancelButtonContent: '<i class="nb-close"></i>',
+      // },
+      // delete: {
+      //   deleteButtonContent: '<span class="material-icons">delete</span>',
+      //   confirmDelete: true,
+      // },
       mode: 'external',
+      selectmode: 'multi',
       columns: {
         Id: {
           title: this.translate.instant('GLOBAL.id'),
+          width: '5%',
           // type: 'number;',
           valuePrepareFunction: (value) => {
             return value;
@@ -136,7 +138,7 @@ export class ListMenuOpcionComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
 
         if (willDelete.value) {
@@ -171,7 +173,7 @@ export class ListMenuOpcionComponent implements OnInit {
 
 
   itemselec(event): void {
-    // console.log("afssaf");
+    console.log(event);
   }
 
   private showToast(type: string, title: string, body: string) {
@@ -186,7 +188,7 @@ export class ListMenuOpcionComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,

@@ -6,15 +6,15 @@
     </ngx-dinamicform>
   </div>
   <div class="col-6" *ngIf="app">
-    <nb-card [size]="'medium'">
-      <nb-card-header>
+    <mat-card>
+      <mat-card-title>
         {{ 'MENU.menu.menu' | translate }}
-      </nb-card-header>
-      <nb-card-body>
+      </mat-card-title>
+      <mat-card-content>
         <div>
           <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true"></tree-root>
         </div>
-      </nb-card-body>
-    </nb-card>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

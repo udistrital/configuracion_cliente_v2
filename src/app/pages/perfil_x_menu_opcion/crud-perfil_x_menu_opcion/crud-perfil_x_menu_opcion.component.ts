@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 import { Perfil } from '../../../@core/data/models/perfil';
-import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from 'angular-tree-component';
+import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from '@circlon/angular-tree-component';
 import { UtilidadesService } from '../../../@core/utils/utilidades.service';
 import { from } from 'rxjs';
 
@@ -172,7 +172,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           this.info_perfil = <Perfil>perfil;
@@ -202,7 +202,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
       limit: 5,
     });
     const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
+      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
       title: title,
       body: body,
       showCloseButton: true,

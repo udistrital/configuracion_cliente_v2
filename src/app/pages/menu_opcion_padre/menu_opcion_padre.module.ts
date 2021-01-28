@@ -8,8 +8,15 @@ import { SharedModule } from '../../shared/shared.module';
 import { CrudMenuOpcionPadreComponent } from './crud-menu_opcion_padre/crud-menu_opcion_padre.component';
 import { ToasterService} from 'angular2-toaster';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
+
 @NgModule({
   imports: [
+    CommonModule,
+    MatCardModule,
+    MatTabsModule,
     ThemeModule,
     MenuOpcionPadreRoutingModule,
     Ng2SmartTableModule,
