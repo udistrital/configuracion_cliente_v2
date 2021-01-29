@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  entorno: 'test',
+  entorno: 'local',
   autenticacion: true,
   notificaciones: false,
   menuApps: true,
