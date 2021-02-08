@@ -18,7 +18,6 @@ const materialModules = [
 ]
 import {
   DinamicformComponent,
-  LoadingComponent,
 } from './components';
 
 
@@ -29,8 +28,8 @@ import {
     ReactiveFormsModule,
     ...materialModules,
     SharedModule],
-  exports: [DinamicformComponent, LoadingComponent],
-  declarations: [DinamicformComponent, LoadingComponent],
+  exports: [DinamicformComponent],
+  declarations: [DinamicformComponent],
   entryComponents: [],
 })
 

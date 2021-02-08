@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
+import { environment } from './../environments/environment';
 export const ScriptStore: any[] = [
-    {name: 'web-components', src: 'https://pruebasconfiguracion.portaloas.udistrital.edu.co/assets/web-components.js'},
-    // {name: 'web-components', src: 'https://pruebasassets.portaloas.udistrital.edu.co/web-components.js'},
+    { name: 'web-components', src: environment.WEBCOMPONENT },
 ];
 declare var document: any;
 

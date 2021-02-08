@@ -19,14 +19,14 @@ export class RequestManager {
   public httpOptions: any;
   constructor(private http: HttpClient, private errManager: HttpErrorManager) {
     const acces_token = window.localStorage.getItem('access_token');
-    if (acces_token !== null) {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${acces_token}`,
-        }),
-      }
-    }
+    // if (acces_token !== null) {
+    //   this.httpOptions = {
+    //     headers: new HttpHeaders({
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${acces_token}`,
+    //     }),
+    //   }
+    // }
   }
 
 

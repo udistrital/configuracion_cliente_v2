@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://pruebasassets.portaloas.udistrital.edu.co/athenea-style.css");
-@import '~@sweetalert2/theme-material-ui/material-ui.scss';
+@import "~@sweetalert2/theme-material-ui/material-ui.scss";
 @import "~@circlon/angular-tree-component/css/angular-tree-component.css";
 @import "~@angular/material/theming";
+
 @include mat-core();
 
 // material customize
@@ -69,6 +70,20 @@ body {
     height: calc(-165px + 100vh);
     left: 0;
     overflow: auto;
+}
+
+.main-container {
+    animation: fade 1s;
+
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 }
 
 .main-container::-webkit-scrollbar-thumb {
@@ -158,7 +173,6 @@ table {
     border-color: var(--color200) !important;
     color: var(--primary) !important;
 }
-
 
 .mat-card {
     width: 100%;

@@ -31,7 +31,6 @@
     "@sweetalert2/theme-material-ui": "^4.0.2",
     "angular2-toaster": "^11.0.1",
     "bootstrap": "^4.6.0",
-    "i": "^0.3.6",
     "jquery": "^3.5.1",
     "lodash-es": "^4.17.20",
     "material-icons": "^0.5.2",

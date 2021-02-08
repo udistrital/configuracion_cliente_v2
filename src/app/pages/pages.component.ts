@@ -10,7 +10,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'ngx-pages',
   template: `
-    <ng-uui-oas [environment]="environment"></ng-uui-oas>
+    <ngx-loading></ngx-loading>
+    <ng-uui-oas *ngIf="!loaded" [environment]="environment"></ng-uui-oas>
     <div *ngIf="loaded" class="main-container">
       <router-outlet></router-outlet>
     </div>
@@ -39,7 +40,7 @@ export class PagesComponent implements OnInit {
           html: `Por favor espere`,
           showConfirmButton: false,
           allowOutsideClick: false,
-          onBeforeOpen: () => {
+          willOpen: () => {
             Swal.showLoading()
           },
         });
@@ -55,21 +56,21 @@ export class PagesComponent implements OnInit {
       .then((scriptsLoaded) => {
         if (!this.loaded) {
           console.log(scriptsLoaded)
-          const oas = document.querySelector('ng-uui-oas');
-          fromEvent(oas, 'user')
-            .pipe(pluck('detail'))
-            .subscribe((data) => {
-              console.log(data);
-            })
+          //   const oas = document.querySelector('ng-uui-oas');
+          //   fromEvent(oas, 'user')
+          //     .pipe(pluck('detail'))
+          //     .subscribe((data) => {
+          //       console.log(data);
+          //     })
 
-          fromEvent(oas, 'option')
-            .pipe(pluck('detail'))
-            .subscribe((data: any) => {
-              if (data) {
-                setTimeout(() => { this.router.navigate([data.Url]) }, 300)
-              }
-            })
-          this.loaded = true;
+          //   fromEvent(oas, 'option')
+          //     .pipe(pluck('detail'))
+          //     .subscribe((data: any) => {
+          //       if (data) {
+          //         setTimeout(() => { this.router.navigate([data.Url]) }, 300)
+          //       }
+          //     })
+          //   this.loaded = true;
         }
       })
   }
