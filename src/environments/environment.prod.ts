@@ -6,6 +6,7 @@ export const environment = {
   menuApps: true,
   appname: 'core',
   appMenu: 'CONFIGURACION',
+  WEBCOMPONENT: 'https://pruebasconfiguracion.portaloas.udistrital.edu.co/assets/web-components.js',
   NUXEO: {
     PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },

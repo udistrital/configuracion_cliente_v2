@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { tap, finalize, takeUntil } from 'rxjs/operators';
-import { PopUpManager } from '../../managers/popUpManager'
-import { TranslateService } from '@ngx-translate/core';
+import { PopUpManager } from '../managers/popUpManager'
 import { LoaderService } from '../utils/load.service';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
   constructor(private router: Router,
     private pUpManager: PopUpManager,
-    private translate: TranslateService,
     public loaderService: LoaderService,
   ) { }
-
+  
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
     this.loaderService.show();
-    const acces_token = window.localStorage.getItem('access_token');
-
-    if (acces_token !== null) {
+    const acces_token = localStorage.getItem('access_token');
+    if (acces_token) {
       const authReq = req.clone({
         headers: new HttpHeaders({
           'Accept': 'application/json',
@@ -42,16 +38,13 @@ export class AuthInterceptor implements HttpInterceptor {
           if (event instanceof HttpErrorResponse) {
             // cache.put(req, event); // Update the cache.
             this.router.navigate(['/']);
-            this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${event['status']}`))
+            this.pUpManager.showErrorToast(`${event.status}`)
           } else {
             if (event['body']) {
-
               if (event['body'] !== null) {
-
                 if (event['body']['Body'] !== undefined && event['body']['Body'] === null) {
                   this.pUpManager.showInfoToast('No se encontraron Datos');
                 }
-
               } else {
                 this.pUpManager.showInfoToast('No se encontraron Datos');
               }
@@ -60,7 +53,7 @@ export class AuthInterceptor implements HttpInterceptor {
         },
           (error: any) => {
             console.info(error);
-            this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${error['status']}`))
+            this.pUpManager.showErrorToast(`${error.status}`)
           },
         ),
         finalize(() => this.loaderService.hide()),
@@ -72,7 +65,7 @@ export class AuthInterceptor implements HttpInterceptor {
           if (event instanceof HttpErrorResponse) {
             // cache.put(req, event); // Update the cache.
             // this.snackBar.open('test', undefined, { duration: 5000 });
-            this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${event['status']}`))
+            this.pUpManager.showErrorToast(`${event.status}`);
           } else {
 
             if (event['body']) {
@@ -90,9 +83,7 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         },
           (error: any) => {
-            console.info(error);
-            // this.snackBar.open('Error en el Servidor', undefined, { duration: 5000 });
-            this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${error['status']}`))
+            this.pUpManager.showErrorToast(`${error.status}`)
           },
         ));
     }

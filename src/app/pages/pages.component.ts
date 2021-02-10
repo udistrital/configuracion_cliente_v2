@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AppService } from './../app.service';
 import { fromEvent } from 'rxjs';
@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'ngx-pages',
   template: `
+    <ngx-loading></ngx-loading>
     <ng-uui-oas [environment]="environment"></ng-uui-oas>
     <div *ngIf="loaded" class="main-container">
       <router-outlet></router-outlet>
@@ -25,13 +26,10 @@ export class PagesComponent implements OnInit {
   userData: any;
   loadingRouter: boolean = false;
   constructor(
-    private scriptService: AppService,
     private router: Router,
     private translateService: TranslateService,
   ) {
     this.environment = environment;
-
-
     router.events.subscribe((event) => {
       if (event instanceof RouteConfigLoadStart) {
         Swal.fire({
@@ -39,7 +37,7 @@ export class PagesComponent implements OnInit {
           html: `Por favor espere`,
           showConfirmButton: false,
           allowOutsideClick: false,
-          onBeforeOpen: () => {
+          willOpen: () => {
             Swal.showLoading()
           },
         });
@@ -49,49 +47,24 @@ export class PagesComponent implements OnInit {
         Swal.close();
       }
     })
-
-
-    this.scriptService.loadScript('web-components')
-      .then((scriptsLoaded) => {
-        if (!this.loaded) {
-          console.log(scriptsLoaded)
-          const oas = document.querySelector('ng-uui-oas');
-          fromEvent(oas, 'user')
-            .pipe(pluck('detail'))
-            .subscribe((data) => {
-              console.log(data);
-            })
-
-          fromEvent(oas, 'option')
-            .pipe(pluck('detail'))
-            .subscribe((data: any) => {
-              if (data) {
-                setTimeout(() => { this.router.navigate([data.Url]) }, 300)
-              }
-            })
-          this.loaded = true;
-        }
-      })
   }
-
   ngOnInit(): void {
+    const oas = document.querySelector('ng-uui-oas');
+    console.log(oas);
+    oas.addEventListener('user', (event: any) => {
+      if (event.detail) {
+        console.log(event.detail)
+      }
+    });
+
+    oas.addEventListener('option', (event: any) => {
+      if (event.detail) {
+        setTimeout(() => { this.router.navigate([event.detail.Url]) }, 300)
+      }
+    });
+    this.loaded = true;
     this.translateService.addLangs(['es', 'en']);
     this.translateService.setDefaultLang('es');
     this.translateService.use(this.translateService.getBrowserLang());
   }
 }
-
-// /deep/ router-outlet + * {
-//   display: block;
-//   animation: fade 1s;
-
-//   @keyframes fade {
-//     from {
-//       opacity: 0;
-//     }
-
-//     to {
-//       opacity: 1;
-//     }
-//   }
-// }

@@ -1,11 +1,12 @@
 export const environment = {
   production: false,
-  entorno: 'local',
+  entorno: 'test',
   autenticacion: true,
   notificaciones: false,
   menuApps: true,
   appname: 'core',
   appMenu: 'CONFIGURACION',
+  WEBCOMPONENT: 'https://pruebasassets.portaloas.udistrital.edu.co/web-components.js',
   NUXEO: {
     PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },

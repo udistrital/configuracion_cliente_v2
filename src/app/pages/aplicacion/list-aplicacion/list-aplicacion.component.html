@@ -1,6 +1,8 @@
 <mat-card>
   <mat-card-title>
-    {{ 'aplicaciones.lista_aplicacion' | translate }}
+    <button *ngIf="cambiotab" (click)="activetab()" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i>
+      {{ 'GLOBAL.regresar' | translate }}</button>
+    <div *ngIf="!cambiotab" > {{ 'MENU.aplicacion.lista_aplicacion' | translate }} </div>
   </mat-card-title>
   <mat-card-content>
     <toaster-container [toasterconfig]="config"></toaster-container>
@@ -9,7 +11,5 @@
     </ng2-smart-table>
     <ngx-crud-aplicacion *ngIf="cambiotab" [aplicacion_id]="uid" (eventChange)="onChange($event)">
     </ngx-crud-aplicacion>
-    <button *ngIf="cambiotab" (click)="activetab()" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i>
-      {{ 'GLOBAL.regresar' | translate }}</button>
   </mat-card-content>
 </mat-card>

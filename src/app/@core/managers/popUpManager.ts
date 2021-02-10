@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { ToasterService } from 'angular2-toaster';
 
 
 @Injectable({
@@ -8,24 +8,25 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PopUpManager {
     constructor(
-        private translate: TranslateService,
-    ) { }
+        private toast: ToasterService,
+    ) { 
+    }
     /**
      * showToast
      */
-    public showToast(status, message: string, tittle = '') {
-        // this.toast.show(message, tittle, { status });
+    public showToast(message: string, tittle = '') {
+        this.toast.pop('success',message, tittle);
     }
 
     public showErrorToast(message: string) {
         const status: any = 'danger';
-        // this.toast.show(message, this.translate.instant('GLOBAL.error'), { status });
+        this.toast.pop('success',message, status);
     }
 
     public showInfoToast(message: string) {
         const status: any = 'info';
         const duration: any = 0
-        // this.toast.show(message, this.translate.instant('GLOBAL.info'), { status, duration });
+         this.toast.pop('info', message, 'Info');
     }
 
     public showAlert(status, text) {
@@ -33,25 +34,25 @@ export class PopUpManager {
             icon: 'info',
             title: status,
             text: text,
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            confirmButtonText: 'Aceptar',
         });
     }
 
     public showSuccessAlert(text) {
         Swal.fire({
             icon: 'success',
-            title: this.translate.instant('GLOBAL.operacion_exitosa'),
+            title: 'Operación Exitosa',
             text: text,
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            confirmButtonText: 'Aceptar',
         });
     }
 
     public showErrorAlert(text) {
         Swal.fire({
             icon: 'error',
-            title: this.translate.instant('GLOBAL.error'),
+            title: 'Error',
             text: text,
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            confirmButtonText: 'Aceptar',
         });
     }
 }

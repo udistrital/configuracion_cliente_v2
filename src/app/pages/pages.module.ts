@@ -25,7 +25,6 @@ const PAGES_COMPONENTS = [
     HttpClientModule,
     PagesRoutingModule,
     DashboardModule,
-    ToasterModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

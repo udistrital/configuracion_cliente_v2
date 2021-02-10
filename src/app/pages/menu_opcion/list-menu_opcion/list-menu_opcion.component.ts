@@ -34,15 +34,15 @@ export class ListMenuOpcionComponent implements OnInit {
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
-      // edit: {
-      //   editButtonContent: '<span class="material-icons">edit</span>',
-      //   saveButtonContent: '<i class="nb-checkmark"></i>',
-      //   cancelButtonContent: '<i class="nb-close"></i>',
-      // },
-      // delete: {
-      //   deleteButtonContent: '<span class="material-icons">delete</span>',
-      //   confirmDelete: true,
-      // },
+      edit: {
+        editButtonContent: '<span class="material-icons">edit</span>',
+        saveButtonContent: '<i class="nb-checkmark"></i>',
+        cancelButtonContent: '<i class="nb-close"></i>',
+      },
+      delete: {
+        deleteButtonContent: '<span class="material-icons">delete</span>',
+        confirmDelete: true,
+      },
       mode: 'external',
       selectmode: 'multi',
       columns: {
