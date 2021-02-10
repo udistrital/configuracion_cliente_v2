@@ -9,12 +9,18 @@ const routes: Routes = [
       .then(m => m.PagesModule),
   },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
+  { path: '**', redirectTo: 'pages', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)],
-    // RouterModule.forRoot(routes, { useHash: true })],
+    // RouterModule.forRoot(routes)],
+    RouterModule.forRoot(
+      routes, {
+      enableTracing: true,
+      useHash: true,
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

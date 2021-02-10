@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
   selector: 'ngx-pages',
   template: `
     <ngx-loading></ngx-loading>
-    <ng-uui-oas [environment]="environment"></ng-uui-oas>
     <div *ngIf="loaded" class="main-container">
       <router-outlet></router-outlet>
     </div>
@@ -49,19 +48,7 @@ export class PagesComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    const oas = document.querySelector('ng-uui-oas');
-    console.log(oas);
-    oas.addEventListener('user', (event: any) => {
-      if (event.detail) {
-        console.log(event.detail)
-      }
-    });
 
-    oas.addEventListener('option', (event: any) => {
-      if (event.detail) {
-        setTimeout(() => { this.router.navigate([event.detail.Url]) }, 300)
-      }
-    });
     this.loaded = true;
     this.translateService.addLangs(['es', 'en']);
     this.translateService.setDefaultLang('es');
