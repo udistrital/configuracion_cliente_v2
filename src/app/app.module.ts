@@ -27,7 +27,7 @@ import { ToasterModule } from 'angular2-toaster';
   providers: [
     AppService,
     { provide: APP_BASE_HREF, useValue: '/' },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    //{ provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
 
   bootstrap: [AppComponent]

@@ -72,19 +72,19 @@ body {
     overflow: auto;
 }
 
-.main-container {
-    animation: fade 1s;
+// .main-container {
+//     animation: fade 1s;
 
-    @keyframes fade {
-        from {
-            opacity: 0;
-        }
+//     @keyframes fade {
+//         from {
+//             opacity: 0;
+//         }
 
-        to {
-            opacity: 1;
-        }
-    }
-}
+//         to {
+//             opacity: 1;
+//         }
+//     }
+// }
 
 .main-container::-webkit-scrollbar-thumb {
     background: #ccc;

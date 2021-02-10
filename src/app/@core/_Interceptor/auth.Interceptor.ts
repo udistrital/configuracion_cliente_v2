@@ -18,9 +18,8 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
     this.loaderService.show();
-    const acces_token = window.localStorage.getItem('access_token');
-
-    if (acces_token !== null) {
+    const acces_token = localStorage.getItem('access_token');
+    if (acces_token) {
       const authReq = req.clone({
         headers: new HttpHeaders({
           'Accept': 'application/json',
