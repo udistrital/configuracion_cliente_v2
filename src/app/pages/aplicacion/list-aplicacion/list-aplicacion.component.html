@@ -5,7 +5,6 @@
     <div *ngIf="!cambiotab" > {{ 'MENU.aplicacion.lista_aplicacion' | translate }} </div>
   </mat-card-title>
   <mat-card-content>
-    <toaster-container [toasterconfig]="config"></toaster-container>
     <ng2-smart-table *ngIf="!cambiotab" [settings]="settings" [source]="source" (delete)="onDelete($event)"
       (rowSelect)="itemselec($event)" (edit)="onEdit($event)" (create)="onCreate($event)">
     </ng2-smart-table>

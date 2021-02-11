@@ -1,13 +1,11 @@
 import { Aplicacion } from './../../../@core/data/models/aplicacion';
-
 import { MenuOpcion, OpcionTipoOpcion } from './../../../@core/data/models/menu_opcion';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
 import { FORM_MENU_OPCION } from './form-menu_opcion';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
+
 import { Observable } from 'rxjs';
 import { UtilidadesService } from '../../../@core/utils/utilidades.service';
 import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from '@circlon/angular-tree-component';
@@ -19,7 +17,6 @@ import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from '@circlon/angul
   styleUrls: ['./crud-menu_opcion.component.scss'],
 })
 export class CrudMenuOpcionComponent implements OnInit {
-  config: ToasterConfig;
   menu_opcion_id: number;
   opciones_tipo_opcion: OpcionTipoOpcion[] = [
     { Id: 1, Nombre: 'Menú' },
@@ -58,7 +55,7 @@ export class CrudMenuOpcionComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private configuracionService: ConfiguracionService,
-    private toasterService: ToasterService, private utils: UtilidadesService) {
+    private utils: UtilidadesService) {
     this.formMenuOpcion = FORM_MENU_OPCION;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -209,7 +206,10 @@ export class CrudMenuOpcionComponent implements OnInit {
                   .subscribe(response => {
                     this.eventChange.emit(true);
                     this.showToast('info', 'created', 'MenuOpcion created');
-                  }, error => { this.eventChange.emit(true); this.showToast('error', 'error ', 'MenuOpcion Menú no pudo crearse') })
+                  }, error => {
+                    this.eventChange.emit(true);
+                    this.showToast('error', 'error ', 'MenuOpcion Menú no pudo crearse')
+                  })
               } else {
                 this.eventChange.emit(true);
                 this.showToast('info', 'created', 'MenuOpcion created');
@@ -236,24 +236,7 @@ export class CrudMenuOpcionComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
+    console.log(type, body)
   }
 
 }

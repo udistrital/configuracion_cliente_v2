@@ -29,7 +29,6 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@sweetalert2/theme-material-ui": "^4.0.2",
-    "angular2-toaster": "^11.0.1",
     "bootstrap": "^4.6.0",
     "jquery": "^3.5.1",
     "lodash-es": "^4.17.20",

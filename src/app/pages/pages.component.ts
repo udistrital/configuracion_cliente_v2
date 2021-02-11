@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AppService } from './../app.service';
 import { fromEvent } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';

@@ -3,7 +3,6 @@
     {{ 'MENU.opciones' | translate }}
   </mat-card-title>
   <mat-card-content>
-    <toaster-container [toasterconfig]="config"></toaster-container>
     <div *ngIf="!cambiotab">
       <ng2-smart-table [id]="mytable"  [settings]="settings" [source]="source" (delete)="onDelete($event)"
         (rowSelect)="itemselec($event)" (edit)="onEdit($event)" (create)="onCreate($event)">

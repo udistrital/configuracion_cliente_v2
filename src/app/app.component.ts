@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -11,8 +12,10 @@ import { environment } from 'src/environments/environment';
 export class AppComponent implements OnInit {
   loadRouting = false;
   environment = environment;
+  loadingRouter: boolean;
   constructor(private router: Router,
-  ) { }
+  ) {
+  }
   ngOnInit(): void {
     const oas = document.querySelector('ng-uui-oas');
     console.log(oas);
@@ -25,7 +28,7 @@ export class AppComponent implements OnInit {
 
     oas.addEventListener('option', (event: any) => {
       if (event.detail) {
-        setTimeout(() => { this.router.navigate([event.detail.Url]) }, 300)
+        this.router.navigate([event.detail.Url])
       }
     });
 

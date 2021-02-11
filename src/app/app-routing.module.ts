@@ -17,7 +17,7 @@ const routes: Routes = [
     // RouterModule.forRoot(routes)],
     RouterModule.forRoot(
       routes, {
-      enableTracing: true,
+      // enableTracing: true,
       useHash: true,
     })
   ],

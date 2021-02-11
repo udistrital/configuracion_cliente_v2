@@ -3,12 +3,11 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from './@core/core.module';
-import { ToasterModule } from 'angular2-toaster';
+// import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,13 +19,15 @@ import { ToasterModule } from 'angular2-toaster';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    ToasterModule.forRoot(),
     BrowserAnimationsModule,
-
+    // ToastrModule.forRoot({
+    //   timeOut: 10000,
+    //   positionClass: 'toast-top-right',
+    //   preventDuplicates: true,
+    // })
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
-    AppService,
     //{ provide: APP_BASE_HREF, useValue: '/' },
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],

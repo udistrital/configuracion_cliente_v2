@@ -1,10 +1,9 @@
 
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
+
 import { Perfil } from '../../../@core/data/models/perfil';
 import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from '@circlon/angular-tree-component';
 import { UtilidadesService } from '../../../@core/utils/utilidades.service';
@@ -17,7 +16,6 @@ import { from } from 'rxjs';
   styleUrls: ['./crud-perfil_x_menu_opcion.component.scss'],
 })
 export class CrudPerfilXMenuOpcionComponent implements OnInit {
-  config: ToasterConfig;
   perfil_id: number;
 
   // tree rol
@@ -67,7 +65,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   regPerfil: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService,
+  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService,
     private utils: UtilidadesService) {
   }
 
@@ -191,23 +189,6 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
+console.log(type,body)
   }
 }
