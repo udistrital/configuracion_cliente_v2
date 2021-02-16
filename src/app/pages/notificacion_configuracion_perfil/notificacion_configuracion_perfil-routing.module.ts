@@ -4,8 +4,6 @@ import { NotificacionConfiguracionPerfilComponent } from './notificacion_configu
 import { ListNotificacionConfiguracionPerfilComponent } from './list-notificacion_configuracion_perfil/list-notificacion_configuracion_perfil.component';
 import { CrudNotificacionConfiguracionPerfilComponent } from './crud-notificacion_configuracion_perfil/crud-notificacion_configuracion_perfil.component';
 
-
-
 const routes: Routes = [{
   path: '',
   component: NotificacionConfiguracionPerfilComponent,

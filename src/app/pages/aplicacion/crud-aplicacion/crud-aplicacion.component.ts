@@ -101,7 +101,7 @@ export class CrudAplicacionComponent implements OnInit {
         }
       });
   }
-  cambiotab
+
   createAplicacion(aplicacion: any): void {
     const opt: any = {
       title: 'Create?',
@@ -139,7 +139,7 @@ export class CrudAplicacionComponent implements OnInit {
   }
 
 
-  backwards(event){
+  backwards(event) {
     console.log(event);
     this.returnEvent.emit(event);
   }

@@ -14,9 +14,7 @@ import Swal from 'sweetalert2';
 export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
-  
   settings: any;
-
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private translate: TranslateService, private configuracionService: ConfiguracionService) {
@@ -74,7 +72,8 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
   }
 
   loadData(): void {
-    this.configuracionService.get('notificacion_configuracion_perfil/?limit=0').subscribe(res => {
+    this.configuracionService.get('notificacion_configuracion_perfil/?limit=0')
+    .subscribe(res => {
       if (res !== null) {
         const data = <Array<any>>res;
         this.source.load(data);
@@ -106,7 +105,6 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
     };
     Swal.fire(opt)
       .then((willDelete) => {
-
         if (willDelete.value) {
           this.configuracionService.delete('notificacion_configuracion_perfil/', event.data).subscribe(res => {
             if (res !== null) {

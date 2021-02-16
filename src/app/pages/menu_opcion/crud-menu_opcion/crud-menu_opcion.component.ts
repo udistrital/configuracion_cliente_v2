@@ -82,7 +82,7 @@ export class CrudMenuOpcionComponent implements OnInit {
           this.treeModel = this.treeComponent.treeModel;
           if (this.info_menu_opcion) {
             if (this.info_menu_opcion.hasOwnProperty('Id')) {
-              this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible();
+              this.treeModel.getNodeById(this.info_menu_opcion.Id)?this.treeModel.getNodeById(this.info_menu_opcion.Id).setActiveAndVisible():null;
             }
           }
         }

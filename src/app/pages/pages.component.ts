@@ -43,7 +43,10 @@ export class PagesComponent implements OnInit {
       } else if (event instanceof RouteConfigLoadEnd) {
         this.loadingRouter = false;
         Swal.close();
+      } else {
+        Swal.close();
       }
+      
     })
   }
   ngOnInit(): void {

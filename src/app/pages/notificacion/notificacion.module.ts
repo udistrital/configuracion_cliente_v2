@@ -1,6 +1,5 @@
 import { NotificacionRoutingModule, routedComponents } from './notificacion-routing.module';
 import { NgModule } from '@angular/core';
-import { ThemeModule } from '../../@theme/theme.module';
 import { ConfiguracionService } from '../../@core/data/configuracion.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 ;
@@ -16,7 +15,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MatCardModule,
     MatTabsModule,
-    ThemeModule,
+    
     NotificacionRoutingModule,
     Ng2SmartTableModule,
     

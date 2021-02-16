@@ -4,7 +4,6 @@
       {{ 'MENU.notificacion.lista_notificacion_configuracion_perfil' | translate }}
     </mat-card-title>
     <mat-card-content>
-      
       <ng2-smart-table *ngIf="!cambiotab" [settings]="settings" [source]="source" (delete)="onDelete($event)"
         (rowSelect)="itemselec($event)" (edit)="onEdit($event)" (create)="onCreate($event)">
       </ng2-smart-table>
