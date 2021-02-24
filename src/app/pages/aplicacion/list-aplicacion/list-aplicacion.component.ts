@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   })
 export class ListAplicacionComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
+  cambiotab = false;
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -53,44 +53,32 @@ export class ListAplicacionComponent implements OnInit {
         Nombre: {
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Descripcion: {
           title: this.translate.instant('GLOBAL.descripcion'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Dominio: {
           title: this.translate.instant('GLOBAL.dominio'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Estado: {
           title: this.translate.instant('GLOBAL.estado'),
           // type: 'boolean;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Alias: {
           title: this.translate.instant('GLOBAL.alias'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         EstiloIcono: {
           title: this.translate.instant('GLOBAL.estilo_icono'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
       },
     };
@@ -101,9 +89,9 @@ export class ListAplicacionComponent implements OnInit {
   }
 
   loadData(): void {
-    this.configuracionService.get('aplicacion/?limit=0').subscribe(res => {
+    this.configuracionService.get('aplicacion/?limit=0').subscribe((res: any) => {
       if (res !== null) {
-        const data = <Array<any>>res;
+        const data = res;
         this.source.load(data);
           }
     });
@@ -139,7 +127,7 @@ export class ListAplicacionComponent implements OnInit {
           if (res !== null) {
             this.loadData();
             }
-         });
+          });
       }
     });
   }

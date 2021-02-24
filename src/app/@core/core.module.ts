@@ -1,14 +1,14 @@
 import { AuthInterceptor } from './_Interceptor/auth.Interceptor';
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { AuthGuard } from './_guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-export function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
+export const throwIfAlreadyLoaded = (parentModule: any, moduleName: string) => {
   if (parentModule) {
     throw new Error(`${moduleName} has already been loaded. Import Core modules in the AppModule only.`);
   }
-}
+};
 
 @NgModule({
   imports: [

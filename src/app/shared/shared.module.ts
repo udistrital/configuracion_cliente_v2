@@ -8,6 +8,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatCardModule } from '@angular/material/card';
 
 
 const materialModules = [
@@ -16,8 +17,9 @@ const materialModules = [
   MatInputModule,
   MatCheckboxModule,
   MatButtonModule,
-  MatDatepickerModule
-]
+  MatDatepickerModule,
+  MatCardModule
+];
 import {
   DinamicformComponent,
   LoadingComponent,
@@ -26,7 +28,7 @@ import {
 const SharedComponents = [
   DinamicformComponent,
   LoadingComponent
-]
+];
 
 @NgModule({
   imports: [
@@ -47,6 +49,6 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: []
-    }
+    };
   }
 }

@@ -13,22 +13,21 @@ export class AppComponent implements OnInit {
   loadRouting = false;
   environment = environment;
   loadingRouter: boolean;
+  title = 'configuracion-cliente';
   constructor(private router: Router,
   ) {
   }
   ngOnInit(): void {
     const oas = document.querySelector('ng-uui-oas');
-    console.log(oas);
     oas.addEventListener('user', (event: any) => {
       if (event.detail) {
-        console.log(event.detail)
         this.loadRouting = true;
       }
     });
 
     oas.addEventListener('option', (event: any) => {
       if (event.detail) {
-        this.router.navigate([event.detail.Url])
+        this.router.navigate([event.detail.Url]);
       }
     });
 

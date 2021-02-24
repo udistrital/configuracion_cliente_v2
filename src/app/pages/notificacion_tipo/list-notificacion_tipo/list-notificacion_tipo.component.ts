@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
   })
 export class ListNotificacionTipoComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
-  
+  cambiotab = false;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -48,16 +48,12 @@ export class ListNotificacionTipoComponent implements OnInit {
         Id: {
           title: this.translate.instant('GLOBAL.id'),
           // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Nombre: {
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
       },
     };
@@ -137,7 +133,7 @@ export class ListNotificacionTipoComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

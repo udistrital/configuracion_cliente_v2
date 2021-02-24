@@ -2,15 +2,16 @@
   "name": "configuracion-cliente",
   "version": "0.0.0",
   "scripts": {
+    "analyze": "source-map-explorer dist/main-es2015.742577e73ee9b29afc44.js",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --fix",
     "e2e": "ng e2e",
-    "build:prod": "npm run build -- --configuration=production",
-    "build:test": "npm run build -- --configuration=test",
-    "build:dev": "npm run build -- --configuration=dev"
+    "build:prod": "npm run build -- --aot --configuration=production",
+    "build:test": "npm run build -- --aot --configuration=test",
+    "build:dev": "npm run build -- --aot --configuration=dev"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +26,7 @@
     "@angular/platform-browser": "~11.1.2",
     "@angular/platform-browser-dynamic": "~11.1.2",
     "@angular/router": "~11.1.2",
-    "@circlon/angular-tree-component": "^10.0.2",
+    "@circlon/angular-tree-component": "^11.0.4",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@sweetalert2/theme-material-ui": "^4.0.2",
@@ -58,7 +59,17 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.0.2"
+    "typescript": "~4.0.2",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsdoc": "30.7.6",
+    "eslint-plugin-prefer-arrow": "1.2.2",
+    "@angular-eslint/builder": "1.2.0",
+    "@angular-eslint/eslint-plugin": "1.2.0",
+    "@angular-eslint/eslint-plugin-template": "1.2.0",
+    "@angular-eslint/schematics": "1.2.0",
+    "@angular-eslint/template-parser": "1.2.0",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0"
   }
 }

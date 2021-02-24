@@ -6,7 +6,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { CrudAplicacionComponent } from './crud-aplicacion/crud-aplicacion.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
-;
 import { CommonModule } from '@angular/common';
 
 @NgModule({

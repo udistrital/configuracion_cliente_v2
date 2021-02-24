@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
   })
 export class ListMenuOpcionPadreComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = true;
-  
+  cambiotab = true;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -48,23 +48,17 @@ export class ListMenuOpcionPadreComponent implements OnInit {
         Id: {
           title: this.translate.instant('GLOBAL.id'),
           // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Padre: {
           title: this.translate.instant('GLOBAL.padre'),
           // type: 'menu_opcion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
+          valuePrepareFunction: (value) => value.Nombre,
         },
         Hijo: {
           title: this.translate.instant('GLOBAL.hijo'),
           // type: 'menu_opcion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
+          valuePrepareFunction: (value) => value.Nombre,
         },
       },
     };
@@ -144,7 +138,7 @@ export class ListMenuOpcionPadreComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

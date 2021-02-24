@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crud-metodo_http.component.scss'],
 })
 export class CrudMetodoHttpComponent implements OnInit {
-  
+
   metodo_http_id: number;
 
   @Input('metodo_http_id')
@@ -56,7 +56,7 @@ export class CrudMetodoHttpComponent implements OnInit {
     for (let index = 0; index < this.formMetodoHttp.campos.length; index++) {
       const element = this.formMetodoHttp.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -139,7 +139,7 @@ export class CrudMetodoHttpComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

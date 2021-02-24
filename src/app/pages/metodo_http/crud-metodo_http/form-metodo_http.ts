@@ -1,5 +1,5 @@
 
-export let FORM_METODO_HTTP = {
+export const FORM_METODO_HTTP = {
     titulo: 'MetodoHttp',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -25,4 +25,4 @@ export let FORM_METODO_HTTP = {
         tipo: 'text',
     },
     ],
-}
+};

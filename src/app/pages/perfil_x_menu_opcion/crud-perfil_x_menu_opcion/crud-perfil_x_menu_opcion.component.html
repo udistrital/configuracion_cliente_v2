@@ -5,7 +5,7 @@
         {{ 'MENU.menu.rol' | translate }} {{ info_perfil.Nombre}}
       </mat-card-title>
       <mat-card-content>
-        <tree-root #treeRol id="tree1" class="reverse" [nodes]="nodesRol" [options]="optionsRol" [focused]="true">
+        <tree-root #treeComponentRol id="tree1" class="reverse" [nodes]="nodesRol" [options]="optionsRol" [focused]="true">
           <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
             <div class="tree-node">
               <input type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated(true)" />

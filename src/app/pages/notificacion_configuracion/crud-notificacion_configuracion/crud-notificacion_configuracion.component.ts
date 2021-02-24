@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crud-notificacion_configuracion.component.scss'],
 })
 export class CrudNotificacionConfiguracionComponent implements OnInit {
-  
+
   notificacion_configuracion_id: number;
 
   @Input('notificacion_configuracion_id')
@@ -93,7 +93,7 @@ export class CrudNotificacionConfiguracionComponent implements OnInit {
     for (let index = 0; index < this.formNotificacionConfiguracion.campos.length; index++) {
       const element = this.formNotificacionConfiguracion.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -176,7 +176,7 @@ export class CrudNotificacionConfiguracionComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

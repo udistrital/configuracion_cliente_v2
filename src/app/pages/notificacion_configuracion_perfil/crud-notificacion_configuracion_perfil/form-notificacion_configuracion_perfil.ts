@@ -1,5 +1,5 @@
 
-export let FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
+export const FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
     titulo: 'NotificacionConfiguracionPerfil',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -29,4 +29,4 @@ export let FORM_NOTIFICACION_CONFIGURACION_PERFIL = {
         opciones: [],
     },
     ],
-}
+};

@@ -20,9 +20,9 @@ import Swal from 'sweetalert2';
 
 export class PagesComponent implements OnInit {
   environment: any;
-  loaded: boolean = false;
+  loaded = false;
   userData: any;
-  loadingRouter: boolean = false;
+  loadingRouter = false;
   constructor(
     private router: Router,
     private translateService: TranslateService,
@@ -36,7 +36,7 @@ export class PagesComponent implements OnInit {
           showConfirmButton: false,
           allowOutsideClick: false,
           willOpen: () => {
-            Swal.showLoading()
+            Swal.showLoading();
           },
         });
         this.loadingRouter = true;
@@ -46,8 +46,8 @@ export class PagesComponent implements OnInit {
       } else {
         Swal.close();
       }
-      
-    })
+
+    });
   }
   ngOnInit(): void {
 

@@ -25,11 +25,11 @@ export class UtilidadesService {
             node = {
                 id: n.Id,
                 name: n.Nombre,
-            }
+            };
             if (n.hasOwnProperty('Opciones')) {
                 if (n.Opciones !== null) {
                     const children = this.translateTree(n.Opciones);
-                    node = { ...node, ...{ children: children } };
+                    node = { ...node, ...{ children } };
                 }
                 return node;
             } else {

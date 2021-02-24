@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crud-notificacion_configuracion_perfil.component.scss'],
 })
 export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
-  
+
   notificacion_configuracion_perfil_id: number;
 
   @Input('notificacion_configuracion_perfil_id')
@@ -82,7 +82,7 @@ export class CrudNotificacionConfiguracionPerfilComponent implements OnInit {
     for (let index = 0; index < this.formNotificacionConfiguracionPerfil.campos.length; index++) {
       const element = this.formNotificacionConfiguracionPerfil.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;

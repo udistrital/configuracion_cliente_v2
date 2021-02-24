@@ -8,8 +8,8 @@ import Swal from 'sweetalert2';
 })
 export class PopUpManager {
     constructor(
-        // private toastr: ToastrService
-    ) { 
+         // private toastr: ToastrService
+    ) {
     }
     /**
      * showToast
@@ -26,7 +26,7 @@ export class PopUpManager {
 
     public showInfoToast(message: string) {
         const status: any = 'info';
-        const duration: any = 0
+        const duration: any = 0;
          console.log('info', message, 'Info');
         //  this.toastr.success('Hello world!', 'Toastr fun!');
 
@@ -36,7 +36,7 @@ export class PopUpManager {
         Swal.fire({
             icon: 'info',
             title: status,
-            text: text,
+            text,
             confirmButtonText: 'Aceptar',
         });
     }
@@ -45,7 +45,7 @@ export class PopUpManager {
         Swal.fire({
             icon: 'success',
             title: 'Operación Exitosa',
-            text: text,
+            text,
             confirmButtonText: 'Aceptar',
         });
     }
@@ -54,7 +54,7 @@ export class PopUpManager {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: text,
+            text,
             confirmButtonText: 'Aceptar',
         });
     }

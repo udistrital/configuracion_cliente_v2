@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
 })
 export class ListNotificacionEstadoUsuarioComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
-  
+  cambiotab = false;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -48,22 +48,14 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
         Notificacion: {
           title: this.translate.instant('GLOBAL.notificacion'),
           // type: 'notificacion;',
-          valuePrepareFunction: (value) => {
-            return value.CuerpoNotificacion;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.CuerpoNotificacion).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.CuerpoNotificacion,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.CuerpoNotificacion).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
         NotificacionEstado: {
           title: this.translate.instant('GLOBAL.notificacion_estado'),
           // type: 'notificacion_estado;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
         Fecha: {
           title: this.translate.instant('GLOBAL.fecha'),
@@ -75,16 +67,12 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
         Usuario: {
           title: this.translate.instant('GLOBAL.usuario'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Activo: {
           title: this.translate.instant('GLOBAL.activo'),
           // type: 'boolean;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
       },
     };
@@ -164,7 +152,7 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

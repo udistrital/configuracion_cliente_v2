@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
 })
 export class ListParametroComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
-  
+  cambiotab = false;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -48,33 +48,23 @@ export class ListParametroComponent implements OnInit {
         Id: {
           title: this.translate.instant('GLOBAL.id'),
           // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Nombre: {
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Valor: {
           title: this.translate.instant('GLOBAL.valor'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Aplicacion: {
           title: this.translate.instant('GLOBAL.aplicacion'),
           // type: 'aplicacion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
       },
     };
@@ -154,7 +144,7 @@ export class ListParametroComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

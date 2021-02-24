@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
 })
 export class ListPerfilComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
-  
+  cambiotab = false;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -55,19 +55,14 @@ export class ListPerfilComponent implements OnInit {
         Nombre: {
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Aplicacion: {
           title: this.translate.instant('GLOBAL.aplicacion'),
           // type: 'aplicacion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          // eslint-disable-next-line max-len
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
       },
     };
@@ -78,9 +73,9 @@ export class ListPerfilComponent implements OnInit {
   }
 
   loadData(): void {
-    this.configuracionService.get('perfil/?limit=0').subscribe(res => {
+    this.configuracionService.get('perfil/?limit=0').subscribe((res: any) => {
       if (res !== null) {
-        const data = <Array<any>>res;
+        const data = res;
         this.source.load(data);
       }
     });
@@ -147,7 +142,7 @@ export class ListPerfilComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

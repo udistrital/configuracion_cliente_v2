@@ -170,7 +170,7 @@ export class ListMenuOpcionComponent implements OnInit {
 
 
   itemselec(event): void {
-    console.log(event);
+    // console.log(event);
   }
 
   private showToast(type: string, title: string, body: string) {

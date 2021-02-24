@@ -11,14 +11,13 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    TreeModule,
     CommonModule,
     MatTabsModule,
     MatCardModule,
-    
     PerfilXMenuOpcionRoutingModule,
     Ng2SmartTableModule,
     SharedModule,
-    TreeModule,
   ],
   declarations: [
     ...routedComponents,

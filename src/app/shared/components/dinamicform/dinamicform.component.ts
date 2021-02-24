@@ -11,23 +11,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export class DinamicformComponent implements OnInit, OnChanges {
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('normalform') normalform: any;
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('modeloData') modeloData: any;
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('clean') clean: boolean;
-  // tslint:disable-next-line: no-output-rename
+
   @Output('result') result: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename
   @Output('resultAux') resultAux: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename
   @Output('resultSmart') resultSmart: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename
   @Output('interlaced') interlaced: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename}
   @Output('anyoption') anyoption: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename}
   @Output('percentage') percentage: EventEmitter<any> = new EventEmitter();
-  data: any;
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
+  data: any;
 
   constructor(private sanitization: DomSanitizer) {
     this.data = {
@@ -89,7 +87,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
               }
             }
           });
-          this.setPercentage()
+          this.setPercentage();
         }
       }
     }
@@ -109,12 +107,12 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   onChange(event, c) {
-    console.info(c.valor);
+    // console.info(c.valor);
     if (c.valor !== undefined) {
-      c.urlTemp = URL.createObjectURL(event.srcElement.files[0])
+      c.urlTemp = URL.createObjectURL(event.srcElement.files[0]);
       c.url = this.cleanURL(c.urlTemp);
       c.valor = event.srcElement.files[0];
-      console.info(c);
+      // console.info(c);
       this.validCampo(c);
       c.File = event.srcElement.files[0];
     }
@@ -153,13 +151,13 @@ export class DinamicformComponent implements OnInit, OnChanges {
       if (c.valor === null) {
         c.valor = '';
       }
-      console.info((c.etiqueta === 'file' && c.valor.name === undefined));
+      // console.info((c.etiqueta === 'file' && c.valor.name === undefined));
     }
     if (c.requerido && ((c.valor === '' && c.etiqueta !== 'file') || c.valor === null || c.valor === undefined ||
       (JSON.stringify(c.valor) === '{}' && c.etiqueta !== 'file') || JSON.stringify(c.valor) === '[]')
       || ((c.etiqueta === 'file' && c.valor.name === undefined) && (c.etiqueta === 'file' && c.urlTemp === undefined))) {
       if (c.prefix) {
-        c.alerta = '** Este patrón no es aceptado'
+        c.alerta = '** Este patrón no es aceptado';
       } else {
         c.alerta = '** Debe llenar este campo';
 
@@ -263,7 +261,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
 
     this.result.emit(this.data);
     if (this.data.valid)
-      this.percentage.emit(this.data.percentage);
+      {this.percentage.emit(this.data.percentage);}
     return this.data;
   }
 
@@ -281,7 +279,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
     const dataTemp = {
       data: result,
       button: c.nombre,
-    }
+    };
     this.resultAux.emit(dataTemp);
   }
 

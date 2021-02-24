@@ -24,4 +24,3 @@ export const environment = {
       AUTENTICACION_MID: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/token/userRol',
     },
   };
-  

@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
   })
 export class ListNotificacionEstadoComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
-  
+  cambiotab = false;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -48,44 +48,32 @@ export class ListNotificacionEstadoComponent implements OnInit {
         Id: {
           title: this.translate.instant('GLOBAL.id'),
           // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Nombre: {
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         CodigoAbreviacion: {
           title: this.translate.instant('GLOBAL.codigo_abreviacion'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Descripcion: {
           title: this.translate.instant('GLOBAL.descripcion'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Activo: {
           title: this.translate.instant('GLOBAL.activo'),
           // type: 'boolean;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         NumeroOrden: {
           title: this.translate.instant('GLOBAL.numero_orden'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
       },
     };
@@ -165,7 +153,7 @@ export class ListNotificacionEstadoComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

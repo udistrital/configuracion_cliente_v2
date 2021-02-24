@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
 })
 export class ListNotificacionConfiguracionComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
-  
+  cambiotab = false;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
@@ -48,46 +48,30 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
         EndPoint: {
           title: this.translate.instant('GLOBAL.end_point'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         MetodoHttp: {
           title: this.translate.instant('GLOBAL.metodo_http'),
           // type: 'metodo_http;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
         Tipo: {
           title: this.translate.instant('GLOBAL.tipo'),
           // type: 'notificacion_tipo;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
         CuerpoNotificacion: {
           title: this.translate.instant('GLOBAL.cuerpo_notificacion'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Aplicacion: {
           title: this.translate.instant('GLOBAL.aplicacion'),
           // type: 'aplicacion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
       },
     };
@@ -167,7 +151,7 @@ export class ListNotificacionConfiguracionComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

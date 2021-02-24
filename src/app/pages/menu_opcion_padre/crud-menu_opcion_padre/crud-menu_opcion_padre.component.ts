@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crud-menu_opcion_padre.component.scss'],
 })
 export class CrudMenuOpcionPadreComponent implements OnInit {
-  
+
   menu_opcion_padre_id: number;
 
   @Input('menu_opcion_padre_id')
@@ -79,7 +79,7 @@ export class CrudMenuOpcionPadreComponent implements OnInit {
     for (let index = 0; index < this.formMenuOpcionPadre.campos.length; index++) {
       const element = this.formMenuOpcionPadre.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -162,7 +162,7 @@ export class CrudMenuOpcionPadreComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

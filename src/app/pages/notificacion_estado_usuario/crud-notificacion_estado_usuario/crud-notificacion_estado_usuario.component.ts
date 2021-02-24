@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crud-notificacion_estado_usuario.component.scss'],
 })
 export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
-  
+
   notificacion_estado_usuario_id: number;
 
   @Input('notificacion_estado_usuario_id')
@@ -81,7 +81,7 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
     for (let index = 0; index < this.formNotificacionEstadoUsuario.campos.length; index++) {
       const element = this.formNotificacionEstadoUsuario.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -164,7 +164,7 @@ export class CrudNotificacionEstadoUsuarioComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

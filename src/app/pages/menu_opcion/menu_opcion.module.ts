@@ -14,13 +14,13 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MatCardModule,
     MatTabsModule,
-    
     MenuOpcionRoutingModule,
     Ng2SmartTableModule,
     SharedModule,
     TreeModule,
   ],
   declarations: [
+    CrudMenuOpcionComponent,
     ...routedComponents,
   ],
   providers: [

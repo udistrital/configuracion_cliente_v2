@@ -7,18 +7,14 @@ import { SharedModule } from '../../shared/shared.module';
 import { CrudPerfilComponent } from './crud-perfil/crud-perfil.component';
 
 import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
     CommonModule,
     MatCardModule,
-    MatTabsModule,
-    
     PerfilRoutingModule,
     Ng2SmartTableModule,
-    
     SharedModule,
   ],
   declarations: [

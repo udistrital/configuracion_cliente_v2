@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crud-parametro.component.scss'],
 })
 export class CrudParametroComponent implements OnInit {
-  
+
   parametro_id: number;
 
   @Input('parametro_id')
@@ -68,7 +68,7 @@ export class CrudParametroComponent implements OnInit {
     for (let index = 0; index < this.formParametro.campos.length; index++) {
       const element = this.formParametro.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -151,7 +151,7 @@ export class CrudParametroComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

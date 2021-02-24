@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crud-perfil.component.scss'],
 })
 export class CrudPerfilComponent implements OnInit {
-  
+
   perfil_id: number;
 
   @Input('perfil_id')
@@ -68,7 +68,7 @@ export class CrudPerfilComponent implements OnInit {
     for (let index = 0; index < this.formPerfil.campos.length; index++) {
       const element = this.formPerfil.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -151,7 +151,7 @@ export class CrudPerfilComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

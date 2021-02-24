@@ -58,7 +58,7 @@ export class CrudAplicacionComponent implements OnInit {
     for (let index = 0; index < this.formAplicacion.campos.length; index++) {
       const element = this.formAplicacion.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;

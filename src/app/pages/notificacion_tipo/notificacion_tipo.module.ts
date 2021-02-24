@@ -15,10 +15,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MatCardModule,
     MatTabsModule,
-    
     NotificacionTipoRoutingModule,
     Ng2SmartTableModule,
-    
     SharedModule,
   ],
   declarations: [

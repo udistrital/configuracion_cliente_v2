@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
+  cambiotab = false;
   settings: any;
   source: LocalDataSource = new LocalDataSource();
 
@@ -46,22 +46,16 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
         NotificacionConfiguracion: {
           title: this.translate.instant('GLOBAL.notificacion_configuracion'),
           // type: 'notificacion_configuracion;',
-          valuePrepareFunction: (value) => {
-            return value.EndPoint;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.EndPoint,
+          // eslint-disable-next-line max-len
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.EndPoint).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
         Perfil: {
           title: this.translate.instant('GLOBAL.perfil'),
           // type: 'perfil;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          // eslint-disable-next-line max-len
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
       },
     };
@@ -73,9 +67,9 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
 
   loadData(): void {
     this.configuracionService.get('notificacion_configuracion_perfil/?limit=0')
-    .subscribe(res => {
+    .subscribe((res: any) => {
       if (res !== null) {
-        const data = <Array<any>>res;
+        const data = res;
         this.source.load(data);
       }
     });
@@ -141,7 +135,7 @@ export class ListNotificacionConfiguracionPerfilComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-console.log(type,body)
+console.log(type,body);
   }
 
 }

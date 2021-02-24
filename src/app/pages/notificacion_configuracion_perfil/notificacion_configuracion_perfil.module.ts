@@ -4,7 +4,8 @@ import { ConfiguracionService } from '../../@core/data/configuracion.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { SharedModule } from '../../shared/shared.module';
-import { CrudNotificacionConfiguracionPerfilComponent } from './crud-notificacion_configuracion_perfil/crud-notificacion_configuracion_perfil.component';
+import { CrudNotificacionConfiguracionPerfilComponent } from
+'./crud-notificacion_configuracion_perfil/crud-notificacion_configuracion_perfil.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -15,7 +16,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MatCardModule,
     MatTabsModule,
-    
     NotificacionConfiguracionPerfilRoutingModule,
     Ng2SmartTableModule,
     SharedModule,
