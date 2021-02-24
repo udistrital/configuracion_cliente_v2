@@ -1,5 +1,5 @@
 
-export let FORM_NOTIFICACION_CONFIGURACION = {
+export const FORM_NOTIFICACION_CONFIGURACION = {
     titulo: 'NotificacionConfiguracion',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -58,4 +58,4 @@ export let FORM_NOTIFICACION_CONFIGURACION = {
         opciones: [],
     },
     ],
-}
+};

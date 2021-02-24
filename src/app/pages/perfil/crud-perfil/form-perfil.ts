@@ -1,5 +1,5 @@
 
-export let FORM_PERFIL = {
+export const FORM_PERFIL = {
     titulo: 'Perfil',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -27,4 +27,4 @@ export let FORM_PERFIL = {
         opciones: [],
     },
     ],
-}
+};

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { ToasterService } from 'angular2-toaster';
+// import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -8,32 +8,35 @@ import { ToasterService } from 'angular2-toaster';
 })
 export class PopUpManager {
     constructor(
-        private toast: ToasterService,
-    ) { 
+         // private toastr: ToastrService
+    ) {
     }
     /**
      * showToast
      */
     public showToast(message: string, tittle = '') {
-        this.toast.pop('success',message, tittle);
+        console.log('success',message, tittle);
     }
 
     public showErrorToast(message: string) {
         const status: any = 'danger';
-        this.toast.pop('success',message, status);
+        // this.toastr.error('Hello world!', 'Toastr fun!');
+
     }
 
     public showInfoToast(message: string) {
         const status: any = 'info';
-        const duration: any = 0
-         this.toast.pop('info', message, 'Info');
+        const duration: any = 0;
+         console.log('info', message, 'Info');
+        //  this.toastr.success('Hello world!', 'Toastr fun!');
+
     }
 
     public showAlert(status, text) {
         Swal.fire({
             icon: 'info',
             title: status,
-            text: text,
+            text,
             confirmButtonText: 'Aceptar',
         });
     }
@@ -42,7 +45,7 @@ export class PopUpManager {
         Swal.fire({
             icon: 'success',
             title: 'Operación Exitosa',
-            text: text,
+            text,
             confirmButtonText: 'Aceptar',
         });
     }
@@ -51,7 +54,7 @@ export class PopUpManager {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: text,
+            text,
             confirmButtonText: 'Aceptar',
         });
     }

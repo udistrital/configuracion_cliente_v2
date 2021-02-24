@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://pruebasassets.portaloas.udistrital.edu.co/athenea-style.css");
-@import "~@sweetalert2/theme-material-ui/material-ui.scss";
-@import "~@circlon/angular-tree-component/css/angular-tree-component.css";
 @import "~@angular/material/theming";
+// @import '~ngx-toastr/toastr';
+
 
 @include mat-core();
 
@@ -91,6 +91,22 @@ body {
     border-radius: 2px;
 }
 
+.material-icons.md-18 {
+    font-size: 18px;
+}
+.material-icons.md-24 {
+    font-size: 24px;
+}
+.material-icons.md-30 {
+    font-size: 30px;
+}
+.material-icons.md-36 {
+    font-size: 36px;
+}
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
 // tables
 table {
     thead {
@@ -102,9 +118,13 @@ table {
                 .ng2-smart-action.ng2-smart-action-add-add.ng-star-inserted {
                     color: #fff;
                 }
+                .ng2-smart-action.ng2-smart-action-add-add ,
+                .ng2-smart-action.ng2-smart-action-add-add >span{
+                    color: #fff;
+                }
                 .ng2-smart-title,
                 .ng2-smart-title > * > a {
-                    color: #fff;
+                    color: #fff !important;
                 }
                 * > div > * > a {
                     color: #fff;

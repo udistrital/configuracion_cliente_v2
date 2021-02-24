@@ -1,10 +1,9 @@
 
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
+
 import { Perfil } from '../../../@core/data/models/perfil';
 import { TreeComponent, TreeModel, TreeNode, ITreeOptions } from '@circlon/angular-tree-component';
 import { UtilidadesService } from '../../../@core/utils/utilidades.service';
@@ -17,7 +16,11 @@ import { from } from 'rxjs';
   styleUrls: ['./crud-perfil_x_menu_opcion.component.scss'],
 })
 export class CrudPerfilXMenuOpcionComponent implements OnInit {
-  config: ToasterConfig;
+
+  @ViewChild('treeComponentRol') treeComponentRol: TreeComponent;
+  @ViewChild('treeMenu') treeComponentMenu: TreeComponent;
+
+  @Output() eventChange = new EventEmitter();
   perfil_id: number;
 
   // tree rol
@@ -25,7 +28,6 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   treeNodeRol: TreeNode;
   nodesRol = [];
   treeRol: any = {};
-  @ViewChild('treeRol') treeComponentRol: TreeComponent;
   optionsRol: ITreeOptions = {
     useCheckbox: true,
     animateExpand: true,
@@ -39,7 +41,6 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   treeNodeMenu: TreeNode;
   nodesMenu = [];
   treeMenu: any = {};
-  @ViewChild('treeMenu') treeComponentMenu: TreeComponent;
   optionsMenu: ITreeOptions = {
     useCheckbox: true,
     animateExpand: true,
@@ -49,25 +50,23 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   };
   perfil_x_menu: any = [];
 
-  @Input('perfil_id')
-  set name(perfil_id: number) {
+  @Input('perfil_id') set name(perfil_id: number) {
     this.perfil_id = perfil_id;
     this.loadPerfil();
   }
 
-  @Output() eventChange = new EventEmitter();
 
   info_perfil: any = {
     Nombre: '',
     Aplicacion: {
       Nombre: '',
     },
-  }
+  };
   formPerfil: any;
   regPerfil: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService,
+  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService,
     private utils: UtilidadesService) {
   }
 
@@ -84,7 +83,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
           this.treeModelMenu.update();
         }
       }, error => {
-        this.nodesMenu = []
+        this.nodesMenu = [];
       });
   }
 
@@ -100,8 +99,8 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   }
 
   opcionEnRol(data: any) {
-    console.info(data);
-    console.info(this.perfil_x_menu);
+    // console.info(data);
+    // console.info(this.perfil_x_menu);
     return (this.perfil_x_menu.filter((p: any) => (p.Perfil.Id === this.info_perfil.Id && p.Opcion.Id === data.Id)));
   }
 
@@ -113,12 +112,12 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
           this.nodesRol = res;
           this.treeModelRol = this.treeComponentRol.treeModel;
           this.treeModelRol.update();
-          this.loadPerfil_x_menu_opcion()
+          this.loadPerfil_x_menu_opcion();
         } else {
           this.treeModelRol.update();
         }
       }, error => {
-        this.nodesRol = []
+        this.nodesRol = [];
       });
   }
 
@@ -132,7 +131,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
             Opcion: nodo.data,
           }).subscribe(() => (this.loadTreeRol()));
         }
-      })
+      });
   }
 
   desvincular() {
@@ -144,7 +143,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
             this.loadTreeRol();
           });
         }
-      })
+      });
   }
 
   public loadPerfil(): void {
@@ -152,7 +151,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
       this.configuracionService.get('perfil/?query=id:' + this.perfil_id)
         .subscribe(res => {
           if (res !== null) {
-            this.info_perfil = <Perfil>res[0];
+            this.info_perfil = res[0] as Perfil;
             this.loadTreeRol();
             this.loadTreeMenu();
           }
@@ -175,7 +174,7 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
     Swal.fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
-          this.info_perfil = <Perfil>perfil;
+          this.info_perfil = perfil as Perfil;
           this.configuracionService.put('perfil', this.info_perfil)
             .subscribe(res => {
               this.loadPerfil();
@@ -191,23 +190,6 @@ export class CrudPerfilXMenuOpcionComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
+    // console.log(type,body);
   }
 }

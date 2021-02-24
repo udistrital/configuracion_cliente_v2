@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
+
 
 @Component({
   selector: 'ngx-list-menu-opcion-padre',
@@ -13,13 +13,13 @@ import 'style-loader!angular2-toaster/toaster.css';
   })
 export class ListMenuOpcionPadreComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = true;
-  config: ToasterConfig;
+  cambiotab = true;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
+  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService) {
     this.loadData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -30,7 +30,7 @@ export class ListMenuOpcionPadreComponent implements OnInit {
   cargarCampos() {
     this.settings = {
       add: {
-        addButtonContent: '<span class="material-icons">add</span>',
+        addButtonContent: '<span class="material-icons md-30">add_circle</span>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
@@ -48,23 +48,17 @@ export class ListMenuOpcionPadreComponent implements OnInit {
         Id: {
           title: this.translate.instant('GLOBAL.id'),
           // type: 'number;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Padre: {
           title: this.translate.instant('GLOBAL.padre'),
           // type: 'menu_opcion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
+          valuePrepareFunction: (value) => value.Nombre,
         },
         Hijo: {
           title: this.translate.instant('GLOBAL.hijo'),
           // type: 'menu_opcion;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
+          valuePrepareFunction: (value) => value.Nombre,
         },
       },
     };
@@ -144,24 +138,7 @@ export class ListMenuOpcionPadreComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
+console.log(type,body);
   }
 
 }

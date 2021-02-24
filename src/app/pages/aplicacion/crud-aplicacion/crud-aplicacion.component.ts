@@ -3,10 +3,9 @@ import { Aplicacion } from './../../../@core/data/models/aplicacion';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
 import { FORM_APLICACION } from './form-aplicacion';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
+
 
 @Component({
   selector: 'ngx-crud-aplicacion',
@@ -14,7 +13,6 @@ import 'style-loader!angular2-toaster/toaster.css';
   styleUrls: ['./crud-aplicacion.component.scss'],
 })
 export class CrudAplicacionComponent implements OnInit {
-  config: ToasterConfig;
   aplicacion_id: number;
 
   @Input('aplicacion_id')
@@ -33,7 +31,7 @@ export class CrudAplicacionComponent implements OnInit {
   clean: boolean;
   return = true;
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
+  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService) {
     this.formAplicacion = FORM_APLICACION;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -60,7 +58,7 @@ export class CrudAplicacionComponent implements OnInit {
     for (let index = 0; index < this.formAplicacion.campos.length; index++) {
       const element = this.formAplicacion.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -99,12 +97,11 @@ export class CrudAplicacionComponent implements OnInit {
             .subscribe(res => {
               this.loadAplicacion();
               this.eventChange.emit(true);
-              this.showToast('info', 'updated', 'Aplicacion updated');
             });
         }
       });
   }
-  cambiotab
+
   createAplicacion(aplicacion: any): void {
     const opt: any = {
       title: 'Create?',
@@ -122,7 +119,6 @@ export class CrudAplicacionComponent implements OnInit {
             .subscribe(res => {
               this.info_aplicacion = <Aplicacion><unknown>res;
               this.eventChange.emit(true);
-              this.showToast('info', 'created', 'Aplicacion created');
             });
         }
       });
@@ -142,28 +138,8 @@ export class CrudAplicacionComponent implements OnInit {
     }
   }
 
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: 'info', // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
-  }
 
-  backwards(event){
+  backwards(event) {
     console.log(event);
     this.returnEvent.emit(event);
   }

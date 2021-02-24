@@ -1,17 +1,19 @@
 
-<div class="col-md-12 col-lg-12 ">
+
   <mat-card>
     <mat-card-title>
         {{ 'MENU.menu.menu' | translate }}
     </mat-card-title>
     <mat-card-content>
-      <toaster-container [toasterconfig]="config"></toaster-container>
-        <ng2-smart-table *ngIf="!cambiotab" [settings]="settings" [source]="source" (delete)="onDelete($event)"
+      <div *ngIf="!cambiotab">
+        <ng2-smart-table [settings]="settings" [source]="source" (delete)="onDelete($event)"
           (rowSelect)="itemselec($event)" (edit)="onEdit($event)" (create)="onCreate($event)">
         </ng2-smart-table>
+      </div>
+      <div *ngIf="cambiotab">
         <ngx-crud-perfil-x-menu-opcion *ngIf="cambiotab" [perfil_id]="uid" (eventChange)="onChange($event)"></ngx-crud-perfil-x-menu-opcion>
-        <button *ngIf="cambiotab" (click)="activetab()" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i>
+        <button (click)="activetab()" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i>
           {{ 'GLOBAL.regresar' | translate }}</button>
+      </div>
     </mat-card-content>
   </mat-card>
-</div>

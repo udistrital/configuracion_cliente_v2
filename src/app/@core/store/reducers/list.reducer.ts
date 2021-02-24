@@ -3,7 +3,7 @@ import { REDUCER_LIST } from '../reducer.constants';
 export class ListReducer {
   constructor() {
   }
-  static ListReducerGenero(state: Array<any> = new Array, action) {
+  static ListReducerGenero(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.Genero:
         return [...state, action.payload];
@@ -12,7 +12,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerClasificacionNivelIdioma(state: Array<any> = new Array, action) {
+  static ListReducerClasificacionNivelIdioma(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.ClasificacionNivelIdioma:
         return [...state, action.payload];
@@ -21,7 +21,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerEstadoAdmision(state: Array<any> = new Array, action) {
+  static ListReducerEstadoAdmision(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.EstadoAdmision:
         return [...state, action.payload];
@@ -30,7 +30,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerEstadoCivil(state: Array<any> = new Array, action) {
+  static ListReducerEstadoCivil(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.EstadoCivil:
         return [...state, action.payload];
@@ -39,7 +39,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerGrupoEtnico(state: Array<any> = new Array, action) {
+  static ListReducerGrupoEtnico(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.GrupoEtnico:
         return [...state, action.payload];
@@ -48,7 +48,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerIdioma(state: Array<any> = new Array, action) {
+  static ListReducerIdioma(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.Idioma:
         return [...state, action.payload];
@@ -57,7 +57,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerLineaInvestigacion(state: Array<any> = new Array, action) {
+  static ListReducerLineaInvestigacion(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.LineaInvestigacion:
         return [...state, action.payload];
@@ -66,7 +66,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerPais(state: Array<any> = new Array, action) {
+  static ListReducerPais(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.Pais:
         return [...state, action.payload];
@@ -75,7 +75,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerCiudad(state: Array<any> = new Array, action) {
+  static ListReducerCiudad(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.Ciudad:
         return [...state, action.payload];
@@ -84,7 +84,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerLugar(state: Array<any> = new Array, action) {
+  static ListReducerLugar(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.Lugar:
         return [...state, action.payload];
@@ -93,7 +93,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerMetodologia(state: Array<any> = new Array, action) {
+  static ListReducerMetodologia(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.Metodologia:
         return [...state, action.payload];
@@ -102,7 +102,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerNivelFormacion(state: Array<any> = new Array, action) {
+  static ListReducerNivelFormacion(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.NivelFormacion:
         return [...state, action.payload];
@@ -111,7 +111,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerNivelIdioma(state: Array<any> = new Array, action) {
+  static ListReducerNivelIdioma(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.NivelIdioma:
         return [...state, action.payload];
@@ -120,7 +120,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerProgramaAcademico(state: Array<any> = new Array, action) {
+  static ListReducerProgramaAcademico(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.ProgramaAcademico:
         return [...state, action.payload];
@@ -129,7 +129,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerTipoContacto(state: Array<any> = new Array, action) {
+  static ListReducerTipoContacto(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.TipoContacto:
         return [...state, action.payload];
@@ -138,7 +138,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerTipoDiscapacidad(state: Array<any> = new Array, action) {
+  static ListReducerTipoDiscapacidad(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.TipoDiscapacidad:
         return [...state, action.payload];
@@ -147,7 +147,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerTipoLugar(state: Array<any> = new Array, action) {
+  static ListReducerTipoLugar(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.TipoLugar:
         return [...state, action.payload];
@@ -156,7 +156,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerTitulacion(state: Array<any> = new Array, action) {
+  static ListReducerTitulacion(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.Titulacion:
         return [...state, action.payload];
@@ -165,7 +165,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerTipoIdentificacion(state: Array<any> = new Array, action) {
+  static ListReducerTipoIdentificacion(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.TipoIdentificacion:
         return [...state, action.payload];
@@ -174,7 +174,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerTipoProyecto(state: Array<any> = new Array, action) {
+  static ListReducerTipoProyecto(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.TipoProyecto:
         return [...state, action.payload];
@@ -183,7 +183,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerGrupoInvestigacion(state: Array<any> = new Array, action) {
+  static ListReducerGrupoInvestigacion(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.GrupoInvestigacion:
         return [...state, action.payload];
@@ -192,7 +192,7 @@ export class ListReducer {
     }
   }
 
-  static ListReducerPeriodoAcademico(state: Array<any> = new Array, action) {
+  static ListReducerPeriodoAcademico(state: Array<any> = new Array(), action) {
     switch (action.type) {
       case REDUCER_LIST.PeriodoAcademico:
         return [...state, action.payload];

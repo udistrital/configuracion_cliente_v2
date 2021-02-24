@@ -1,5 +1,5 @@
 
-export let FORM_MENU_OPCION_PADRE = {
+export const FORM_MENU_OPCION_PADRE = {
     titulo: 'MenuOpcionPadre',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -29,4 +29,4 @@ export let FORM_MENU_OPCION_PADRE = {
         opciones: [],
     },
     ],
-}
+};

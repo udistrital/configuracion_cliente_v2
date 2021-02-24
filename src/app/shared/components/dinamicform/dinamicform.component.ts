@@ -11,23 +11,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export class DinamicformComponent implements OnInit, OnChanges {
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('normalform') normalform: any;
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('modeloData') modeloData: any;
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('clean') clean: boolean;
-  // tslint:disable-next-line: no-output-rename
+
   @Output('result') result: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename
   @Output('resultAux') resultAux: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename
   @Output('resultSmart') resultSmart: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename
   @Output('interlaced') interlaced: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename}
   @Output('anyoption') anyoption: EventEmitter<any> = new EventEmitter();
-  // tslint:disable-next-line: no-output-rename}
   @Output('percentage') percentage: EventEmitter<any> = new EventEmitter();
-  data: any;
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
+  data: any;
 
   constructor(private sanitization: DomSanitizer) {
     this.data = {
@@ -48,7 +46,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
       if (changes.modeloData.currentValue !== undefined) {
         this.modeloData = changes.modeloData.currentValue;
         if (this.normalform.campos) {
-          this.normalform.campos.forEach(element => {
+          this.normalform.campos.map(element => {
             for (const i in this.modeloData) {
               if (this.modeloData.hasOwnProperty(i)) {
                 if (i === element.nombre && this.modeloData[i] !== null) {
@@ -56,7 +54,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
                     case 'selectmultiple':
                       element.valor = [];
                       if (this.modeloData[i].length > 0) {
-                        this.modeloData[i].forEach((e1) => element.opciones.forEach((e2) => {
+                        this.modeloData[i].map((e1) => element.opciones.map((e2) => {
                           if (e1.Id === e2.Id) {
                             element.valor.push(e2);
                           }
@@ -65,7 +63,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
                       break;
                     case 'select':
                       if (element.hasOwnProperty('opciones')) {
-                        element.opciones.forEach((e1) => {
+                        element.opciones.map((e1) => {
                           if (this.modeloData[i].Id !== null) {
                             if (e1.Id === this.modeloData[i].Id) {
                               element.valor = e1;
@@ -89,7 +87,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
               }
             }
           });
-          this.setPercentage()
+          this.setPercentage();
         }
       }
     }
@@ -109,12 +107,12 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   onChange(event, c) {
-    console.info(c.valor);
+    // console.info(c.valor);
     if (c.valor !== undefined) {
-      c.urlTemp = URL.createObjectURL(event.srcElement.files[0])
+      c.urlTemp = URL.createObjectURL(event.srcElement.files[0]);
       c.url = this.cleanURL(c.urlTemp);
       c.valor = event.srcElement.files[0];
-      console.info(c);
+      // console.info(c);
       this.validCampo(c);
       c.File = event.srcElement.files[0];
     }
@@ -153,13 +151,13 @@ export class DinamicformComponent implements OnInit, OnChanges {
       if (c.valor === null) {
         c.valor = '';
       }
-      console.info((c.etiqueta === 'file' && c.valor.name === undefined));
+      // console.info((c.etiqueta === 'file' && c.valor.name === undefined));
     }
     if (c.requerido && ((c.valor === '' && c.etiqueta !== 'file') || c.valor === null || c.valor === undefined ||
       (JSON.stringify(c.valor) === '{}' && c.etiqueta !== 'file') || JSON.stringify(c.valor) === '[]')
       || ((c.etiqueta === 'file' && c.valor.name === undefined) && (c.etiqueta === 'file' && c.urlTemp === undefined))) {
       if (c.prefix) {
-        c.alerta = '** Este patrón no es aceptado'
+        c.alerta = '** Este patrón no es aceptado';
       } else {
         c.alerta = '** Debe llenar este campo';
 
@@ -215,7 +213,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   clearForm() {
-    this.normalform.campos.forEach(d => {
+    this.normalform.campos.map(d => {
       d.valor = null;
     });
   }
@@ -229,7 +227,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
     this.data.files = [];
     this.data.valid = true;
 
-    this.normalform.campos.forEach(d => {
+    this.normalform.campos.map(d => {
       requeridos = d.requerido ? requeridos + 1 : requeridos;
       if (this.validCampo(d)) {
         if (d.etiqueta === 'file') {
@@ -263,13 +261,13 @@ export class DinamicformComponent implements OnInit, OnChanges {
 
     this.result.emit(this.data);
     if (this.data.valid)
-      this.percentage.emit(this.data.percentage);
+      {this.percentage.emit(this.data.percentage);}
     return this.data;
   }
 
   auxButton(c) {
     const result = {};
-    this.normalform.campos.forEach(d => {
+    this.normalform.campos.map(d => {
       if (d.etiqueta === 'file') {
         result[d.nombre] = { nombre: d.nombre, file: d.File };
       } else if (d.etiqueta === 'select') {
@@ -281,14 +279,14 @@ export class DinamicformComponent implements OnInit, OnChanges {
     const dataTemp = {
       data: result,
       button: c.nombre,
-    }
+    };
     this.resultAux.emit(dataTemp);
   }
 
   setPercentage(): void {
     let requeridos = 0;
     let resueltos = 0;
-    this.normalform.campos.forEach(form_element => {
+    this.normalform.campos.map(form_element => {
       if (form_element.requerido) {
         requeridos = requeridos + 1;
         resueltos = form_element.valor ? resueltos + 1 : resueltos;

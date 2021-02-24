@@ -1,5 +1,5 @@
 
-export let FORM_PARAMETRO = {
+export const FORM_PARAMETRO = {
     titulo: 'Parametro',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -45,4 +45,4 @@ export let FORM_PARAMETRO = {
         opciones: [],
     },
     ],
-}
+};
