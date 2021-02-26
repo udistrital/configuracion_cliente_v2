@@ -23,7 +23,7 @@ const PAGES_COMPONENTS = [
     HttpClientModule,
     PagesRoutingModule,
     DashboardModule,
-    SharedModule,
+    SharedModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

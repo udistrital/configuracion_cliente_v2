@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -11,23 +11,23 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export class DinamicformComponent implements OnInit, OnChanges {
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('normalform') normalform: any;
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('modeloData') modeloData: any;
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('clean') clean: boolean;
-
-  @Output('result') result: EventEmitter<any> = new EventEmitter();
-  @Output('resultAux') resultAux: EventEmitter<any> = new EventEmitter();
-  @Output('resultSmart') resultSmart: EventEmitter<any> = new EventEmitter();
-  @Output('interlaced') interlaced: EventEmitter<any> = new EventEmitter();
-  @Output('anyoption') anyoption: EventEmitter<any> = new EventEmitter();
-  @Output('percentage') percentage: EventEmitter<any> = new EventEmitter();
+  @Input() normalform: any;
+  @Input() modeloData: any;
+  @Input() clean: boolean;
+  // eslint-disable-next-line @angular-eslint/no-output-native
+  @Output() result: EventEmitter<any> = new EventEmitter();
+  @Output() resultAux: EventEmitter<any> = new EventEmitter();
+  @Output() resultSmart: EventEmitter<any> = new EventEmitter();
+  @Output() interlaced: EventEmitter<any> = new EventEmitter();
+  @Output() anyoption: EventEmitter<any> = new EventEmitter();
+  @Output() percentage: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
   data: any;
 
-  constructor(private sanitization: DomSanitizer) {
+  constructor(
+    private sanitization: DomSanitizer,
+    private cd: ChangeDetectorRef
+    ) {
     this.data = {
       valid: true,
       data: {},
@@ -37,14 +37,12 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    if (changes.normalform !== undefined) {
-      if (changes.normalform.currentValue !== undefined) {
-        this.normalform = changes.normalform.currentValue;
-      }
-    }
-    if (changes.modeloData !== undefined) {
-      if (changes.modeloData.currentValue !== undefined) {
-        this.modeloData = changes.modeloData.currentValue;
+    // if (changes.normalform !== undefined) {
+    //   if (changes.normalform.currentValue !== undefined) {
+    //     this.normalform = changes.normalform.currentValue;
+    //   }
+    // }
+    if (changes.modeloData && this.modeloData) {
         if (this.normalform.campos) {
           this.normalform.campos.map(element => {
             for (const i in this.modeloData) {
@@ -90,7 +88,6 @@ export class DinamicformComponent implements OnInit, OnChanges {
           this.setPercentage();
         }
       }
-    }
     if (changes.clean !== undefined) {
       this.clearForm();
       this.clean = false;

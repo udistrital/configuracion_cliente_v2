@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,7 +26,8 @@ export class AppComponent implements OnInit {
 
     oas.addEventListener('option', (event: any) => {
       if (event.detail) {
-        this.router.navigate([event.detail.Url]);
+        setTimeout(()=>(this.router.navigate([event.detail.Url])),50 )
+        ;
       }
     });
 
