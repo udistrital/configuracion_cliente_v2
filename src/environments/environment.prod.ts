@@ -1,25 +1,26 @@
-/**
- * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- */
-
 export const environment = {
   production: true,
+  entorno: 'prod',
+  autenticacion: true,
+  notificaciones: false,
+  menuApps: true,
+  appname: 'core',
+  appMenu: 'CONFIGURACION',
+  WEBCOMPONENT: 'https://pruebasconfiguracion.portaloas.udistrital.edu.co/assets/web-components.js',
   NUXEO: {
     PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },
-  CONFIGURACION_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1/',
+  CONFIGURACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/',
+  CONF_MENU_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
   NOTIFICACION_SERVICE: 'wss://pruebasapi.portaloas.udistrital.edu.co:8116/ws',
-  CONF_MENU_SERVICE: 'http://10.20.0.254/configuracion_api/v1/menu_opcion_padre/ArbolMenus/',
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
-    CLIENTE_ID: '3Idp5LUlnZY7cOV10NaLuyRfzooa',
+    CLIENTE_ID: '1RQxbw6ReM_D3j1nZu8DOkYI1T4a', // RgZGDAPQLhEm1UFwyltcMfaAe74a - google
     RESPONSE_TYPE: 'id_token token',
-    SCOPE: 'openid email role documento',
-    REDIRECT_URL: 'http://10.20.0.254/configuraciontest/',
+    SCOPE: 'openid email',
+    REDIRECT_URL: 'https://configuracion.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'http://10.20.0.254/configuraciontest/',
+    SIGN_OUT_REDIRECT_URL: 'https://configuracion.portaloas.udistrital.edu.co',
+    AUTENTICACION_MID: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/token/userRol',
   },
-
 };

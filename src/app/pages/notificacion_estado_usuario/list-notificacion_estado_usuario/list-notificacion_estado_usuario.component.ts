@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'ngx-list-notificacion-estado-usuario',
@@ -14,13 +13,13 @@ import * as moment from 'moment';
 })
 export class ListNotificacionEstadoUsuarioComponent implements OnInit {
   uid: number;
-  cambiotab: boolean = false;
-  config: ToasterConfig;
+  cambiotab = false;
+
   settings: any;
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
+  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService) {
     this.loadData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -31,17 +30,17 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
   cargarCampos() {
     this.settings = {
       add: {
-        addButtonContent: '<i class="nb-plus"></i>',
+        addButtonContent: '<span class="material-icons md-30">add_circle</span>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
       edit: {
-        editButtonContent: '<i class="nb-edit"></i>',
+        editButtonContent: '<span class="material-icons">edit</span>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
       },
       delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
+        deleteButtonContent: '<span class="material-icons">delete</span>',
         confirmDelete: true,
       },
       mode: 'external',
@@ -49,43 +48,31 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
         Notificacion: {
           title: this.translate.instant('GLOBAL.notificacion'),
           // type: 'notificacion;',
-          valuePrepareFunction: (value) => {
-            return value.CuerpoNotificacion;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.CuerpoNotificacion).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.CuerpoNotificacion,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.CuerpoNotificacion).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
         NotificacionEstado: {
           title: this.translate.instant('GLOBAL.notificacion_estado'),
           // type: 'notificacion_estado;',
-          valuePrepareFunction: (value) => {
-            return value.Nombre;
-          },
-          filterFunction: (cell?: any, search?: string): boolean => {
-            return (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === '')
-          },
+          valuePrepareFunction: (value) => value.Nombre,
+          filterFunction: (cell?: any, search?: string): boolean => (((cell.Nombre).toLowerCase()).indexOf(search.toLowerCase()) !== -1 || search === ''),
         },
         Fecha: {
           title: this.translate.instant('GLOBAL.fecha'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
-            return moment(value).format('MM/DD/YYYY');
+            // return moment(value).format('MM/DD/YYYY');
           },
         },
         Usuario: {
           title: this.translate.instant('GLOBAL.usuario'),
           // type: 'string;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
         Activo: {
           title: this.translate.instant('GLOBAL.activo'),
           // type: 'boolean;',
-          valuePrepareFunction: (value) => {
-            return value;
-          },
+          valuePrepareFunction: (value) => value,
         },
       },
     };
@@ -126,7 +113,7 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
       .then((willDelete) => {
 
         if (willDelete.value) {
@@ -145,7 +132,7 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
   }
 
   selectTab(event): void {
-    if (event.tabTitle === this.translate.instant('GLOBAL.lista')) {
+    if (event.label === this.translate.instant('GLOBAL.lista')) {
       this.cambiotab = false;
     } else {
       this.cambiotab = true;
@@ -165,24 +152,7 @@ export class ListNotificacionEstadoUsuarioComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
+console.log(type,body);
   }
 
 }

@@ -27,12 +27,12 @@
     "general": {
       "general": "General",
       "aplicaciones": "Aplicaciones",
-      "roles": "roles"
+      "roles": "Roles"
     },
     "metodo_http": {
-      "metodo_http": "metodo_http",
+      "metodo_http": "Método http",
       "lista_metodo_http": "lista metodo_http",
-      "crud_metodo_http": "Crud metodo_http"
+      "crud_metodo_http": "Crud método http"
     },
     "notificacion_tipo": {
       "notificacion_tipo": "notificacion_tipo",
@@ -141,7 +141,7 @@
     "placeholder_cuerpo_notificacion": "ej: cuerpo_notificacion",
     "notificacion": "notificacion",
     "placeholder_notificacion": "ej: notificacion",
-    "fecha_creacion": "fecha_creacion",
+    "fecha_creacion": "Fecha de creación",
     "placeholder_fecha_creacion": "ej: fecha_creacion",
     "notificacion_estado_usuario": "notificacion_estado_usuario",
     "placeholder_notificacion_estado_usuario": "ej: notificacion_estado_usuario",
@@ -165,7 +165,7 @@
     "placeholder_tipo_opcion": "ej: tipo_opcion",
     "perfil_x_menu_opcion": "perfil_x_menu_opcion",
     "placeholder_perfil_x_menu_opcion": "ej: perfil_x_menu_opcion",
-    "opcion": "opcion",
+    "opcion": "Opcion",
     "placeholder_opcion": "ej: opcion",
     "menu_opcion_padre": "menu_opcion_padre",
     "placeholder_menu_opcion_padre": "ej: menu_opcion_padre",
@@ -180,7 +180,7 @@
     "actualizar": "actualizar",
     "crear": "crear",
     "registrar": "registrar",
-    "guardar": "guardar",
+    "guardar": "Guardar",
     "formulario": "formulario",
     "lista": "lista",
     "regresar": "regresar"

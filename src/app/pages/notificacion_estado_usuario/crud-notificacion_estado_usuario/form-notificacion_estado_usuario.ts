@@ -1,5 +1,5 @@
 
-export let FORM_NOTIFICACION_ESTADO_USUARIO = {
+export const FORM_NOTIFICACION_ESTADO_USUARIO = {
     titulo: 'NotificacionEstadoUsuario',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -56,4 +56,4 @@ export let FORM_NOTIFICACION_ESTADO_USUARIO = {
         tipo: 'checkbox',
     },
     ],
-}
+};

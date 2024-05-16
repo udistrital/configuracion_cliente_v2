@@ -1,5 +1,5 @@
 
-export let FORM_NOTIFICACION = {
+export const FORM_NOTIFICACION = {
     titulo: 'Notificacion',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -36,4 +36,4 @@ export let FORM_NOTIFICACION = {
         opciones: [],
     },
     ],
-}
+};

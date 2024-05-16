@@ -1,5 +1,4 @@
 import {Component, OnDestroy} from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators' ;
 
 interface CardSettings {
@@ -76,12 +75,7 @@ export class DashboardComponent implements OnDestroy {
     ],
   };
 
-  constructor(private themeService: NbThemeService) {
-    this.themeService.getJsTheme()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe(theme => {
-        this.statusCards = this.statusCardsByThemes[theme.name];
-    });
+  constructor() {
   }
 
   ngOnDestroy() {

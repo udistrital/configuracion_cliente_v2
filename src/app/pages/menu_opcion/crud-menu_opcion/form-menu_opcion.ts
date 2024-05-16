@@ -1,5 +1,5 @@
 
-export let FORM_MENU_OPCION = {
+export const FORM_MENU_OPCION = {
     titulo: 'MenuOpcion',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -66,4 +66,4 @@ export let FORM_MENU_OPCION = {
             opciones: [],
         },
     ],
-}
+};

@@ -3,10 +3,10 @@ import { NotificacionTipo } from './../../../@core/data/models/notificacion_tipo
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfiguracionService } from '../../../@core/data/configuracion.service';
 import { FORM_NOTIFICACION_TIPO } from './form-notificacion_tipo';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
+
 
 @Component({
   selector: 'ngx-crud-notificacion-tipo',
@@ -14,7 +14,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   styleUrls: ['./crud-notificacion_tipo.component.scss'],
 })
 export class CrudNotificacionTipoComponent implements OnInit {
-  config: ToasterConfig;
+
   notificacion_tipo_id: number;
 
   @Input('notificacion_tipo_id')
@@ -30,7 +30,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
   regNotificacionTipo: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService, private toasterService: ToasterService) {
+  constructor(private translate: TranslateService, private configuracionService: ConfiguracionService) {
     this.formNotificacionTipo = FORM_NOTIFICACION_TIPO;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -56,7 +56,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
     for (let index = 0; index < this.formNotificacionTipo.campos.length; index++) {
       const element = this.formNotificacionTipo.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
@@ -87,7 +87,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_notificacion_tipo = <NotificacionTipo>notificacionTipo;
@@ -110,7 +110,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
       dangerMode: true,
       showCancelButton: true,
     };
-    Swal(opt)
+    Swal.fire(opt)
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_notificacion_tipo = <NotificacionTipo>notificacionTipo;
@@ -139,24 +139,7 @@ export class CrudNotificacionTipoComponent implements OnInit {
   }
 
   private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
+console.log(type,body);
   }
 
 }

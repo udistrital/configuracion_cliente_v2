@@ -1,5 +1,5 @@
 
-export let FORM_APLICACION = {
+export const FORM_APLICACION = {
     titulo: 'Aplicacion',
     tipo_formulario: 'mini',
     btn: 'Guardar',
@@ -61,4 +61,4 @@ export let FORM_APLICACION = {
             tipo: 'checkbox',
         },
     ],
-}
+};
